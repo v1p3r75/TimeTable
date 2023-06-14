@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% if title %}
+        <title>{{ title }} - INTEGRATION PROJECT</title>
+    {% else %}
+        <title>INTEGRATION PROJECT - GROUPE 4</title>
+    {% endif %}
+    <meta name="description" content="Projet d'integration IFRI 2023. La gestion des emplois du temps." />
+    <meta name="author" content="IFRI GROUPE 4" />
+    <link rel="stylesheet" href={% static 'vendor/bootstrap/bootstrap.min.css' %} />
+    <link rel="stylesheet" href={% static 'vendor/animate/animate.css' %} />
+    <link rel="stylesheet" href={% static 'vendor/fa/all.min.css' %} />
+    {% comment %} <script type="text/javascript" src={% static 'vendor/jquery/jquery.js' %} defer></script> {% endcomment %}
+    <script type="text/javascript" src={% static 'vendor/bootstrap/bootstrap.min.js' %} defer></script>
+  </head>
+  <body>
+    {% block content %} {% endblock content %}
+  </body>
+</html>

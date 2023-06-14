@@ -4,4 +4,4 @@ from django.shortcuts import render, HttpResponse
 
 def index(request):
 
-    return HttpResponse("Login Page")
+    return render(request, 'auth/login.html', { 'title' : 'Connexion' })
