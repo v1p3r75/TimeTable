@@ -5,3 +5,13 @@ from django.shortcuts import render, HttpResponse
 def index(request):
 
     return render(request, 'auth/login.html', { 'title' : 'Connexion' })
+
+
+def register(request):
+
+    return render(request, 'auth/register.html', { 'title' : 'Register' })
+
+
+def forgotPassword(request):
+
+    return render(request, 'auth/forgot_password.html', {'title' : 'Forgot Password' })
