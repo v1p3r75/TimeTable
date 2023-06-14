@@ -17,6 +17,7 @@
     <link rel="stylesheet" href={% static 'vendor/fa/all.min.css' %} />
     {% comment %} <script type="text/javascript" src={% static 'vendor/jquery/jquery.js' %} defer></script> {% endcomment %}
     <script type="text/javascript" src={% static 'vendor/bootstrap/bootstrap.min.js' %} defer></script>
+   {% block style %} {% endblock %}
   </head>
   <body>
     {% block content %} {% endblock content %}
