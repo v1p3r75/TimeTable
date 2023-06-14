@@ -8,8 +8,8 @@ Le projet d'intégration IFRI 2022 est un projet donné aux étudiants de la pre
 
 Pour récuperer et lancer l'application sur votre machine, assurez vous d'abord d'avoir python installé sur votre machine. Ensuite procéder aux étapes suivantes :
 
-    1- git clone https://github.com/v1p3r75/PIL_2023_4.git
-    2- cd PIL_2023_4
+    1- git clone https://github.com/v1p3r75/PIL1_2223_4.git
+    2- cd PIL1_2223_4
     3 - python manage.py migrate
     4- python manage.py runserver 8000
     5- L'application va démarrer sur l'addresse http://localhost:8000 : copier cet addresse et lancer-le dans le navigateur.
