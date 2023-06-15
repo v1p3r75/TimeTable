@@ -1,13 +1,59 @@
 {% extends '../includes/auth_base.html' %}
 {% block content %}
-    <div class="container-fluid">
-        {% comment %} Votre code html ici {% endcomment %}
+<div class="container">
+    <h1 class="ml">Login</h1>
+    <p>Veuillez entrer vos informations</p>
+        <form>
+           <div class="zer"><label for="Username">Username</label></div>
+           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABiElEQVRIS7WVgVHDMAxF2wmACSgTABuECYAJKBvABHQDYALKBMAEhAlaNigTABPAfzm7pxrZSXrEd7oktqwvfX8r49HAYzxw/FEXgDMlcSo7CkZOy2DPer6UkiwBVNr4IJu0VLnS+qWs9vxyADM53/Sk70r+9+keDwDH257Bo/u1Xu7s3hQAWl63DB63nVi6UgD43HcAvjUHbfOwNg3fO44vMQ7ivAVALU+Z7P+ULr8SledaR2EbMiW7iwzAnua/krVdfX9m/B81T5UbAGj78J8AiHWcAvxkgjPdl6J1bHsGJQDomckonQGVfENTbjSxLUCJokIcd+lds7SWzof8Id9atgrhJnpWMk/SuLiH7MkU/TNPcG8AghzT++DKlABkaLNCCVBXGlCxMA5US4XNaGsVc/mgoPQOxP0cMn1ragCKrQK/9IZGBb2ZasiafwS+VkmtzS4msk1H9e5K8Y9WCQ2KckqJycA5FNWGpvVr118mSoKW2ErQOYePgpqmlhtdAEr7W9cGB/gFF0hJGYa8DoAAAAAASUVORK5CYII="/> 
+           <input class="p" type="text",Username="text" placeholder=""><<br>
+           <div class="zer"><label for="Email">Email</label></div>
+           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABiElEQVRIS7WVgVHDMAxF2wmACSgTABuECYAJKBvABHQDYALKBMAEhAlaNigTABPAfzm7pxrZSXrEd7oktqwvfX8r49HAYzxw/FEXgDMlcSo7CkZOy2DPer6UkiwBVNr4IJu0VLnS+qWs9vxyADM53/Sk70r+9+keDwDH257Bo/u1Xu7s3hQAWl63DB63nVi6UgD43HcAvjUHbfOwNg3fO44vMQ7ivAVALU+Z7P+ULr8SledaR2EbMiW7iwzAnua/krVdfX9m/B81T5UbAGj78J8AiHWcAvxkgjPdl6J1bHsGJQDomckonQGVfENTbjSxLUCJokIcd+lds7SWzof8Id9atgrhJnpWMk/SuLiH7MkU/TNPcG8AghzT++DKlABkaLNCCVBXGlCxMA5US4XNaGsVc/mgoPQOxP0cMn1ragCKrQK/9IZGBb2ZasiafwS+VkmtzS4msk1H9e5K8Y9WCQ2KckqJycA5FNWGpvVr118mSoKW2ErQOYePgpqmlhtdAEr7W9cGB/gFF0hJGYa8DoAAAAAASUVORK5CYII="/> 
+           <input class="p" type="text" placeholder=""><br>
+           <div class="zer"><label for="password">password</label></div>
+           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABA0lEQVRIS2NkoDFgpLH5DMRaEAB0SD4QO0AddABINwIxiMYLiLFgAdCEeBymgCxpwGcDIQtALl8PNaAQSG+AshOAdD2U7YjPJ4QsAAWBPRCDDJ+A5lKQy0GWHARiB1y+IGTBf6hGQSD9Ac0QBSD/PlQMpznEWkBIHc5oIKQR5gNC6kiyABSe84EYFASkgAdAxYnoEY7NZSCF8qSYjKQWpFcRWS82C8gNFqz6RpYFsMgHBTFGZALFKA4i5MjHiExqW/AQSzKm2AcGQEPPQ5OgIZC+gJaUKbYAZB6+JDx4LACVmvxk5mSMuMGW0UDJcQEZxQXI8ARiyiIyHY9dG9nFMLGuAADkPTgZUGznOgAAAABJRU5ErkJggg=="/>
+           <input class="p" type="password" placeholder=""><br>
+           <div class="zer"><label for="Confirm password">Confirm password</label></div>
+           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABA0lEQVRIS2NkoDFgpLH5DMRaEAB0SD4QO0AddABINwIxiMYLiLFgAdCEeBymgCxpwGcDIQtALl8PNaAQSG+AshOAdD2U7YjPJ4QsAAWBPRCDDJ+A5lKQy0GWHARiB1y+IGTBf6hGQSD9Ac0QBSD/PlQMpznEWkBIHc5oIKQR5gNC6kiyABSe84EYFASkgAdAxYnoEY7NZSCF8qSYjKQWpFcRWS82C8gNFqz6RpYFsMgHBTFGZALFKA4i5MjHiExqW/AQSzKm2AcGQEPPQ5OgIZC+gJaUKbYAZB6+JDx4LACVmvxk5mSMuMGW0UDJcQEZxQXI8ARiyiIyHY9dG9nFMLGuAADkPTgZUGznOgAAAABJRU5ErkJggg=="/>
+           <input class="p" type="password" placeholder=""><br><br>
+           Already Registered ? <input class="k" type="submit" value="Sign in"><br>
+        </form>
     </div>
 {% endblock content %}
 {% block style %}
-<style>
-    {% comment %}
-        Votre code css ici 
-    {% endcomment %}
+        <style>
+        body{display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-position: relative;
+            background-repeat: no-repeat;
+            background: linear-gradient(60deg,transparent,rgb(83, 238, 86),rgb(236, 239, 153),rgb(14, 168, 224),transparent);
+        }
+        .container{background: linear-gradient(60deg,transparent,rgb(83, 238, 86),rgb(236, 239, 153),rgb(14, 168, 224),transparent);
+        position: relative;
+        width: 370px;
+        height: 686px;
+        
+               }
+               .p{width: 70%;
+                margin: 30px;
+                    font-size: 22px;}
+                    p{text-align: center;
+                    font-size: 25px;}
+                    .zer{font-size: 20px;}
+                    .k{text-align: center;
+                margin-left: 120px;
+                background:linear-gradient(60deg,transparent,rgb(230, 222, 235),transparent,rgb(175, 173, 196),transparent ,rgb(192, 128, 173));
+                width: 100px;
+                height: 40px;
+                border-radius: 10px;
+                color: blue;
+            }
+            .k:hover{color: rgb(11, 4, 14);
+            background: linear-gradient(60deg,transparent,transparent,rgb(83, 238, 86),transparent,rgb(236, 239, 153),transparent,rgb(14, 168, 224),transparent,transparent);
+        font-weight: bold;}
+            
+               
 </style>
 {% endblock %}
