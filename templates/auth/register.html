@@ -1,11 +1,49 @@
-{% extends '../includes/auth_base.html' %}
-{% block content %}
-    <div class="container-fluid">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>Inscription</title>
+</head>
 
-        {% comment %}
-            Votre code de page page ici.
-            Vous n'avez pas besoin d'inclure quoi que ce soit. Tout est déjà chargé par défaut (bootstrap, css, ...).
-            Ecricez juste votre cote bootstrap au milieu ici.
-        {% endcomment %}        
+<body>
+    <div class="box-container">
+        <div class="container">
+            <div class="image">
+                <img src="img.png"  class="responsive-image" alt="Image d'inscription">
+            </div>
+            
+            <div class="form-container">
+                <h1>Sign Up</h1>
+                
+                <h2>Enter details to create your account</h2>
+                <form action="traitement.php" method="POST" onsubmit="return validateForm()">                 
+                    <label for="username">Username <div class="r">*</div></label>
+                    <input  style="background-position: right; background-image: url('imgp.png')"type="text" id="username" name="username" required >
+                    
+                    <label for="email">Email <div class="r">*</div></label>
+                    <input  style="background-position: right; background-image: url('imge.png')"   type="email" id="email" name="email" required>
+                    
+                    <label for="password">Password <div class="r">*</div></label>
+                    <input   style="background-position: right; background-image: url('imgc.png')"   type="password" id="password" name="password" required>
+                    ""
+                    <label for="confirm-password">Confirm Password <div class="r">*</div></label>
+                    <input    style="background-position: right; background-image: url('imgc.png')"  type="password" id="confirm-password" name="confirm-password" required>
+                    
+                    <br><input type="submit" value="Register">
+                </form>
+                <p class="or">Already registered? <a href="#">Login</a><br>OR
+                </p>                <div class="social-icons">
+                    <img src="google.png" class="responsive-image" alt="Google">
+                    <img src="facebook.png" class="responsive-image" alt="Facebook">
+                    <img src="tweeter.png" class="responsive-image" alt="Twitter">
+                    <img src="imgn.png" class="responsive-image" alt="LinkedIn">
+                </div>
+            </div>
+        </div>
     </div>
-{% endblock content %}
+    <script src="script.jss"></script>
+</body>
+</html>
