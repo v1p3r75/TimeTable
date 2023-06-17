@@ -21,6 +21,8 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
 
         extra_fields.setdefault('role_id', 1)
+        extra_fields.setdefault('is_staff', True)
+
         return self.create_user(email, password, **extra_fields)
 
 class Role(models.Model):
@@ -48,4 +50,6 @@ class User(AbstractBaseUser):
     phone = models.CharField(max_length = 30, null = True)
     role = models.ForeignKey(Role, on_delete = models.CASCADE, default = 3)
     create_at = models.DateTimeField(auto_now_add = True)
+    is_staff = models.BooleanField(default = False)
+    is_active = models.BooleanField(default = True)
    
