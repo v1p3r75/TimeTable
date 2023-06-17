@@ -17,8 +17,8 @@
             <a href="" class="d-block profile d-flex gap-2">
                 <div class="align-self-center"><i class="mdi mdi-account-circle-outline mdi-36px"></i></div>
                 <div>
-                    <span class="text-muted">Pierre ZOHOU</span><br>
-                    <span class="fd-color-primary">Administrateur</span>
+                    <span class="text-muted">{{ user.firstname }} {{ user.lastname }}</span><br>
+                    <span class="fd-color-primary">{{ user.role.label }}</span>
                 </div>
             </a>
         </div>

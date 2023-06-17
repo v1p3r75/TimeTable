@@ -1,8 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 
 # Create your models here.
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class CustomUserManager(BaseUserManager):
 
@@ -36,7 +35,7 @@ class Role(models.Model):
     ], default = 3 )
  
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 

@@ -10,13 +10,23 @@ def index(request):
 
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(email = email, password = password)
+        user = authenticate(request = request, email = email, password = password)
 
         if user is not None:
 
-            if (user.role.id == 1) : return redirect('admin-dashboard') 
-            if (user.role.id == 2) : return redirect('teacher-dashboard') 
-            else : return redirect('student-dashboard')
+            login(request, user)
+
+            if (user.role.id == 1) :
+
+                return render('admin-dashboard') 
+            
+            if (user.role.id == 2) :
+                
+                return render('teacher-dashboard') 
+            
+            else :
+                
+                return render(request, 'student-dashboard', context = {'user' : user})
 
         
         return render(request, 'auth/login.html', { 'title' : 'Connexion', 'errors' : ['Email ou mot de passe incorrect']})
@@ -34,35 +44,36 @@ def register(request):
         password_confirmation = request.POST['password_confirmation']
         email = request.POST['email']
 
-        if (firstname != '' or lastname != '' or email != '' or password != ''):
+        if (firstname == '' or lastname == '' or email == '' or password == ''):
 
-            if password == password_confirmation:
+            return render(request, 'auth/register.html', {'errors': ['Vous devez remplir tous les champs.']})
 
-                if User.objects.filter(email = email).exists():
 
-                    error = "Cet utilisateur existe déjà. Veuillez en choisir un autre email."
-                    return render(request, 'auth/register.html', {'errors': [error]})
-                
-                user = User.objects.create_user(
-                    email = email,
-                    password = password,
-                    firstname = firstname,
-                    lastname = lastname,
-                )
-                
-                auth_user = authenticate(request, email = email, password = password)
-                login(request, auth_user)
-
-                if (user.role.id == 1) : return redirect('admin-dashboard') 
-                if (user.role.id == 2) : return redirect('teacher-dashboard') 
-                else : return redirect('student-dashboard')
-                
+        if password != password_confirmation:
 
             return render(request, 'auth/register.html', {'errors': ['Les mots de passe ne sont pas les mêmes.']})
 
-        return render(request, 'auth/register.html', {'errors': ['Vous devez remplir tous les champs.']})
 
+        if User.objects.filter(email = email).exists():
 
+            error = "Cet utilisateur existe déjà. Veuillez en choisir un autre email."
+            return render(request, 'auth/register.html', {'errors': [error]})
+                
+        user = User.objects.create_user(
+            email = email,
+            password = password,
+            firstname = firstname,
+            lastname = lastname,
+        )
+                
+        auth_user = authenticate(request = request, email = email, password = password)
+
+        login(request, auth_user)
+
+        if (user.role.id == 1) : return redirect('admin-dashboard') 
+        if (user.role.id == 2) : return redirect('teacher-dashboard') 
+        else : return redirect('student-dashboard')
+            
     return render(request, 'auth/register.html', { 'title' : 'Inscription' })
 
 
