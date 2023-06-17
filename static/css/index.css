@@ -1,0 +1,14 @@
+:root {
+
+    --fd-color-blue: #18aefa;
+    --fd-color-silver: #F7F7FA;
+    --fd-color-primary: #3D5EE1;
+    --fd-color-silver-2: #e5e5e5;
+}
+body, html { width: 100%; height: 100%;}
+a { text-decoration: none!important; color: var(--fd-color-blue)}
+.fd-color-primary { color: var(--fd-color-primary);} .fd-bg-primary { background-color: var(--fd-color-primary);}
+.fd-color-silver { color: var(--fd-color-silver);} .fd-bg-silver { background-color: var(--fd-color-silver);}
+.fd-color-silver-2 { color: var(--fd-color-silver-2);} .fd-bg-silver-2 { background-color: var(--fd-color-silver-2);}
+.fd-color-blue { color: var(--fd-color-blue);} .fd-bg-blue { background-color: var(--fd-color-blue);}
+.end-5 { right: 5%}

@@ -14,12 +14,13 @@
     <meta name="author" content="IFRI GROUPE 4" />
     <link rel="stylesheet" href={% static 'vendor/bootstrap/bootstrap.min.css' %} />
     <link rel="stylesheet" href={% static 'vendor/animate/animate.css' %} />
-    <link rel="stylesheet" href={% static 'vendor/fa/all.min.css' %} />
+    <link rel="stylesheet" href={% static 'vendor/mdi/css/materialdesignicons.min.css' %} />
+    <link rel="stylesheet" href={% static 'css/index.css' %} />
     {% comment %} <script type="text/javascript" src={% static 'vendor/jquery/jquery.js' %} defer></script> {% endcomment %}
     <script type="text/javascript" src={% static 'vendor/bootstrap/bootstrap.min.js' %} defer></script>
    {% block style %} {% endblock %}
   </head>
-  <body>
-    {% block content %} {% endblock content %}
+  <body class="fd-bg-silver">
+    {% block content %} {% endblock %}
   </body>
 </html>
