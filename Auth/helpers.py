@@ -1,0 +1,28 @@
+from django.shortcuts import redirect, render
+
+def redirect_authenticated_user(view_func):
+
+    def wrapper(request, *args, **kwargs):
+
+        if request.user.is_authenticated:
+
+            return redirect('admin-dashboard')
+        
+        return view_func(request, *args, **kwargs)
+    
+    return wrapper
+
+
+def redirect_users(request, user):
+
+    if (user.role.id == 1): 
+
+        return redirect('admin-dashboard')
+    
+    if (user.role.id == 2):
+
+        return redirect('admin-dashboard')
+    
+    else :
+
+        return redirect('admin-dashboard')
