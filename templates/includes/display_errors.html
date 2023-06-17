@@ -1,0 +1,7 @@
+{% if errors %}
+<div class="bg-danger rounded-3 p-2 my-3">
+    {% for error in errors %}
+        <span class="small text-white"><i class="mdi mdi-close-circle me-2"></i>{{ error }}</span>
+    {% endfor %}
+</div>
+{% endif %}

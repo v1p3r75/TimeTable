@@ -13,6 +13,7 @@
             <h5 class="my-3">Sign in</h5>
             <form action="" method="POST">
                 {% csrf_token %}
+                {% include '../includes/display_errors.html' %}
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Email
                         <input name="email" type="email" class="form-control" required>
