@@ -21,17 +21,19 @@
     <script type="text/javascript" src={% static 'vendor/bootstrap/bootstrap.min.js' %} defer></script>
    {% block style %} {% endblock %}
   </head>
-  <body class="fd-bg-silver">
-    <div class="container-fluid p-0">
+  <body class="fd-bg-silver h-100 overflow-hidden">
+    <div class="container-fluid h-100 p-0">
         {% include './header.html' %}
-        {% comment %} <div class="row">
-            {% include './sidebar.html' %}
-            <div class="main col col-9">
-                <main>
-                    {% block main %} {% endblock %}
-                </main>
+        <div class="container-fluid h-100 m-0" style="height : 100%">
+            <div class="row h-100">
+                {% include './sidebar.html' %}
+                <div class="main col col-9">
+                    <main>
+                        {% block main %} {% endblock %}
+                    </main>
+                </div>
             </div>
-        </div> {% endcomment %}
+        <div>
     </div>
   </body>
 </html>
