@@ -40,7 +40,7 @@ def register(request):
 
                 if User.objects.filter(email = email).exists():
 
-                    error = "Cet utilisateur existe déjà. Veuillez en choisir un autre."
+                    error = "Cet utilisateur existe déjà. Veuillez en choisir un autre email."
                     return render(request, 'auth/register.html', {'errors': [error]})
                 
                 user = User.objects.create_user(
@@ -52,7 +52,7 @@ def register(request):
                 
                 auth_user = authenticate(request, email = email, password = password)
                 login(request, auth_user)
-                
+
                 if (user.role.id == 1) : return redirect('admin-dashboard') 
                 if (user.role.id == 2) : return redirect('teacher-dashboard') 
                 else : return redirect('student-dashboard')
