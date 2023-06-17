@@ -1,13 +1,65 @@
-{% extends '../includes/auth_base.html' %}
+{% extends '../includes/auth_base.html' %} {%load static %}
 {% block content %}
-    <div class="container-fluid">
-
-        {% comment %}
-            Votre code de page page ici.
-            Vous n'avez pas besoin d'inclure quoi que ce soit. Tout est déjà chargé par défaut (bootstrap, css, ...).
-            Ecricez juste votre cote bootstrap au milieu ici.
-        {% endcomment %}        
+<div class="container-fluid">
+    <div class="row row-cols-1 row-cols-lg-2 col-12 col-lg-9 mx-auto shadow" style="height: 90vh; margin: 5vh 0;">
+        <div class="d-none d-lg-block p-0">
+            <div class="login-image rounded-5 rounded-end fd-bg-blue h-100">
+                <img src={% static '/img/login.png' %} alt="Student" class="w-100 h-100">
+            </div>
+        </div>
+        <div class="login-form bg-white rounded-5 rounded-end p-5">
+            <h4>Welcome To TimeTable</h4>
+            <div><span class="text-muted me-2">Already Registered ?</span><span><a href={% url 'login' %}>Login</a></span></div>
+            <h5 class="my-3">Sign Up</h5>
+            <form action="">
+                <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+                    <div class="form-group">
+                        <label class="position-relative text-muted w-100">Lastname
+                            <input type="email" class="form-control" required>
+                            <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+                        </label>
+                    </div>
+                    <div class="form-group mt-3 mt-lg-0">
+                        <label class="position-relative text-muted w-100">Firstname
+                            <input type="password" class="form-control" required>
+                            <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group my-3">
+                    <label class="position-relative text-muted w-100">Email
+                        <input type="email" class="form-control" required>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-email"></i></span>
+                    </label>
+                </div>
+                <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+                    <div class="form-group">
+                        <label class="position-relative text-muted w-100">Password
+                            <input type="password" class="form-control" required>
+                            <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                        </label>
+                    </div>
+                    <div class="form-group mt-3 mt-lg-0">
+                        <label class="position-relative text-muted w-100">Confirm password
+                            <input type="password" class="form-control" required>
+                            <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="submit my-3">
+                    <button type="submit" class="btn fd-bg-primary text-white w-100 shadow">Register</button>
+                </div>
+                <div class="text-muted text-center"><span>OR</span></div>
+                <div class="socials-networks d-flex flex-wrap gap-3 justify-content-center mt-3">
+                    <div><i class="mdi mdi-google-plus fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
+                    <div><i class="mdi mdi-facebook fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
+                    <div><i class="mdi mdi-twitter fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
+                    <div><i class="mdi mdi-instagram fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
 {% endblock content %}
 {% block style %}
 <style>

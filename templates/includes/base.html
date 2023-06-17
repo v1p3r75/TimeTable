@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% if title %}
+        <title>{{ title }} - TIMETABLE</title>
+    {% else %}
+        <title>TIMETABLE - GROUPE 4</title>
+    {% endif %}
+    <meta name="description" content="Projet d'integration IFRI 2023. La gestion des emplois du temps." />
+    <meta name="author" content="IFRI GROUPE 4" />
+    <link rel="stylesheet" href={% static 'vendor/bootstrap/bootstrap.min.css' %} />
+    <link rel="stylesheet" href={% static 'vendor/animate/animate.css' %} />
+    <link rel="stylesheet" href={% static 'vendor/mdi/css/materialdesignicons.min.css' %} />
+    <link rel="stylesheet" href={% static 'css/index.css' %} />
+    <link rel="icon" href={% static 'img/favicon.ico' %} />
+    <script type="text/javascript" src={% static 'vendor/jquery/jquery.js' %} defer></script>
+    <script type="text/javascript" src={% static 'vendor/bootstrap/bootstrap.min.js' %} defer></script>
+   {% block style %} {% endblock %}
+  </head>
+  <body class="fd-bg-silver h-100 overflow-hidden">
+    <div class="container-fluid h-100 p-0">
+        {% include './header.html' %}
+        <div class="container-fluid h-100 m-0" style="height : 100%">
+            <div class="row h-100">
+                {% include './sidebar.html' %}
+                <div class="main col col-9">
+                    <main>
+                        {% block main %} {% endblock %}
+                    </main>
+                </div>
+            </div>
+        <div>
+    </div>
+  </body>
+</html>
