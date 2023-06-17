@@ -9,9 +9,9 @@ def index(request):
 
 def register(request):
 
-    return render(request, 'auth/register.html', { 'title' : 'Register' })
+    return render(request, 'auth/register.html', { 'title' : 'Inscription' })
 
 
 def forgotPassword(request):
 
-    return render(request, 'auth/forgot-password.html', {'title' : 'Forgot Password' })
+    return render(request, 'auth/forgot-password.html', {'title' : 'Mot de passe oublié' })
