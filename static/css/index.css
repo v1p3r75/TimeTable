@@ -12,3 +12,4 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
 .fd-color-silver-2 { color: var(--fd-color-silver-2);} .fd-bg-silver-2 { background-color: var(--fd-color-silver-2);}
 .fd-color-blue { color: var(--fd-color-blue);} .fd-bg-blue { background-color: var(--fd-color-blue);}
 .end-5 { right: 5%}
+.login-image { background-image: url("/static/img/login-icon-02.png"); background-repeat: no-repeat; background-position: top right;}
