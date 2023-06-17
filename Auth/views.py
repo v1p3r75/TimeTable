@@ -14,4 +14,4 @@ def register(request):
 
 def forgotPassword(request):
 
-    return render(request, 'auth/forgot_password.html', {'title' : 'Forgot Password' })
+    return render(request, 'auth/forgot-password.html', {'title' : 'Forgot Password' })

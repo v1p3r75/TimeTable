@@ -9,7 +9,7 @@
         </div>
         <div class="login-form bg-white rounded-5 rounded-end p-5">
             <h4>Welcome To TimeTable</h4>
-            <div><span class="text-muted me-2">Need an account ?</span><span><a href="#">Sign Up</a></span></div>
+            <div><span class="text-muted me-2">Need an account ?</span><span><a href={% url 'register' %}>Sign Up</a></span></div>
             <h5 class="my-3">Sign in</h5>
             <form action="">
                 <div class="form-group">
@@ -31,7 +31,7 @@
                             <span class="text-muted">Remember me</span>
                         </label>
                     </div>
-                    <div><a href="" class="fd-color-blue">Forgot Password ?</a></div>
+                    <div><a href={% url 'forgotPassword' %} class="fd-color-blue">Forgot Password ?</a></div>
                 </div>
                 <div class="submit my-3">
                     <button type="submit" class="btn fd-bg-primary text-white w-100 shadow">Login</button>
