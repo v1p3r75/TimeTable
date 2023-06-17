@@ -19,7 +19,7 @@ def index(request):
 
             login(request, user)
 
-            return redirect_users(request, user, user)
+            return redirect_users(request, user)
 
         
         return render(request, 'auth/login.html', { 'title' : 'Connexion', 'errors' : ['Email ou mot de passe incorrect']})
@@ -63,7 +63,7 @@ def register(request):
 
         login(request, auth_user)
 
-        return redirect_users(request, user, user)
+        return redirect_users(request, user)
             
     return render(request, 'auth/register.html', { 'title' : 'Inscription' })
 
