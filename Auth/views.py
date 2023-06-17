@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
 from TimeTable.models import User
+from .helpers import redirect_authenticated_user, redirect_users
 
 # Create your views here.
 
+@redirect_authenticated_user
 def index(request):
 
     if request.method == 'POST':
@@ -16,24 +19,14 @@ def index(request):
 
             login(request, user)
 
-            if (user.role.id == 1) :
-
-                return render('admin-dashboard') 
-            
-            if (user.role.id == 2) :
-                
-                return render('teacher-dashboard') 
-            
-            else :
-                
-                return render(request, 'student-dashboard', context = {'user' : user})
+            return redirect_users(request, user, user)
 
         
         return render(request, 'auth/login.html', { 'title' : 'Connexion', 'errors' : ['Email ou mot de passe incorrect']})
     
     return render(request, 'auth/login.html', { 'title' : 'Connexion' })
 
-
+@redirect_authenticated_user
 def register(request):
     
     if request.method == 'POST':
@@ -70,13 +63,19 @@ def register(request):
 
         login(request, auth_user)
 
-        if (user.role.id == 1) : return redirect('admin-dashboard') 
-        if (user.role.id == 2) : return redirect('teacher-dashboard') 
-        else : return redirect('student-dashboard')
+        return redirect_users(request, user, user)
             
     return render(request, 'auth/register.html', { 'title' : 'Inscription' })
 
 
+@redirect_authenticated_user
 def forgotPassword(request):
 
     return render(request, 'auth/forgot-password.html', {'title' : 'Mot de passe oublié' })
+
+
+def logoutUser(request):
+
+    logout(request)
+
+    return redirect('login')
