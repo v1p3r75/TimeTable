@@ -128,4 +128,4 @@ STATICFILES_DIRS = [ BASE_DIR / 'static/' ]
 
 MEDIA = [ BASE_DIR / 'media/' ]
 
-AUTH_USER_MODEL = 'TimeTable.User'
+AUTH_USER_MODEL = 'Auth.User'

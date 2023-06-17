@@ -1,27 +1,8 @@
 from django.db import models
+from Auth.models import User
 
 # Create your models here.
 
-class Role(models.Model):
-
-    label = models.TextField( max_length = 1, choices = [
-
-        (1, 'Adminstrateur'),
-        (2, 'Professeur'),
-        (3, 'Etudiant'),
-
-    ], default = 3 )
-
-class User(models.Model):
-
-    lastname = models.CharField(max_length = 50)
-    firstname = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 255, unique = True)
-    password = models.CharField(max_length = 255)
-    phone = models.CharField(max_length = 30, null = True)
-    role = models.ForeignKey(Role, on_delete = models.CASCADE)
-    create_at = models.DateTimeField(auto_now_add = True)
-    
 class Level(models.Model):
 
     label = models.CharField(max_length = 255, unique = True)

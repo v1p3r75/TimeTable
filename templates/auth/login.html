@@ -11,7 +11,9 @@
             <h4>Welcome To TimeTable</h4>
             <div><span class="text-muted me-2">Need an account ?</span><span><a href={% url 'register' %}>Sign Up</a></span></div>
             <h5 class="my-3">Sign in</h5>
-            <form action="">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% include '../includes/display_errors.html' %}
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Email
                         <input type="email" class="form-control" required>
