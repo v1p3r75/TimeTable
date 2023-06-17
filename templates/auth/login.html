@@ -1,12 +1,71 @@
-{% extends '../includes/auth_base.html' %}
-{% block content %}
-    <div class="container-fluid">
-
-        {% comment %}
-            Votre code de page connexion ici.
-            Vous n'avez pas besoin d'inclure quoi que ce soit. Tout est déjà chargé par défaut (bootstrap, css, ...).
-            Ecricez juste votre cote bootstrap au milieu ici.
-        {% endcomment %}
-
-    </div>
-{% endblock content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="bootstrap.min.css" rel="stylesheet"> 
+    <link href="bootstrap.css" rel="stylesheet"> 
+    <title>Inscription</title>
+    <style>
+        body{
+            background: linear-gradient(90deg, #8360c3, #2ebf91);
+        }
+        a{
+            color: aquamarine;
+            text-decoration: none;
+        }
+        input[type = email], input[type = password], input[type = text]
+        {
+            width: 100% ;
+            padding: 3% 4% ;
+            margin: 3% 0 ;
+            border: 1px solid #ccc ;
+            box-sizing: border-box ;
+        }
+        input[type = submit]
+        {
+            background-color: blueviolet;
+            color: white ;
+            padding: 3% 4% ;
+            margin: 2% 0 ;
+            border: none ;
+            cursor: pointer ;
+            width: 100% ;
+        }
+        #contain{
+            width: 400px;
+            margin: 0% 32%;
+        }
+        .image_container{
+            margin-left: 25%;
+        }
+        @media screen and (max-width: 620px) {
+            #contain{
+                margin-top: 50%;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div id="contain">
+        <h1><b> Sign Up </b></h1>
+        <p> Enter details to create your account </p> 
+        <form action="" method="post">
+            <label for="name">Username</label>
+            <input type="text" name="name" id="name" required="requiered">
+            <label for="lastname">Email</label>
+            <input type="email" name="lastname" id="lastname"required="requiered">
+            <label for="key">Password</label>
+            <input type="password" name="pass" id="key"requiered="requiered">
+            <label for="password" >Confirm password</label>
+            <input type="password" name="word" id="password"required="requiered">
+            <input type="submit" value="Register"><br><br>
+            <div class="image_container">
+                <img src="google.png">
+                <img src="facebook.png">
+                <img src="tweeter.png">
+                <img src="imgn.png">
+            </div>
+        </form>
+    </div> 
+</body>
+</html>
