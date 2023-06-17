@@ -24,14 +24,14 @@
   <body class="fd-bg-silver">
     <div class="container-fluid p-0">
         {% include './header.html' %}
-        <div class="row">
+        {% comment %} <div class="row">
             {% include './sidebar.html' %}
             <div class="main col col-9">
                 <main>
                     {% block main %} {% endblock %}
                 </main>
             </div>
-        </div>
+        </div> {% endcomment %}
     </div>
   </body>
 </html>
