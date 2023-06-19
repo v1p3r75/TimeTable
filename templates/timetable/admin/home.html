@@ -1,4 +1,66 @@
 {% extends '../../includes/base.html' %}
 {% block main %}
+    <div class="d-flex justify-content-between">
+        <div class="page-title"><h4>Dashboard</h4></div>
+        <div class="page-path">
+            <a href="/" class="text-black">Home</a>
+            <span class="mx-1">/</span>
+            <a href="/dashboard" class="text-black">Dash</a>
+        </div>
+    </div>
+    <div class="my-3 row row-cols-2 row-cols-lg-4 gx-4">
+        <div class="card col border border-1 rounded-3 p-3 container-fluid shadow border-0">
+            <div class="row row-cols-2 justify-content-between">
+                <div class="info align-self-center">
+                    <h6 class="text-muted">Etudiants</h6>
+                    <h5>4000</h5>
+                </div>
+                <div>
+                    <div class="card-img p-2 text-center">
+                        <img src="/static/img/dash-icon-01.svg" alt="student">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col border border-1 rounded-3 p-3 container-fluid shadow border-0">
+            <div class="row row-cols-2 justify-content-between">
+                <div class="info align-self-center">
+                    <h6 class="text-muted">Professeurs</h6>
+                    <h5>20+</h5>
+                </div>
+                <div>
+                    <div class="card-img p-2 text-center">
+                        <img src="/static/img/teacher.svg" alt="student">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col border border-1 rounded-3 p-3 container-fluid shadow border-0">
+            <div class="row row-cols-2 justify-content-between">
+                <div class="info align-self-center">
+                    <h6 class="text-muted">Cours</h6>
+                    <h5>30+</h5>
+                </div>
+                <div>
+                    <div class="card-img p-2 text-center">
+                        <img src="/static/img/books.svg" alt="student">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col border border-1 rounded-3 p-3 container-fluid shadow border-0">
+            <div class="row row-cols-2 justify-content-between">
+                <div class="info align-self-center">
+                    <h6 class="text-muted">Sales</h6>
+                    <h5>45</h5>
+                </div>
+                <div>
+                    <div class="card-img p-2 text-center">
+                        <img src="/static/img/dash-icon-03.svg" alt="student">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 {% endblock %}

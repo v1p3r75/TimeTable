@@ -17,6 +17,7 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
 .bg-inherit { background : inherit }
 .login-image { background-image: url("/static/img/login-icon-02.png"); background-repeat: no-repeat; background-position: top right;}
 .profile-img { width: 30px; height: 30px; border-radius: 20px;}
+.card-img { background-color: #EDF4FF;} .card-img img { width : 50px; height: 50px;}
 /* .login-form::-webkit-scrollbar { width: 5px; }
 .login-form ::-webkit-scrollbar-track { box-shadow: inset 0 0 2px var(--fd-color-silver); border-radius: 5px;}
 .login-form::-webkit-scrollbar-thumb { background: var(--bs-white); border-radius: 10px;} */
