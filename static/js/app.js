@@ -55,6 +55,33 @@ const App = {
         });
 
         return result;
-    }
+    },
+
+    mobileSidebar: function () {
+
+        const DISPLAY_CLASS = 'd-block position-abolute top-0 start-0'
+        const HIDE_CLASS = 'col d-none d-lg-block col-lg-3'
+        
+        $('.bars-mobile').on('click', (e) => {
+
+            $('.sidebar a[data-' + PAGE_ATTR + ']').each( (index, element) => {
+
+                $(element).on('click', (e)  => {
+    
+                    $('.sidebar').removeClass(DISPLAY_CLASS)
+                        .addClass(HIDE_CLASS)
+                })
+    
+            });
+
+            if($('.sidebar').hasClass('col')) {
+                $('.sidebar').removeClass(HIDE_CLASS)
+                .addClass(DISPLAY_CLASS)
+            }else {
+                $('.sidebar').addClass(HIDE_CLASS)
+                .removeClass(DISPLAY_CLASS)
+            }
+        })
+    }()
 
 }
