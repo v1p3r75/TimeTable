@@ -1,57 +1,66 @@
-{% extends '../includes/auth_base.html' %} {% load static %}
-{% block content %}
-<div class="container-fluid">
-    <div class="row row-cols-1 row-cols-lg-2 col-12 col-lg-9 mx-auto shadow" style="height: 90vh; margin: 5vh 0;">
-        <div class="d-none d-lg-block p-0">
-            <div class="login-image rounded-5 rounded-end fd-bg-blue h-100">
-                <img src={% static '/img/login.png' %} alt="Student" class="w-100 h-100">
-            </div>
-        </div>
-        <div class="login-form bg-white rounded-5 rounded-end p-5">
-            <h4>Welcome To TimeTable</h4>
-            <div><span class="text-muted me-2">Need an account ?</span><span><a href={% url 'register' %}>Sign Up</a></span></div>
-            <h5 class="my-3">Sign in</h5>
-            <form action="" method="POST">
-                {% csrf_token %}
-                {% include '../includes/display_errors.html' %}
-                <div class="form-group">
-                    <label class="position-relative text-muted w-100">Email
-                        <input name="email" type="email" class="form-control" required>
-                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
-                    </label>
-                </div>
-                <div class="form-group my-3">
-                    <label class="position-relative text-muted w-100">Mot de passe
-                        <input name="password" type="password" class="form-control" required>
-                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
-                    </label>
-                </div>
-                <div class="d-flex flex-wrap justify-content-between">
-                    <div>
-                        <label>
-                            <input type="checkbox" name="remember">
-                            <span class="text-muted">Remember me</span>
-                        </label>
-                    </div>
-                    <div><a href={% url 'forgotPassword' %} class="fd-color-blue">Forgot Password ?</a></div>
-                </div>
-                <div class="submit my-3">
-                    <button type="submit" class="btn fd-bg-primary text-white w-100 shadow">Login</button>
-                </div>
-                <div class="text-muted text-center"><span>OR</span></div>
-                <div class="socials-networks d-flex flex-wrap gap-3 justify-content-center mt-3">
-                    <div><i class="mdi mdi-google-plus fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
-                    <div><i class="mdi mdi-facebook fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
-                    <div><i class="mdi mdi-twitter fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
-                    <div><i class="mdi mdi-instagram fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-{% endblock content %}
-{% block style %}
-<style>
-
-</style>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="bootstrap.min.css" rel="stylesheet"> 
+    <link href="bootstrap.css" rel="stylesheet"> 
+    <title>Inscription</title>
+    <style>
+        body{
+            background: linear-gradient(90deg, #8360c3, #2ebf91);
+        }
+        a{
+            color: aquamarine;
+            text-decoration: none;
+        }
+        input[type = email], input[type = password], input[type = text]
+        {
+            width: 100% ;
+            padding: 3% 4% ;
+            margin: 3% 0 ;
+            border: 1px solid #ccc ;
+            box-sizing: border-box ;
+        }
+        input[type = submit]
+        {
+            background-color: blueviolet;
+            color: white ;
+            padding: 3% 4% ;
+            margin: 2% 0 ;
+            border: none ;
+            cursor: pointer ;
+            width: 100% ;
+        }
+        #contain{
+            width: 400px;
+            margin: 0% 32%;
+        }
+        .image_container{
+            margin-left: 25%;
+        }
+        @media screen and (max-width: 620px) {
+            #contain{
+                margin-top: 50%;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div id="contain">
+        <h1><b> Sign Up </b></h1>
+        <p> Enter details to create your account </p> 
+        <form action="" method="post">
+            <label for="name">Username</label>
+            <input type="text" name="name" id="name" required="requiered">
+            <label for="lastname">Email</label>
+            <input type="email" name="lastname" id="lastname"required="requiered">
+            <label for="key">Password</label>
+            <input type="password" name="pass" id="key"requiered="requiered">
+            <label for="password" >Confirm password</label>
+            <input type="password" name="word" id="password"required="requiered">
+            <p> <a href="retour.html">Mot de passe oublié ?</a> </p>
+            <input type="submit" value="Register"><br>
+        </form>
+    </div> 
+</body>
+</html>
