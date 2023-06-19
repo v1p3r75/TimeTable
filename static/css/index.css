@@ -3,16 +3,36 @@
     --fd-color-blue: #18aefa;
     --fd-color-silver: #F7F7FA;
     --fd-color-primary: #3D5EE1;
+    --fd-color-secondary: #2A3042;
     --fd-color-silver-2: #e5e5e5;
+    --fd-color-orange: #FE643B;
 }
 body, html { width: 100%; height: 100%;}
 a { text-decoration: none!important; color: var(--fd-color-blue)}
 .fd-color-primary { color: var(--fd-color-primary);} .fd-bg-primary { background-color: var(--fd-color-primary);}
+.fd-color-secondary { color: var(--fd-color-secondary);} .fd-bg-secondary { background-color: var(--fd-color-secondary);}
 .fd-color-silver { color: var(--fd-color-silver);} .fd-bg-silver { background-color: var(--fd-color-silver);}
 .fd-color-silver-2 { color: var(--fd-color-silver-2);} .fd-bg-silver-2 { background-color: var(--fd-color-silver-2);}
 .fd-color-blue { color: var(--fd-color-blue);} .fd-bg-blue { background-color: var(--fd-color-blue);}
+.fd-bg-orange { background-color: var(--fd-color-orange);}
 .start-5 { left: 5%} .end-5 { right: 5%} .overflow-y-scroll { overflow-y: scroll;}
+.bg-inherit { background : inherit }
 .login-image { background-image: url("/static/img/login-icon-02.png"); background-repeat: no-repeat; background-position: top right;}
-/* .login-form::-webkit-scrollbar { width: 5px; }
-.login-form ::-webkit-scrollbar-track { box-shadow: inset 0 0 2px var(--fd-color-silver); border-radius: 5px;}
-.login-form::-webkit-scrollbar-thumb { background: var(--bs-white); border-radius: 10px;} */
+.profile-img { width: 30px; height: 30px; border-radius: 20px;}
+.card-img { background-color: #EDF4FF;} .card-social { background-color: #fff }
+.card-img img, .card-social img { width : 50px; height: 50px;}
+.d-grid { display: grid;}
+.grid-3 { grid-template-columns: 3fr 3fr 3fr;} .grid-4 { grid-template-columns: 3fr 3fr 3fr 3fr;}
+.grid-2 { grid-template-columns: 6fr 6fr} .grid-0 { grid-template-columns: 12fr} 
+
+@media (min-width: 992px) {
+    .grid-lg-3 { grid-template-columns: 3fr 3fr 3fr!important;}
+    .grid-lg-4 { grid-template-columns: 3fr 3fr 3fr 3fr!important;}
+    .grid-lg-2 { grid-template-columns: 6fr 6fr!important}
+    .grid-lg-0 { grid-template-columns: 12fr!important} 
+  
+  }
+
+.main::-webkit-scrollbar { width: 5px; }
+.main::-webkit-scrollbar-track { box-shadow: inset 0 0 2px var(--fd-color-primary); border-radius: 5px;}
+.main::-webkit-scrollbar-thumb { background: var(--fd-color-secondary); border-radius: 10px;}
