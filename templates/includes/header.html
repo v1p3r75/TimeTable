@@ -1,13 +1,13 @@
 <header class="container-fluid" style="height: 60px">
     <div class="row h-100">
-        <div class="col col-3 py-3 px-3 fd-bg-secondary">
+        <div class="col d-none d-lg-block col-lg-3 py-3 px-3 fd-bg-secondary">
             <h5 class="text-muted">LOGO</h5>
         </div>
-        <div class="col col-9 border-bottom border-1 row justify-content-between align-items-center">
+        <div class="col col-12 col-lg-9 border-bottom border-1 row justify-content-between align-items-center">
             <div class="col col-4 d-flex gap-3">
                 <div class="align-items-center"><a href="javascript:void(0)" class="text-black"><i
                             class="mdi mdi-menu mdi-24px"></i></a></div>
-                <div class="d-flex align-items-center fd-bg-silver border border-1" style="border-radius: 40px;">
+                <div class="d-flex align-items-center d-none d-lg-block fd-bg-silver border border-1" style="border-radius: 40px;">
                     <a href="javascript:void(0)" class="d-block text-black w-25 text-center"><i
                             class="mdi mdi-magnify"></i></a>
                     <input type="text" name="query" placeholder="Search..."
@@ -15,14 +15,17 @@
                         style="border-radius: 0px 35px;">
                 </div>
             </div>
+            <div class="logo-mobile col d-block d-lg-none">
+                <h5 class="text-muted">LOGO</h5>
+            </div>
             <div class="col col-5 d-flex gap-3 justify-content-end">
-                <div><a href="javascript:void(0)" class="text-black"><i
+                <div class="d-none d-lg-block"><a href="javascript:void(0)" class="text-black"><i
                             class="mdi mdi-bell-badge-outline mdi-18px"></i></a></div>
-                <div><a href="javascript:void(0)" class="text-black"><i
+                <div class="d-none d-lg-block"><a href="javascript:void(0)" class="text-black"><i
                             class="mdi mdi-message-badge-outline mdi-18px"></i></a></div>
                 <a href="javascript:void(0)" class="d-block text-black profile d-flex gap-2 mx-3">
                     <div><img src="/static/img/avatar-1.jpg" alt="Avatar" class="profile-img"></div>
-                    <div>{{ user.firstname }} {{ user.lastname }}</div>
+                    <div class="d-none d-lg-block">{{ user.firstname }} {{ user.lastname }}</div>
                 </a>
                 <div><a href={% url 'logout' %} class="text-black"><i class="mdi mdi-logout mdi-18px"></i></a></div>
             </div>
