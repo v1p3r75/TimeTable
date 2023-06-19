@@ -18,6 +18,13 @@ const App = {
 
         });
 
+        $('.logout-btn').on('click', () => {
+
+            App.alert('question', () => {
+                window.location.href =  BASE_URL + '/auth/logout'
+            })
+        })
+
     }(),
 
     preloader: function () {
@@ -82,6 +89,31 @@ const App = {
                 .removeClass(DISPLAY_CLASS)
             }
         })
-    }()
+    }(),
+
+    alert: (type, callback) => {
+
+        if (type === 'question') {
+
+            Swal.fire({
+                title: 'Déconnexion',
+                text: "Vous êtes sûr de vouloir vous deconnecter ?",
+                showCancelButton: true,
+                confirmButtonColor: '#3D5EE1',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    return callback()
+                //   Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                //   )
+                }
+              })
+        }
+    }
 
 }
