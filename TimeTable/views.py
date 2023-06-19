@@ -9,6 +9,6 @@ def index(request):
 
 
 @login_required( login_url = 'login')
-def adminTeachers(request):
+def loadPage(request, name):
 
-    return render(request, 'timetable/admin/teachers.html')
+    return render(request, 'timetable/admin/' + name + '.html')

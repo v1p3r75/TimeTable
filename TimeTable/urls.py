@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="admin-dashboard"),
-    path("manager/teachers", views.adminTeachers, name="admin-teachers"),
+    path("manager/<name>", views.loadPage),
 ]

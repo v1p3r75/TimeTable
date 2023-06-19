@@ -1,45 +1,60 @@
-document.addEventListener('DOMContentLoaded', (e) => {
-    document.querySelector('.preloader').style.display = 'none';
-})
-        // Données factices pour l'exemple
-const data = {
-            labels: ['L1', 'L2', 'L3', 'M1', 'M2', 'ISI'],
-            datasets: [
-                {
-                    label: 'Enseignants',
-                    data: [20, 25, 30, 35, 28, 22],
-                    borderColor: '#18aefa', // Couleur de la ligne
-                    backgroundColor: '#18aefa', // Couleur de fond
-                    fill: false, // Pas de remplissage sous la ligne
-                },
-                {
-                    label: 'Étudiants',
-                    data: [50, 45, 60, 55, 58, 62],
-                    borderColor: '#3D5EE1', // Couleur de la ligne
-                    backgroundColor: '#3D5EE1', // Couleur de fond
-                    fill: false, // Pas de remplissage sous la ligne
-                }
-            ]
-        };
+const BASE_URL = 'http://localhost:8000/'
 
-        // Configuration du graphique
-        const options = {
-            responsive: true,
-            title: {
-                display: true,
-                text: "Comparaison du nombre d'enseignants et d'étudiants"
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        };
+const PAGE_ATTR = 'timetable-page'
 
-        // Création du graphique
-        const ctx = document.getElementById('graph-viewer').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options
+
+const App = {
+
+    init: async function () {
+
+        $('a[data-' + PAGE_ATTR + ']').each( (index, element) => {
+
+            $(element).on('click', (e)  => {
+
+                const target = e.target.nodeName == 'A' ? e.target : $(e.target).parents('a')
+                const page = $(target).data(PAGE_ATTR)
+                window.location.hash = page
+            })
+
         });
+
+    }(),
+
+    preloader: function () {
+
+        document.addEventListener('DOMContentLoaded', async (e) => {
+            document.querySelector('.preloader').style.display = 'none';
+
+            if(window.location.hash !== '') {
+                const data = await App.fetch(BASE_URL + window.location.hash.slice(1)) 
+                $('main').html(data)
+            }
+        })
+    }(),
+
+    loadPage: async function() {
+
+        $(window).on('hashchange', async (e) => {
+
+            const data = await App.fetch(BASE_URL + window.location.hash.slice(1))
+            $('main').html(data)
+        })
+    }(),
+
+    fetch: async function (url, options = {type: 'GET', data : null}) {
+
+        let result = null
+
+        await $.ajax({
+
+            url,
+            ...options,
+            success: (response) => {
+                result = response
+            },
+        });
+
+        return result;
+    }
+
+}
