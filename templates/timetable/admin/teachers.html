@@ -1,16 +1,75 @@
-{% extends '../../includes/base.html' %}
-{% block main %}
-<div class="d-flex justify-content-between">
-    <div class="page-title">
-        <h4>Professeurs</h4>
-    </div>
-    <div class="page-path">
-        <a href="/" class="text-black">Home</a>
-        <span class="mx-1">/</span>
-        <a href='#' class="text-black">Teachers</a>
-    </div>
-</div>
-<div class="container">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulaire de connexion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #E6E6FA;
+    }
 
-</div>
-{% endblock %}
+    .container {
+      max-width: 30%;
+      margin: 12% auto;
+      padding: 3% 1%;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 3px;
+        border: 1px solid ;
+        margin: 0% 8%;
+    }
+
+    input[type="submit"] {
+        width: 86%;
+        padding: 10px;
+        font-size: 16px;
+        color: white;
+        background-color: #8A2BE2;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin: 0% 8%;
+    }
+
+    input[type="submit"]:hover {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2><i>Connexion</i></h2>
+    <form>
+      <div class="form-group">
+        <label for="code">Code :</label>
+        <input type="text" id="code" name="code" placeholder="Entrez votre code" required>
+      </div>
+      <input type="submit" value="Se connecter">
+    </form>
+  </div>
+</body>
+</html>
+```
