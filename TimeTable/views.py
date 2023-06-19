@@ -6,3 +6,9 @@ from django.contrib.auth.decorators import login_required
 def index(request):
 
     return render(request, 'timetable/admin/home.html')
+
+
+@login_required( login_url = 'login')
+def adminTeachers(request):
+
+    return render(request, 'timetable/admin/teachers.html')

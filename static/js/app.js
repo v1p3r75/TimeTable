@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     document.querySelector('.preloader').style.display = 'none';
 })
         // Données factices pour l'exemple
-        var data = {
+const data = {
             labels: ['L1', 'L2', 'L3', 'M1', 'M2', 'ISI'],
             datasets: [
                 {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         };
 
         // Configuration du graphique
-        var options = {
+        const options = {
             responsive: true,
             title: {
                 display: true,
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
         };
 
         // Création du graphique
-        var ctx = document.getElementById('graph-viewer').getContext('2d');
-        var myChart = new Chart(ctx, {
+        const ctx = document.getElementById('graph-viewer').getContext('2d');
+        const myChart = new Chart(ctx, {
             type: 'bar',
             data: data,
             options: options
