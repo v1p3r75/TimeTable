@@ -2,10 +2,403 @@
 {% block content %}
 <div class="container">
 
+     <div class="container">
+        <div class="login">
+            <div class="content">
+                <img src="login.png " alt="">
+            </div>
+
+            <div class="loginform">
+                <h1>Welcom to Ifri</h1>
+                <p>Need an account? <a href="">Sign Up</a></p>
+                <h4>Sign in</h4>
+                <form>
+                      <div class="tbox">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
+                        <input type="text" placeholder="Username">
+                      </div>
+
+                      <div class="tbox">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 4c1.654 0 3 1.346 3 3h2c0-2.757-2.243-5-5-5S7 4.243 7 7v2H6c-1.103 0-2 .897-2 2v9c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-9c0-1.103-.897-2-2-2H9V7c0-1.654 1.346-3 3-3zm6.002 16H13v-2.278c.595-.347 1-.985 1-1.722 0-1.103-.897-2-2-2s-2 .897-2 2c0 .736.405 1.375 1 1.722V20H6v-9h12l.002 9z"></path></svg>
+                        <input name="password" type="password " placeholder="Password" required>
+                      </div>
+
+                      <div class="check">
+                        <label class="checkboo">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                      </div>
+
+                      <button class="btn">Login</button>
+                </form>
+                <ul class="social">
+                    <li><img src="bxl-google-plus-circle.svg" alt=""></li>
+                    <li><img src="bxl-facebook-square.svg" alt=""></li>
+                    <li><img src="bxl-twitter.svg" alt=""></li>
+                    <li><img src="bxl-linkedin-square.svg" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     </div>
 {% endblock content %}
 {% block style %}
         <style>
+
+            *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login{
+    width: 800px;
+    min-height: 400px;
+    overflow: hidden;
+    border-radius: 5px;
+    background:white ;
+    display: flex;
+    box-shadow: 15px 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.content{
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(31, 115, 241);
+    transform: 0.5s;
+}
+
+.content img{
+    width: 100%;    
+}
+
+.loginform{
+    flex-basis: 50%;
+    background: white;
+    font-family: roboto;
+    padding: 25px;
+}
+
+.loginform a{
+    color: rgb(31, 115, 241);
+    text-decoration: none;
+}
+
+.loginform h4 {
+    margin-top: 25px;
+    font-size: 25px;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginform h1 {
+    margin-top: 25px;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginform p {
+    margin-top: 5px;
+    font-size: 20px;
+    color: #202020;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tbox{
+    border-radius: 3px;
+    background: transparent;
+    outline: none;
+    border: 1px solid #55efc4;
+    width: 100%;
+    height: 35px;
+    margin: 30px 0;
+
+}
+
+.tbox input{
+    background: transparent;
+    width: 90%;
+    outline: none;
+    border: 0;
+    padding-left: 5px;
+   
+}
+
+.tbox img{
+    font-size: 15px;
+    padding: 3px;
+    
+}
+
+::placeholder{
+    color: rgb(75, 67, 67);
+    font-size: 15px;
+    
+
+}
+
+.btn{
+    width: 100%;
+    border: 0;
+    border-radius:  5px;*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login{
+    width: 800px;
+    min-height: 400px;
+    overflow: hidden;
+    border-radius: 5px;
+    background:white ;
+    display: flex;
+    box-shadow: 15px 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.content{
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(31, 115, 241);
+    transform: 0.5s;
+}
+
+.content img{
+    width: 100%;    
+}
+
+.loginform{
+    flex-basis: 50%;
+    background: white;
+    font-family: roboto;
+    padding: 25px;
+}
+
+.loginform a{
+    color: rgb(31, 115, 241);
+    text-decoration: none;
+}
+
+.loginform h4 {
+    margin-top: 25px;
+    font-size: 25px;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginform h1 {
+    margin-top: 25px;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginform p {
+    margin-top: 5px;
+    font-size: 20px;
+    color: #202020;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tbox{
+    border-radius: 3px;
+    background: transparent;
+    outline: none;
+    border: 1px solid #55efc4;
+    width: 100%;
+    height: 35px;
+    margin: 30px 0;
+
+}
+
+.tbox input{
+    background: transparent;
+    width: 90%;
+    outline: none;
+    border: 0;
+    padding-left: 5px;
+   
+}
+
+.tbox img{
+    font-size: 15px;
+    padding: 3px;
+    
+}
+
+::placeholder{
+    color: rgb(75, 67, 67);
+    font-size: 15px;
+    
+
+}
+
+.btn{
+    width: 100%;
+    border: 0;
+    border-radius:  5px;
+    background: rgb(0, 0, 255);
+    color: white;
+    padding: 12px;
+    font-size: 18px;
+}
+
+.social{
+    margin-top: 25px;
+    list-style: none;
+    text-align: center;
+}
+
+.social li{
+    display: inline-block;
+}
+
+.social li img{
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    border: 1px solid rgb(160, 160, 160);
+    background-color: rgb(160, 160, 160);
+    border-radius: 5px;
+}
+
+.check input{
+    position: absolute;   
+    height: 0;
+    width: 0;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.checkboo{
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    cursor: pointer;
+    user-select: none;
+    margin: 0 0 1.25rem 0;
+
+}
+
+.checkmark{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 2px;
+    border: 1px solid rgb(20, 18, 18);
+    top: -4px;
+    left: 0;
+}
+
+.checkmark:after{
+    content: "";
+    display: none;
+    position: absolute;
+}
+
+@media(max-width:768px){
+    .login{
+        flex-direction: column;
+        margin: 0 15px ;
+
+    }
+}
+    background: rgb(0, 0, 255);
+    color: white;
+    padding: 12px;
+    font-size: 18px;
+}
+
+.social{
+    margin-top: 25px;
+    list-style: none;
+    text-align: center;
+}
+
+.social li{
+    display: inline-block;
+}
+
+.social li img{
+    height: 35px;
+    width: 35px;
+    line-height: 35px;
+    border: 1px solid rgb(160, 160, 160);
+    background-color: rgb(160, 160, 160);
+    border-radius: 5px;
+}
+
+.check input{
+    position: absolute;   
+    height: 0;
+    width: 0;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.checkboo{
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    cursor: pointer;
+    user-select: none;
+    margin: 0 0 1.25rem 0;
+
+}
+
+.checkmark{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 2px;
+    border: 1px solid rgb(20, 18, 18);
+    top: -4px;
+    left: 0;
+}
+
+.checkmark:after{
+    content: "";
+    display: none;
+    position: absolute;
+}
+
+@media(max-width:768px){
+    .login{
+        flex-direction: column;
+        margin: 0 15px ;
+
+    }
+}
 
                
 </style>
