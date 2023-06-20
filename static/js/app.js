@@ -71,6 +71,8 @@ const App = {
         
         $('.bars-mobile').on('click', (e) => {
 
+            $('.bars-mobile').children('i').removeClass('mdi-menu')
+
             $('.sidebar a[data-' + PAGE_ATTR + ']').each( (index, element) => {
 
                 $(element).on('click', (e)  => {

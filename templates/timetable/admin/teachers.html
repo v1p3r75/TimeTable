@@ -8,6 +8,64 @@
         <a href='#' class="text-black">Teachers</a>
     </div>
 </div>
-<div class="container">
-
+<div class="mt-5">
+    <div class="mb-3 text-end">
+        <button class="btn fd-bg-primary text-white  shadow-sm">Ajouter un professeur</button>
+    </div>
+    <table id="table" class="table table-sm table-hover table-bordered">
+        <thead>
+          <tr>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Prénom(s)</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Les données des cours seront ajoutées ici dynamiquement -->
+        </tbody>
+      </table>
 </div>
+<script>
+
+    const data = [
+        { lastname: "John", firstname: "SALAOU" , email : "test@example.com" },
+        { lastname: "Michael", firstname: "Malcom" , email : "test@example.com"},
+        { lastname: "Jennifer", firstname: "lAWSOM" , email : "test@example.com"},
+        { lastname: "Kabirou", firstname: "KABA" , email : "test@example.com"},
+        { lastname: "LISA", firstname: "GILES", email : "test@example.com" }
+    ];
+     $(document).ready(function() {
+      // Initialiser DataTables
+      $('#table').DataTable({
+            data,
+            columns: [
+                { data: 'lastname' },
+                { data: 'firstname' },
+                { data: 'email' },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                    return `
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button class="btn fd-bg-primary text-white rounded-4">
+                                <i class="mdi mdi-pen"></i>
+                                </button>
+                                <button class="btn bg-danger text-white rounded-4">
+                                    <i class="mdi mdi-trash-can"></i>
+                                </button>
+                            </div>
+                        `;
+                    }
+                }
+            ]
+        }
+      );
+
+      // Gérer l'événement du bouton "Ajouter"
+      $('#ajouterCoursBtn').on('click', function() {
+        // Ajouter ici la logique pour afficher un formulaire d'ajout de cours
+      });
+    });
+
+</script>
