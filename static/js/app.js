@@ -35,6 +35,7 @@ $(document).ready(function() {
             
             window.langueOptions = langueOptions;
 
+
             $('a[data-' + PAGE_ATTR + ']').each((index, element) => {
                 $(element).on('click', (e) => {
                     const target = e.target.nodeName == 'A' ? e.target : $(e.target).parents('a');
@@ -44,10 +45,11 @@ $(document).ready(function() {
             });
 
             $('.logout-btn').on('click', () => {
-                App.alert('question', () => {
+                App.alert('question', 'Déconnexion', 'Êtes-vous sûr de vouloir vous déconnecter ?', () => {
                     window.location.href = BASE_URL + '/auth/logout';
                 });
             });
+
         }(),
 
         preloader: function() {
@@ -106,11 +108,11 @@ $(document).ready(function() {
             });
         }(),
 
-        alert: function(type, callback) {
+        alert: function(type, title, text, callback) {
             if (type === 'question') {
                 Swal.fire({
-                    title: 'Déconnexion',
-                    text: 'Vous êtes sûr de vouloir vous déconnecter ?',
+                    title,
+                    text,
                     showCancelButton: true,
                     confirmButtonColor: '#3D5EE1',
                     cancelButtonColor: '#d33',
@@ -124,4 +126,6 @@ $(document).ready(function() {
             }
         },
     };
+
+    window.App = App;
 })

@@ -2,19 +2,19 @@
 
     <div class="row flex-column gap-3 gap-lg-4">
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" data-timetable-page='manager/dash' class="d-block d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" data-timetable-page={% url 'admin-dash' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-view-dashboard me-2"></i><span>Dashboard</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
         </div>
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" data-timetable-page='' class="d-block d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-calendar-month me-2"></i><span>Emplois du Temps</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
         </div>
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" data-timetable-page='manager/teachers' class="d-block d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" data-timetable-page={% url 'admin-teachers' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-account-group me-2"></i><span>Professeurs</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
