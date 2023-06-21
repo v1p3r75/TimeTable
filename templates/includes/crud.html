@@ -134,6 +134,8 @@
             })
 
             const form = $('#Modal form');
+            const loading = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...'
+
 
             $('.delete-btn').each(function(i,e) {
 
@@ -166,6 +168,9 @@
                 
                 e.preventDefault()
                 
+                const actionPrevText = $('.action-text').get(0).textContent
+                $('.action-text').html(loading)
+                
                 const formData = new FormData(form.get(0))
 
                 $.ajax({
@@ -176,6 +181,8 @@
                     processData: false,
                     contentType: false, 
                     success: function(response) {
+
+                        $('.action-text').text(actionPrevText)
                         console.log(response);
 
                     },
