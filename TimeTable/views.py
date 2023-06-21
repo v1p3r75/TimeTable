@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from Auth.models import User
+from Auth.models import User, Level
 import html
 
 # Create your views here.
@@ -31,6 +31,7 @@ def userAccount(request):
                     'firstname': request.POST.get('firstname'),
                     'phone': request.POST.get('phone'),
                     'email': request.POST.get('email'),
+                    'level_id': request.POST.get('level_id'),
                 }
                 
                 if User.objects.get(id = data.get('id')):
@@ -80,7 +81,14 @@ def userAccount(request):
             return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
         
 
-    return render(request, 'timetable/account.html')
+    levels = Level.objects.all()
+
+    tabs = []
+
+    for level in levels:
+        tabs.append({"id": level.id, "level": level.label})
+
+    return render(request, 'timetable/account.html', {'levels': levels})
 
 
 @login_required( login_url = 'login')

@@ -17,10 +17,11 @@
         </div>
         <form action={% url 'user-account' %} method='POST' class="mb-5">
             {% csrf_token %}
-            <input type="hidden" name="action" value="edit" class="form-action"/>
-            <input type="hidden" name="action-detail" value="info" class="form-action"/>
+            <input type="hidden" name="action" value="edit" class="form-action" />
+            <input type="hidden" name="action-detail" value="info" class="form-action" />
             <input type="hidden" name="id" value={{user.id}}>
-            <h6 class="text-muted my-3"> <i class="mdi mdi-account-arrow-right"></i> Compte : <span class="fd-color-primary">{{user.role.label}}</span></h6>
+            <h6 class="text-muted my-3"> <i class="mdi mdi-account-arrow-right"></i> Compte : <span
+                    class="fd-color-primary">{{user.role.label}}</span></h6>
             <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Lastname
@@ -35,7 +36,7 @@
                     </label>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-lg-2 my-3 flex-wrap">
+            <div class='row row-cols-1 my-3 flex-wrap {% if user.role.id == 3 %} row-cols-lg-3 {% else %} row-cols-lg-2 {% endif %}'>
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Email
                         <input name="email" type="email" class="form-control" value={{user.email}}>
@@ -48,6 +49,19 @@
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                     </label>
                 </div>
+                {% if user.role.id == 3 %}
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Filière
+                        <select name="level_id" class="form-select">
+                            {% for level in levels %}
+                            <option value={{level.id}} {% if user.level.id == level.id %} selected {% endif %}>
+                                {{level.label}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+                {% endif %}
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <button type="submit"
@@ -56,9 +70,9 @@
         </form>
         <hr>
         <form action={% url 'user-account' %} method="POST" class="mt-5">
-             {% csrf_token %}
-            <input type="hidden" name="action" value="edit" class="form-action"/>
-            <input type="hidden" name="action-detail" value="password" class="form-action"/>
+            {% csrf_token %}
+            <input type="hidden" name="action" value="edit" class="form-action" />
+            <input type="hidden" name="action-detail" value="password" class="form-action" />
             <input type="hidden" name="id" value={{user.id}}>
             <div class="row row-cols-1 row-cols-lg-3 flex-wrap">
                 <div class="form-group">
@@ -75,7 +89,8 @@
                 </div>
                 <div class="form-group mt-3 mt-lg-0">
                     <label class="position-relative text-muted w-100">Confirmer le mot de passe
-                        <input name="password_confirmation" type="password" class="form-control" placeholder="********" required>
+                        <input name="password_confirmation" type="password" class="form-control" placeholder="********"
+                            required>
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                     </label>
                 </div>

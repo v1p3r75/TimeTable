@@ -24,6 +24,12 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
+class Level(models.Model):
+
+    label = models.CharField(max_length = 255, unique = True)
+
+
+
 class Role(models.Model):
 
     label = models.TextField( max_length = 1, choices = [
@@ -48,6 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length = 255)
     phone = models.CharField(max_length = 30, null = True)
     role = models.ForeignKey(Role, on_delete = models.CASCADE, default = 3)
+    level = models.ForeignKey(Level, on_delete = models.CASCADE, null = True)
     create_at = models.DateTimeField(auto_now_add = True)
     is_staff = models.BooleanField(default = False)
     is_active = models.BooleanField(default = True)
