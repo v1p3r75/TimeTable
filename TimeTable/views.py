@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.utils.hashable import make_hashable
 from django.contrib.auth.decorators import login_required
 from Auth.models import User, Level
 import html
@@ -112,7 +113,7 @@ def adminTeachers(request):
                 
                 return JsonResponse({'success': False, 'message': 'L\'adresse email existe déjà.'})
                 
-            record = User.objects.create(**data)
+            record = User.objects.create_user(**data)
 
             return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
         
