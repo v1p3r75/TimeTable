@@ -4,6 +4,7 @@
             <form action={% block actionURL %}{% endblock %} method="POST" class="modal-content">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="add" class="form-action"/>
+                <input type="hidden" name="id" />
                 <div class="modal-header">
                     <h5 class="modal-title" id="ModalLabel">Ajouter</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -49,16 +50,13 @@
     <script>
 
         $(document).ready(function () {
-
             // Initialiser DataTables
             $('#table').DataTable({
+
                 data: {% block data %}{% endblock data %},
                 language: langueOptions,
                 columns: [
-                    { data: 'lastname' },
-                    { data: 'firstname' },
-                    { data: 'phone' },
-                    { data: 'email' },
+                    {% block columns %}{% endblock %}
                     {
                         data: null,
                         render: function (data, type, row) {
@@ -100,7 +98,7 @@
                 const modalTitle = modal.querySelector('.modal-title')
                 const actionText = modal.querySelector('.action-text')
                 const action = modal.querySelector('.form-action')
-                const inputs = modal.querySelectorAll('.modal-body input')
+                const inputs = modal.querySelectorAll('#Modal input')
 
                 if(recipient) {
 
