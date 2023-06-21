@@ -129,6 +129,7 @@
             modal.addEventListener('hidden.bs.modal', function (event) {
 
                 modal.querySelector('form').reset()
+                window.location.reload()
             })
 
             const form = $('#Modal form');
@@ -153,7 +154,17 @@
                             data: {action: 'del', id: $(e).data('timetable-id')},
                             success: function(response) {
 
-                                console.log(response);
+                                if(!response.success) {
+
+                                    return toastr.error(response.message)
+        
+                                }
+        
+                                toastr.success(response.message)
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 500)
+
                             },
         
                         })
