@@ -36,5 +36,5 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
   }
 
 .main::-webkit-scrollbar { width: 5px; }
-.main::-webkit-scrollbar-track { box-shadow: inset 0 0 2px var(--fd-color-primary); border-radius: 5px;}
+.main::-webkit-scrollbar-track { box-shadow: inset 0 0 2px white; border-radius: 5px;}
 .main::-webkit-scrollbar-thumb { background: var(--fd-color-secondary); border-radius: 10px;}
