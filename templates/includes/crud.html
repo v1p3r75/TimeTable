@@ -181,8 +181,14 @@
                     success: function(response) {
 
                         $('.action-text').text(actionPrevText)
-                        console.log(response);
 
+                        if(!response.success) {
+
+                            return toastr.error(response.message)
+
+                        }
+
+                        return toastr.success(response.message)
                     },
 
                 })
