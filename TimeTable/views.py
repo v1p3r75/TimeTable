@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.utils.hashable import make_hashable
 from django.contrib.auth.decorators import login_required
 from Auth.models import User, Level
+from .models import Subject, Classroom
 import html
 
 # Create your views here.
@@ -127,7 +128,6 @@ def adminTeachers(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
-                'password': request.POST.get('password'),
             }
 
             if User.objects.get(id = data.get('id')):
@@ -159,3 +159,130 @@ def adminTeachers(request):
         tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone, "password": user.password})
 
     return render(request, 'timetable/admin/teachers.html', {'users': html.unescape(tabs)})
+
+
+@login_required( login_url = 'login')
+def adminSubjects(request):
+
+    if request.method == 'POST':
+
+        if request.POST.get('action') == 'add':
+
+            
+            data = {
+                'label': request.POST.get('label'),
+                'code': request.POST.get('code'),
+                'total_time': request.POST.get('total_time'),
+                'level_id': request.POST.get('level_id'),
+            }
+                
+            Subject.objects.create(**data)
+
+            return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
+        
+        
+        if request.POST.get('action') == 'edit':
+
+            
+            data = {
+                'id': request.POST.get('id'),
+                'label': request.POST.get('label'),
+                'code': request.POST.get('code'),
+                'total_time': request.POST.get('total_time'),
+                'level_id': request.POST.get('level_id'),
+            }
+
+            if Subject.objects.get(id = data.get('id')):
+                                
+                Subject.objects.filter(id = data.get('id')).update(**data)
+
+                return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+        if request.POST.get('action') == 'del':
+
+            if Subject.objects.get(id = request.POST.get('id')):
+                                
+                Subject.objects.filter(id = request.POST.get('id')).delete()
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+
+    subjects = Subject.objects.all()
+    levels = Level.objects.all()
+
+    tab1 = []
+    tab2 = []
+
+    for subject in subjects:
+        tab1.append({"id": subject.id, "label": subject.label, "code": subject.code, "level_id": subject.level.id, "level": subject.level.label, "total_time": subject.total_time})
+
+    for level in levels:
+        tab2.append({"id": level.id, "label": level.label, "description": level.description})
+
+
+    return render(request, 'timetable/admin/subjects.html', {'subjects': html.unescape(tab1), 'levels': html.unescape(tab2)})
+
+
+@login_required( login_url = 'login')
+def adminLevels(request):
+
+    if request.method == 'POST':
+
+        if request.POST.get('action') == 'add':
+
+            
+            data = {
+                'label': request.POST.get('label'),
+                'description': request.POST.get('description'),
+            }
+                
+            Level.objects.create(**data)
+
+            return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
+        
+        
+        if request.POST.get('action') == 'edit':
+
+            
+            data = {
+                'id': request.POST.get('id'),
+                'label': request.POST.get('label'),
+                'description': request.POST.get('description'),
+            }
+
+            if Level.objects.get(id = data.get('id')):
+                                
+                Level.objects.filter(id = data.get('id')).update(**data)
+
+                return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+        if request.POST.get('action') == 'del':
+
+            if Level.objects.get(id = request.POST.get('id')):
+                                
+                Level.objects.filter(id = request.POST.get('id')).delete()
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+
+    levels = Level.objects.all()
+
+    tab = []
+
+    for level in levels:
+        tab.append({"id": level.id, "label": level.label, "description": '' if level.description is None else level.description})
+
+
+    return render(request, 'timetable/admin/levels.html', {'levels': html.unescape(tab)})

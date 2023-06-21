@@ -1,0 +1,40 @@
+{% extends "../../includes/crud.html" %}
+{% block modalForm %}
+<div>
+    <div class="form-group mb-3">
+        <label class="position-relative text-muted w-100">Nom
+            <input name="label" type="text" class="form-control" required>
+        </label>
+    </div>
+    <div class="form-group mt-3 mt-lg-0">
+        <label class="position-relative text-muted w-100">Description
+            <textarea name="description" type="text" class="form-control" rows="10" cols="10"></textarea>
+        </label>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageName %} Niveaux {% endblock %}
+{% block pathName %} Niveaux {% endblock %}
+
+{% block tableHead %}
+
+    <th class="text-center">Nom</th>
+    <th class=" text-center">Description</th>
+    <th class=" text-center">Actions</th>
+
+{% endblock %}
+
+{% block actionURL %}
+
+    {% url 'admin-levels' %}
+
+{% endblock %}
+
+{% block data %}
+ {{ levels | safe }}
+{% endblock data %}
+{% block columns %}
+    {data : 'label'},
+    {data : 'description'},
+{% endblock %}
