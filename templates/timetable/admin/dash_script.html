@@ -1,5 +1,9 @@
 <script>
-    const data = {
+
+$(document).ready(function () {
+
+    const testsGraph = {
+
         labels: ['L1', 'L2', 'L3', 'M1', 'M2', 'ISI'],
         datasets: [
             {
@@ -44,7 +48,9 @@
     const ctx = document.getElementById('graph-viewer').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
-        data: data,
+        data: testsGraph,
         options: options
     });
+
+})
 </script>
