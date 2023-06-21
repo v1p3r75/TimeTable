@@ -29,14 +29,14 @@
     <script src={% static 'vendor/toastr/toastr.min.js' %}></script>
   </head>
   <body class="fd-bg-silver h-100 overflow-hidden">
-    <div class="preloader position-fixed bg-white top-0 start-0 w-100 h-100" style="z-index: 4;">
+    <div class="preloader position-fixed bg-white top-0 start-0 w-100 h-100" style="z-index: 1000;">
         <div style="width: 30%; height: 250px; margin: 30vh auto;">
             <img src="/static/img/logo.png" alt="loader" style="width: 100%; height: 100%"><br>
         </div>
     </div>
     <div class="container-fluid h-100 p-0">
         {% include './header.html' %}
-        <div class="container-fluid h-100 m-0">
+        <div class="position-relative container-fluid h-100 m-0">
             <div class="row h-100">
                 {% include './sidebar.html' %}
                 <div class="main col col-12 col-lg-9 h-100 overflow-scroll" style="padding-bottom: 10%;">
