@@ -27,6 +27,7 @@ class CustomUserManager(BaseUserManager):
 class Level(models.Model):
 
     label = models.CharField(max_length = 255, unique = True)
+    description = models.TextField(max_length = 255, null = True)
 
 
 
