@@ -35,10 +35,6 @@
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-lg-2 my-3 flex-wrap">
-                {% csrf_token %}
-                <input type="hidden" name="action" value="edit" class="form-action"/>
-                <input type="hidden" name="action-detail" value="password" class="form-action"/>
-                <input type="hidden" name="id" value={{user.id}}>
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Email
                         <input name="email" type="email" class="form-control" value={{user.email}}>
@@ -54,7 +50,7 @@
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <button type="submit"
-                    class="btn fd-bg-secondary text-white col col-6 col-lg-3 shadow-sm">Modifier</button>
+                    class="btn fd-bg-secondary text-white col col-6 col-lg-3 shadow-sm action-btn">Modifier</button>
             </div>
         </form>
         <hr>
@@ -66,26 +62,26 @@
             <div class="row row-cols-1 row-cols-lg-3 flex-wrap">
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Mot de passe actuel
-                        <input name="password" type="password" class="form-control" placeholder="********" required aria-required="sd">
+                        <input name="password" type="password" class="form-control" placeholder="********" required>
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                     </label>
                 </div>
                 <div class="form-group">
                     <label class="position-relative text-muted w-100">Nouveau mot de passe
-                        <input name="new_password" type="password" class="form-control" placeholder="********" required aria-required="sd">
+                        <input name="new_password" type="password" class="form-control" placeholder="********" required>
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                     </label>
                 </div>
                 <div class="form-group mt-3 mt-lg-0">
                     <label class="position-relative text-muted w-100">Confirmer le mot de passe
-                        <input name="password_confirmation" type="password" class="form-control" placeholder="********" required aria-required="sd">
+                        <input name="password_confirmation" type="password" class="form-control" placeholder="********" required>
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                     </label>
                 </div>
             </div>
             <div class="d-flex justify-content-end mt-4">
                 <button type="submit"
-                    class="btn fd-bg-secondary text-white col col-6 col-lg-3 shadow-sm">Modifier</button>
+                    class="btn fd-bg-secondary text-white col col-6 col-lg-3 shadow-sm action-btn">Modifier</button>
             </div>
         </form>
     </div>
@@ -104,7 +100,6 @@
                 e.preventDefault()
                 const btn = form.querySelector('.action-btn')
                 $(btn).html(loading)
-
                 const formData = new FormData(form)
 
                 $.ajax({

@@ -31,7 +31,6 @@ def userAccount(request):
                     'firstname': request.POST.get('firstname'),
                     'phone': request.POST.get('phone'),
                     'email': request.POST.get('email'),
-                    'password': request.POST.get('password'),
                 }
                 
                 if User.objects.get(id = data.get('id')):
