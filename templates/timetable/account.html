@@ -1,0 +1,76 @@
+<div>
+    <div class="d-flex justify-content-between">
+        <div class="page-title">
+            <h4>Mon compte</h4>
+        </div>
+        <div class="page-path">
+            <a href={% url 'admin-dashboard' %} class="text-black">Home</a>
+            <span class="mx-1">/</span>
+            <a href="javascript:void(0)" class="text-black">Account</a>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+        <div class="col-2 mx-auto p-4 border border-3 mb-4 text-center" style="width: 150px; height: 150px; border-radius: 150px;">
+            <img src="/static/img/teacher.svg" alt="logo teacher" class="w-100 h-100">
+        </div>
+        <form action="" class="mb-5">
+            <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Lastname
+                        <input name="lastname" type="text" class="form-control" value={{user.lastname}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+                    </label>
+                </div>
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Firstname
+                        <input name="firstname" type="text" class="form-control" value={{user.firstname}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+                    </label>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-lg-2 my-3 flex-wrap">
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Email
+                        <input name="email" type="email" class="form-control" value={{user.email}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Phone
+                        <input name="phone" type="tel" class="form-control" value={{user.phone}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <button type="submit" class="btn fd-bg-secondary text-white col-3 shadow-sm">Modifier</button>
+            </div>
+        </form><hr>
+        <form action="" class="mt-5">
+            <div class="row row-cols-1 row-cols-lg-3 flex-wrap">
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Mot de passe actuel
+                        <input name="password" type="password" class="form-control" placeholder="********">
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Nouveau mot de passe
+                        <input name="password" type="password" class="form-control" placeholder="********">
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Confirmer le mot de passe
+                        <input name="password_confirmation" type="password" class="form-control" placeholder="********">
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn fd-bg-secondary text-white col-3 shadow-sm">Modifier</button>
+            </div>
+        </form>
+    </div>
+</div>

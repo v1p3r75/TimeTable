@@ -6,4 +6,5 @@ urlpatterns = [
     path("", views.adminDashboard, name="student-dashboard"),
     path("admin/dash", views.adminDash, name="admin-dash"),
     path("admin/teachers", views.adminTeachers, name="admin-teachers"),
+    path("account", views.userAccount, name="user-account"),
 ]

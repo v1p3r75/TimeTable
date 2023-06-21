@@ -16,6 +16,11 @@ def adminDash(request):
 
     return render(request, 'timetable/admin/dash.html')
 
+@login_required( login_url = 'login')
+def userAccount(request):
+
+    return render(request, 'timetable/account.html')
+
 
 @login_required( login_url = 'login')
 def adminTeachers(request):
