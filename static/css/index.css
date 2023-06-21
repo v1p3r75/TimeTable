@@ -1,3 +1,4 @@
+@import url('./fonts.css');
 :root {
 
     --fd-color-blue: #18aefa;
@@ -21,6 +22,7 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
 .profile-img { width: 30px; height: 30px; border-radius: 20px;}
 .card-img { background-color: #EDF4FF;} .card-social { background-color: #fff }
 .card-img img, .card-social img { width : 50px; height: 50px;}
+.btn-action { width: 30px; height: 30px}
 .d-grid { display: grid;}
 .grid-3 { grid-template-columns: 3fr 3fr 3fr;} .grid-4 { grid-template-columns: 3fr 3fr 3fr 3fr;}
 .grid-2 { grid-template-columns: 6fr 6fr} .grid-0 { grid-template-columns: 12fr} 

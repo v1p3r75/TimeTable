@@ -1,16 +1,70 @@
-{% extends '../../includes/base.html' %}
-{% block main %}
-<div class="d-flex justify-content-between">
-    <div class="page-title">
-        <h4>Professeurs</h4>
+{% extends "../../includes/crud.html" %}
+{% block modalForm %}
+<div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+    <div class="form-group">
+        <label class="position-relative text-muted w-100">Lastname
+            <input name="lastname" type="text" class="form-control">
+            <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+        </label>
     </div>
-    <div class="page-path">
-        <a href="/" class="text-black">Home</a>
-        <span class="mx-1">/</span>
-        <a href='#' class="text-black">Teachers</a>
+    <div class="form-group mt-3 mt-lg-0">
+        <label class="position-relative text-muted w-100">Firstname
+            <input name="firstname" type="text" class="form-control">
+            <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+        </label>
     </div>
 </div>
-<div class="container">
-
+<div class="form-group my-3">
+    <label class="position-relative text-muted w-100">Email
+        <input name="email" type="email" class="form-control">
+        <span class="position-absolute top-50 end-5"><i class="mdi mdi-email"></i></span>
+    </label>
+</div>
+<div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+    <div class="form-group">
+        <label class="position-relative text-muted w-100">Phone
+            <input name="phone" type="tel" class="form-control">
+            <span class="position-absolute top-50 end-5"><i class="mdi mdi-phone"></i></span>
+        </label>
+    </div>
+    <div class="form-group mt-3 mt-lg-0">
+        <label class="position-relative text-muted w-100">Password
+            <input name="password" type="password" class="form-control">
+            <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+        </label>
+        <span class="small text-danger">Notez le mot de passe avant de soumettre le
+            formulaire</span>
+    </div>
 </div>
 {% endblock %}
+
+{% block pageName %} Professeur {% endblock %}
+{% block pathName %} Teachers {% endblock %}
+
+{% block tableHead %}
+
+    <th class="text-center">Nom</th>
+    <th class=" text-center">Prénom(s)</th>
+    <th class=" text-center">Phone</th>
+    <th class=" text-center">Email</th>
+    <th class=" text-center">Actions</th>
+
+{% endblock %}
+
+{% block actionURL %}
+
+    {% url 'admin-teachers' %}
+
+{% endblock %}
+
+{% block data %}
+
+    [
+        { id: 1, lastname: "John", firstname: "SALAOU", phone: '+22996457545', email: "test@example.com" },
+        { id: 1, lastname: "Michael", firstname: "Malcom", phone: '+22996457545', email: "test@example.com" },
+        { id: 1, lastname: "Jennifer", firstname: "lAWSOM", phone: '+22996457545', email: "test@example.com" },
+        { id: 1, lastname: "Kabirou", firstname: "KABA", phone: '+22996457545', email: "test@example.com" },
+        { id: 1, lastname: "LISA", firstname: "GILES", phone: '+22996457545', email: "test@example.com" }
+    ]
+
+{% endblock data %}
