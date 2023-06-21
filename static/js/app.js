@@ -54,9 +54,15 @@ $(document).ready(function() {
 
         preloader: function() {
             $(document).ready(async function() {
+
                 $('.preloader').hide();
                 if (window.location.hash !== '') {
+
                     const data = await App.fetch(BASE_URL + window.location.hash.slice(1));
+                    $('main').html(data);
+                }else {
+
+                    const data = await App.fetch(BASE_URL + $('.label-dashboard').data(PAGE_ATTR));
                     $('main').html(data);
                 }
             });

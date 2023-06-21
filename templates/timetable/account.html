@@ -1,0 +1,146 @@
+<div>
+    <div class="d-flex justify-content-between">
+        <div class="page-title">
+            <h4>Mon compte</h4>
+        </div>
+        <div class="page-path">
+            <a href={% url 'admin-dashboard' %} class="text-black">Home</a>
+            <span class="mx-1">/</span>
+            <a href="javascript:void(0)" class="text-black">Account</a>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+        <div class="col-2 mx-auto p-4 border border-3 mb-4 text-center"
+            style="width: 150px; height: 150px; border-radius: 150px;">
+            <img src="/static/img/teacher.svg" alt="logo teacher" class="w-100 h-100">
+        </div>
+        <form action={% url 'user-account' %} method='POST' class="mb-5">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="edit" class="form-action" />
+            <input type="hidden" name="action-detail" value="info" class="form-action" />
+            <input type="hidden" name="id" value={{user.id}}>
+            <h6 class="text-muted my-3"> <i class="mdi mdi-account-arrow-right"></i> Compte : <span
+                    class="fd-color-primary">{{user.role.label}}</span></h6>
+            <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Lastname
+                        <input name="lastname" type="text" class="form-control" value={{user.lastname}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+                    </label>
+                </div>
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Firstname
+                        <input name="firstname" type="text" class="form-control" value={{user.firstname}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
+                    </label>
+                </div>
+            </div>
+            <div class='row row-cols-1 my-3 flex-wrap {% if user.role.id == 3 %} row-cols-lg-3 {% else %} row-cols-lg-2 {% endif %}'>
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Email
+                        <input name="email" type="email" class="form-control" value={{user.email}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Phone
+                        <input name="phone" type="tel" class="form-control" value={{user.phone}}>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                {% if user.role.id == 3 %}
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Filière
+                        <select name="level_id" class="form-select">
+                            {% for level in levels %}
+                            <option value={{level.id}} {% if user.level.id == level.id %} selected {% endif %}>
+                                {{level.label}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+                <button type="submit"
+                    class="btn fd-bg-secondary text-white col col-6 col-lg-3 shadow-sm action-btn">Modifier</button>
+            </div>
+        </form>
+        <hr>
+        <form action={% url 'user-account' %} method="POST" class="mt-5">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="edit" class="form-action" />
+            <input type="hidden" name="action-detail" value="password" class="form-action" />
+            <input type="hidden" name="id" value={{user.id}}>
+            <div class="row row-cols-1 row-cols-lg-3 flex-wrap">
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Mot de passe actuel
+                        <input name="password" type="password" class="form-control" placeholder="********" required>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="position-relative text-muted w-100">Nouveau mot de passe
+                        <input name="new_password" type="password" class="form-control" placeholder="********" required>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+                <div class="form-group mt-3 mt-lg-0">
+                    <label class="position-relative text-muted w-100">Confirmer le mot de passe
+                        <input name="password_confirmation" type="password" class="form-control" placeholder="********"
+                            required>
+                        <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+                <button type="submit"
+                    class="btn fd-bg-secondary text-white col col-6 col-lg-3 shadow-sm action-btn">Modifier</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        const forms = $('form')
+        const loading = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...'
+
+        forms.each((i, form) => {
+
+            $(form).on('submit', (e) => {
+
+                e.preventDefault()
+                const btn = form.querySelector('.action-btn')
+                $(btn).html(loading)
+                const formData = new FormData(form)
+
+                $.ajax({
+
+                    url: form.getAttribute('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+
+                        $(btn).html('Modifier')
+
+                        if (!response.success) {
+
+                            return toastr.error(response.message)
+
+                        }
+                        return toastr.success(response.message)
+                    },
+
+                })
+            })
+
+        })
+    });
+
+</script>

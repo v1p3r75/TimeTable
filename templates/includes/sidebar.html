@@ -1,8 +1,8 @@
-<div class="sidebar col d-none d-lg-block col-lg-3 h-100 fd-bg-secondary pt-5 fw-boder">
+<div class="sidebar col d-none d-lg-block col-lg-3 h-100 fd-bg-secondary pt-5 fw-boder" style="z-index: 500">
 
     <div class="row flex-column gap-3 gap-lg-4">
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" data-timetable-page={% url 'admin-dash' %} class="d-block d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" data-timetable-page={% url 'admin-dash' %} class="d-block label-dashboard d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-view-dashboard me-2"></i><span>Dashboard</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" class="d-block d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" data-timetable-page={% url 'admin-subjects' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-notebook-multiple me-2"></i><span>Cours</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
@@ -32,14 +32,14 @@
             </a>
         </div>
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" class="d-block d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" data-timetable-page={% url 'admin-levels' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-school me-2"></i><span>Niveaux Scolaire</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
         </div>
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" class="d-block d-flex justify-content-between fd-color-silver-2">
-                <div><i class="mdi mdi-cog me-2"></i><span>Paramètres</span></div>
+            <a href="javascript:void(0)" data-timetable-page={% url 'user-account' %} class="d-block d-flex justify-content-between fd-color-silver-2">
+                <div><i class="mdi mdi-account-box me-2"></i><span>Mon compte</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
         </div>

@@ -1,12 +1,7 @@
 from django.db import models
-from Auth.models import User
+from Auth.models import User, Level
 
 # Create your models here.
-
-class Level(models.Model):
-
-    label = models.CharField(max_length = 255, unique = True)
-
 
 class Subject(models.Model):
 
@@ -20,6 +15,8 @@ class Classroom(models.Model):
 
     label = models.CharField(max_length = 255)
     capacity = models.IntegerField( null = True)
+    status = models.BooleanField( default = False)
+    description = models.TextField(max_length = 255, null = True)
 
 
 class TimeTable(models.Model):
