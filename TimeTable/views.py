@@ -349,3 +349,10 @@ def adminClassrooms(request):
 
 
     return render(request, 'timetable/admin/classrooms.html', {'classrooms': html.unescape(tab)})
+
+
+
+@login_required( login_url = 'login')
+def adminTimetables(request):
+
+    return render(request, 'timetable/admin/timetables.html')

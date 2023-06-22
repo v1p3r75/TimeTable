@@ -1,0 +1,30 @@
+{% extends "../../includes/crud.html" %}
+{% block modalForm %}
+<div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+    
+
+</div>
+{% endblock %}
+
+{% block pageName %} Emploi du temps {% endblock %}
+{% block pathName %} Emploi {% endblock %}
+
+{% block tableHead %}
+
+    <th class="text-center" rowspan="7">Semaine</th>
+    <th class=" text-center">Actions</th>
+
+{% endblock %}
+
+{% block actionURL %}
+
+    {% url 'admin-teachers' %}
+
+{% endblock %}
+
+{% block data %}
+ {{ users | safe }}
+{% endblock data %}
+{% block columns %}
+    [],
+{% endblock %}
