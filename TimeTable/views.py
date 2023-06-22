@@ -286,3 +286,66 @@ def adminLevels(request):
 
 
     return render(request, 'timetable/admin/levels.html', {'levels': html.unescape(tab)})
+
+
+@login_required( login_url = 'login')
+def adminClassrooms(request):
+
+    if request.method == 'POST':
+
+        if request.POST.get('action') == 'add':
+
+            
+            data = {
+                'label': request.POST.get('label'),
+                'capacity': request.POST.get('capacity'),
+                'status': True if request.POST.get('status') == 'on' else False,
+                'description': request.POST.get('description'),
+            }
+                
+            Classroom.objects.create(**data)
+
+            return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
+        
+        
+        if request.POST.get('action') == 'edit':
+
+            
+            data = {
+                'id': request.POST.get('id'),
+                'label': request.POST.get('label'),
+                'capacity': request.POST.get('capacity'),
+                'status': True if request.POST.get('status') == 'on' else False,
+                'description': request.POST.get('description'),
+            }
+
+            if Classroom.objects.get(id = data.get('id')):
+                                
+                Classroom.objects.filter(id = data.get('id')).update(**data)
+
+                return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+        if request.POST.get('action') == 'del':
+
+            if Classroom.objects.get(id = request.POST.get('id')):
+                                
+                Classroom.objects.filter(id = request.POST.get('id')).delete()
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+
+    classrooms = Classroom.objects.all()
+
+    tab = []
+
+    for classroom in classrooms:
+        tab.append({"id": classroom.id, "label": classroom.label, "status": "off" if classroom.status is False else "on", "capacity": classroom.capacity, "description": '' if classroom.description is None else classroom.description})
+
+
+    return render(request, 'timetable/admin/classrooms.html', {'classrooms': html.unescape(tab)})

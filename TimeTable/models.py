@@ -15,7 +15,7 @@ class Classroom(models.Model):
 
     label = models.CharField(max_length = 255)
     capacity = models.IntegerField( null = True)
-    status = models.BooleanField( default = False)
+    status = models.BooleanField( default = True)
     description = models.TextField(max_length = 255, null = True)
 
 
