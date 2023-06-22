@@ -1,0 +1,62 @@
+{% extends "../../includes/crud.html" %}
+{% block modalForm %}
+<div class="row row-cols-1 row-cols-lg-2 flex-wrap">
+    <div class="form-group">
+        <label class="position-relative text-muted w-100">Nom
+            <input name="label" type="text" class="form-control" required>
+        </label>
+    </div>
+    <div class="form-group mt-3 mt-lg-0">
+        <label class="position-relative text-muted w-100">Code
+            <input name="code" type="text" class="form-control" required>
+        </label>
+    </div>
+</div>
+<div class="form-group my-3">
+    <label class="position-relative text-muted w-100">Temps total
+        <input name="total_time" type="number" class="form-control" required>
+    </label>
+</div>
+<div>
+    <div class="form-group">
+        <label class="position-relative text-muted w-100">Classe
+            <select name='level_id' class="form-select">
+                {% for level in levels %}
+                    <option value={{level.id}}>
+                        {{level.label}}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageName %} Cours {% endblock %}
+{% block pathName %} Cours {% endblock %}
+
+{% block tableHead %}
+
+    <th class="text-center">Code</th>
+    <th class=" text-center">Label</th>
+    <th class=" text-center">Temps Total (h)</th>
+    <th class=" text-center">Classe</th>
+    <th class=" text-center">Actions</th>
+
+{% endblock %}
+
+{% block actionURL %}
+
+    {% url 'admin-subjects' %}
+
+{% endblock %}
+
+{% block data %}
+ {{ subjects | safe }}
+{% endblock data %}
+{% block columns %}
+    {data : 'code'},
+    {data : 'label'},
+    {data : 'total_time'},
+    {data: 'level'},
+{% endblock %}
