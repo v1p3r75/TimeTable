@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group mt-3 mt-lg-0">
                     <label class="position-relative text-muted w-100">Phone
-                        <input name="phone" type="tel" class="form-control" value={{user.phone}}>
+                        <input name="phone" type="tel" class="form-control" value={% if user.phone is None %}''{% else %} {{user.phone}} {% endif %} >
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                     </label>
                 </div>
