@@ -1,0 +1,97 @@
+{% extends "../../includes/crud.html" %}
+{% block modalForm %}
+<div class="">
+    <div class="d-flex justify-content-end">
+        <a
+            href="javascript:void(0)"
+            class="d-block p-2 fd-bg-primary lh-1 text-white-50"
+            style="width: 30px; height: 30px;" title="Ajouter autre ligne"
+
+            >
+                <i class="mdi mdi-plus"></i>
+        </a>
+    </div>
+    <div class="row row-cols-3">
+        <div>
+            <label class="position-relative text-muted w-100">Classe
+                <select name='level_id' class="form-select">
+                    {% for level in levels %}
+                        <option value={{level.id}}>
+                            {{level.label}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div>
+            <label class="position-relative text-muted w-100">Cours
+                <select name='subject_id' class="form-select">
+                    {% for subject in subjects %}
+                        <option value={{subject.id}}>
+                            {{subject.label}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div>
+            <label class="position-relative text-muted w-100">Professeur
+                <select name='user_id' class="form-select">
+                    {% for teacher in teachers %}
+                        <option value={{teacher.id}}>
+                            {{teacher.firstname}} {{teacher.lastname}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="row row-cols-3 mt-3">
+        <div>
+            <label class="position-relative text-muted w-100">Salle
+                <select name='classroom_id' class="form-select">
+                    {% for classroom in classrooms %}
+                        <option value={{classroom.id}}>
+                            {{classroom.label}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div>
+            <label class="position-relative text-muted w-100">Début
+                <input type="datetime-local" name="start_time" class="form-control">
+            </label>
+        </div>
+        <div>
+            <label class="position-relative text-muted w-100">Fin
+                <input type="datetime-local" name="end_time" class="form-control">
+            </label>
+        </div>
+    </div><hr>
+
+</div>
+{% endblock %}
+
+{% block pageName %} Emploi du temps {% endblock %}
+{% block pathName %} Emploi {% endblock %}
+
+{% block tableHead %}
+
+    <th class="text-center" rowspan="7">Semaine</th>
+    <th class=" text-center">Actions</th>
+
+{% endblock %}
+
+{% block actionURL %}
+
+    {% url 'admin-teachers' %}
+
+{% endblock %}
+
+{% block data %}
+ {{ users | safe }}
+{% endblock data %}
+{% block columns %}
+    [],
+{% endblock %}

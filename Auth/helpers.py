@@ -6,7 +6,7 @@ def redirect_authenticated_user(view_func):
 
         if request.user.is_authenticated:
 
-            return redirect('admin-dashboard')
+            return redirect_users(request, request.user)
         
         return view_func(request, *args, **kwargs)
     
@@ -25,4 +25,4 @@ def redirect_users(request, user):
     
     else :
 
-        return redirect('admin-dashboard')
+        return redirect('student-dashboard')

@@ -16,7 +16,20 @@ def adminDashboard(request):
 @login_required( login_url = 'login')
 def adminDash(request):
 
-    return render(request, 'timetable/admin/dash.html')
+    total_students = User.objects.filter( role_id = 3).count()
+    total_teachers = User.objects.filter( role_id = 2).count()
+    total_subjects = Subject.objects.count()
+    total_classrooms = Classroom.objects.count()
+
+    # students_by_levels = User.objects.filter( role_id = 3)
+    
+    levels = Level.objects.all()
+    tab = []
+    for level in levels:
+        tab.append(level.label)
+
+    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab})
+
 
 @login_required( login_url = 'login')
 def userAccount(request):
@@ -286,3 +299,98 @@ def adminLevels(request):
 
 
     return render(request, 'timetable/admin/levels.html', {'levels': html.unescape(tab)})
+
+
+@login_required( login_url = 'login')
+def adminClassrooms(request):
+
+    if request.method == 'POST':
+
+        if request.POST.get('action') == 'add':
+
+            
+            data = {
+                'label': request.POST.get('label'),
+                'capacity': request.POST.get('capacity'),
+                'status': True if request.POST.get('status') == 'on' else False,
+                'description': request.POST.get('description'),
+            }
+                
+            Classroom.objects.create(**data)
+
+            return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
+        
+        
+        if request.POST.get('action') == 'edit':
+
+            
+            data = {
+                'id': request.POST.get('id'),
+                'label': request.POST.get('label'),
+                'capacity': request.POST.get('capacity'),
+                'status': True if request.POST.get('status') == 'on' else False,
+                'description': request.POST.get('description'),
+            }
+
+            if Classroom.objects.get(id = data.get('id')):
+                                
+                Classroom.objects.filter(id = data.get('id')).update(**data)
+
+                return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+        if request.POST.get('action') == 'del':
+
+            if Classroom.objects.get(id = request.POST.get('id')):
+                                
+                Classroom.objects.filter(id = request.POST.get('id')).delete()
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+
+    classrooms = Classroom.objects.all()
+
+    tab = []
+
+    for classroom in classrooms:
+        tab.append({"id": classroom.id, "label": classroom.label, "status": "off" if classroom.status is False else "on", "capacity": classroom.capacity, "description": '' if classroom.description is None else classroom.description})
+
+
+    return render(request, 'timetable/admin/classrooms.html', {'classrooms': html.unescape(tab)})
+
+
+
+@login_required( login_url = 'login')
+def adminTimetables(request):
+
+
+    subjects = Subject.objects.all()
+    levels = Level.objects.all()
+    classrooms = Classroom.objects.all()
+    users = User.objects.filter(role_id = 2).all()
+
+
+    tab1 = []
+    tab2 = []
+    tab3 = []
+
+    for subject in subjects:
+        tab1.append({"id": subject.id, "label": subject.label, "code": subject.code, "level_id": subject.level.id, "level": subject.level.label, "total_time": subject.total_time})
+
+    for level in levels:
+        tab2.append({"id": level.id, "label": level.label, "description": level.description})
+ 
+    for classroom in classrooms:
+        tab3.append({"id": classroom.id, "label": classroom.label, "status": "off" if classroom.status is False else "on", "capacity": classroom.capacity, "description": '' if classroom.description is None else classroom.description})
+    
+    tab4 = []
+    for user in users:
+        tab4.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone, "password": user.password})
+
+
+    return render(request, 'timetable/admin/timetables.html', {'subjects': html.unescape(tab1),'levels': html.unescape(tab2), 'classrooms': html.unescape(tab3), 'teachers': html.unescape(tab4)})

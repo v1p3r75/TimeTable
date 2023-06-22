@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     const testsGraph = {
 
-        labels: ['L1', 'L2', 'L3', 'M1', 'M2', 'ISI'],
+        labels: {{ levels_list | safe }},
         datasets: [
             {
                 label: 'Enseignants',

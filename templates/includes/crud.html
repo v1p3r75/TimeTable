@@ -100,7 +100,7 @@
                 const modalTitle = modal.querySelector('.modal-title')
                 const actionText = modal.querySelector('.action-text')
                 const action = modal.querySelector('.form-action')
-                const inputs = modal.querySelectorAll('#Modal input')
+                const all = modal.querySelectorAll('#Modal input, #Modal textarea, #Modal select')
 
                 if(recipient) {
 
@@ -108,7 +108,7 @@
                     actionText.textContent = 'Modifier'
                     action.value = 'edit'
 
-                    for (const input of inputs) {
+                    for (const input of all) {
 
                         for (const value in recipient) {
 
