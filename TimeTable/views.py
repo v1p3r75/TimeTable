@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.utils.hashable import make_hashable
+from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from Auth.models import User, Level
 from .models import Subject, Classroom
@@ -22,13 +22,32 @@ def adminDash(request):
     total_classrooms = Classroom.objects.count()
 
     # students_by_levels = User.objects.filter( role_id = 3)
-    
+    students_by_levels = (
+        User.objects
+        .filter( role_id = 3)
+        .values('level_id')
+        .annotate(total=Count('id'))
+        .values_list('total', flat=True)
+    )
+    # students_b = []
+
     levels = Level.objects.all()
+
+    # if len(levels) > len(list(students_by_levels)):
+
+    #     for i in range(len(levels)):
+
+    #         if i < len(list(students_by_levels)):
+
+    #             students_b.append(students_by_levels[i])
+
+    #         students_b.append(0)
+
     tab = []
     for level in levels:
         tab.append(level.label)
 
-    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab})
+    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': list(students_by_levels)})
 
 
 @login_required( login_url = 'login')
