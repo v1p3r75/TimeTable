@@ -21,7 +21,15 @@ def adminDash(request):
     total_subjects = Subject.objects.count()
     total_classrooms = Classroom.objects.count()
 
-    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms})
+    # students_by_levels = User.objects.filter( role_id = 3)
+    
+    levels = Level.objects.all()
+    tab = []
+    for level in levels:
+        tab.append(level.label)
+
+    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab})
+
 
 @login_required( login_url = 'login')
 def userAccount(request):
