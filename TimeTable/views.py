@@ -410,18 +410,23 @@ def adminTimetables(request):
                 start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
                 end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
 
-                TimeTable.objects.create(
-                    level_id = level_ids[i],
-                    classroom_id = classroom_ids[i],
-                    subject_id = subject_ids[i],
-                    user_id = user_ids[i],
-                    start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
-                    end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
-                )
-                 
-        return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
+                try:
+                    
+                    TimeTable.objects.create(
+                        level_id = level_ids[i],
+                        classroom_id = classroom_ids[i],
+                        subject_id = subject_ids[i],
+                        user_id = user_ids[i],
+                        start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                        end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                    )
 
-        
+                except Exception as e:
+                    
+                    return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégisitrement"})
+
+            return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
+
     subjects = Subject.objects.all()
     levels = Level.objects.all()
     classrooms = Classroom.objects.all()
