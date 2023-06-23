@@ -1,6 +1,6 @@
 <div>
     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog {% block modalClass %}{% endblock %}">
             <form action={% block actionURL %}{% endblock %} method="POST" class="modal-content">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="add" class="form-action"/>
@@ -50,6 +50,16 @@
     <script>
 
         $(document).ready(function () {
+
+            const btn = document.querySelector('.btn-duplicate');
+            const formContent = document.querySelector('.f-content');
+            const formGroup = document.querySelector('.group');
+
+            btn?.addEventListener('click', () => {
+                const clone = formGroup.cloneNode(true)
+                formContent.appendChild(clone)
+            })
+            
             // Initialiser DataTables
             $('#table').DataTable({
 
@@ -211,7 +221,6 @@
 
                 })
             })
-
         });
 
     </script>

@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 
 def redirect_authenticated_user(view_func):
 
@@ -26,3 +26,5 @@ def redirect_users(request, user):
     else :
 
         return redirect('student-dashboard')
+
+
