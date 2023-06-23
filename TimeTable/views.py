@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.db import transaction
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from Auth.models import User, Level
-from .models import Subject, Classroom
+from .models import Subject, Classroom, TimeTable
 import html
+from datetime import datetime
 
 # Create your views here.
 @login_required( login_url = 'login')
@@ -385,31 +387,49 @@ def adminClassrooms(request):
 
 
 @login_required( login_url = 'login')
+@transaction.atomic
 def adminTimetables(request):
 
 
+    if request.method == "POST":
+
+        data = []
+
+        level_ids = request.POST.getlist('level_id')
+        classroom_ids = request.POST.getlist('classroom_id')
+        subject_ids = request.POST.getlist('subject_id')
+        user_ids = request.POST.getlist('user_id')
+        start_times = request.POST.getlist('start_time')
+        end_times = request.POST.getlist('end_time')
+
+
+        with transaction.atomic():
+
+            for i in range(len(user_ids)):
+
+                start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
+                end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
+
+                TimeTable.objects.create(
+                    level_id = level_ids[i],
+                    classroom_id = classroom_ids[i],
+                    subject_id = subject_ids[i],
+                    user_id = user_ids[i],
+                    start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                    end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                )
+                 
+        return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
+
+        
     subjects = Subject.objects.all()
     levels = Level.objects.all()
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
 
-
-    tab1 = []
-    tab2 = []
-    tab3 = []
-
-    for subject in subjects:
-        tab1.append({"id": subject.id, "label": subject.label, "code": subject.code, "level_id": subject.level.id, "level": subject.level.label, "total_time": subject.total_time})
-
-    for level in levels:
-        tab2.append({"id": level.id, "label": level.label, "description": level.description})
- 
-    for classroom in classrooms:
-        tab3.append({"id": classroom.id, "label": classroom.label, "status": "off" if classroom.status is False else "on", "capacity": classroom.capacity, "description": '' if classroom.description is None else classroom.description})
-    
-    tab4 = []
-    for user in users:
-        tab4.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone, "password": user.password})
+    # for subject in subjects:
+    #     tab1.append({"id": subject.id, "label": subject.label, "code": subject.code, "level_id": subject.level.id, "level": subject.level.label, "total_time": subject.total_time})
 
 
-    return render(request, 'timetable/admin/timetables.html', {'subjects': html.unescape(tab1),'levels': html.unescape(tab2), 'classrooms': html.unescape(tab3), 'teachers': html.unescape(tab4)})
+
+    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users})

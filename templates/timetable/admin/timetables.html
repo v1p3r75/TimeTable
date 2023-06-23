@@ -16,7 +16,7 @@
             <div class="row row-cols-3">
                 <div>
                     <label class="position-relative text-muted w-100">Classe
-                        <select name='level_id' class="form-select">
+                        <select name='level_id' class="form-select" required>
                             {% for level in levels %}
                                 <option value={{level.id}}>
                                     {{level.label}}
@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <label class="position-relative text-muted w-100">Cours
-                        <select name='subject_id' class="form-select">
+                        <select name='subject_id' class="form-select" required>
                             {% for subject in subjects %}
                                 <option value={{subject.id}}>
                                     {{subject.label}}
@@ -38,7 +38,7 @@
                 </div>
                 <div>
                     <label class="position-relative text-muted w-100">Professeur
-                        <select name='user_id' class="form-select">
+                        <select name='user_id' class="form-select" required>
                             {% for teacher in teachers %}
                                 <option value={{teacher.id}}>
                                     {{teacher.firstname}} {{teacher.lastname}}
@@ -51,7 +51,7 @@
             <div class="row row-cols-3 mt-3">
                 <div>
                     <label class="position-relative text-muted w-100">Salle
-                        <select name='classroom_id' class="form-select">
+                        <select name='classroom_id' class="form-select" required>
                             {% for classroom in classrooms %}
                                 <option value={{classroom.id}}>
                                     {{classroom.label}}
@@ -62,12 +62,12 @@
                 </div>
                 <div>
                     <label class="position-relative text-muted w-100">Début
-                        <input type="datetime-local" name="start_time" class="form-control">
+                        <input type="datetime-local" name="start_time" class="form-control" required>
                     </label>
                 </div>
                 <div>
                     <label class="position-relative text-muted w-100">Fin
-                        <input type="datetime-local" name="end_time" class="form-control">
+                        <input type="datetime-local" name="end_time" class="form-control" required>
                     </label>
                 </div>
             </div><hr>
@@ -89,7 +89,7 @@
 
 {% block actionURL %}
 
-    {% url 'admin-teachers' %}
+    {% url 'admin-timetables' %}
 
 {% endblock %}
 
@@ -97,5 +97,6 @@
     []
 {% endblock data %}
 {% block columns %}
+    {data: 'label'},
 {% endblock %}
 {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}

@@ -26,3 +26,5 @@ def redirect_users(request, user):
     else :
 
         return redirect('student-dashboard')
+
+
