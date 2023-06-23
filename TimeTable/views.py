@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.db import transaction
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 from Auth.models import User, Level
 from .models import Subject, Classroom, TimeTable
 import html
-from datetime import datetime
+from datetime import datetime,  timedelta
+from itertools import groupby
+from .helpers import get_timetable_data
+
 
 # Create your views here.
 @login_required( login_url = 'login')
@@ -409,9 +412,10 @@ def adminTimetables(request):
 
                 start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
                 end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
+                week_number = start.isocalendar()[1]
 
                 try:
-                    
+
                     TimeTable.objects.create(
                         level_id = level_ids[i],
                         classroom_id = classroom_ids[i],
@@ -419,22 +423,56 @@ def adminTimetables(request):
                         user_id = user_ids[i],
                         start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
                         end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                        week = week_number
                     )
 
                 except Exception as e:
                     
-                    return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégisitrement"})
+                    return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégistrement", 'd': str(e)})
 
             return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
 
     subjects = Subject.objects.all()
     levels = Level.objects.all()
+    timetables = get_timetable_data()
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
+    
 
-    # for subject in subjects:
-    #     tab1.append({"id": subject.id, "label": subject.label, "code": subject.code, "level_id": subject.level.id, "level": subject.level.label, "total_time": subject.total_time})
+    # Récupérez les emplois du temps avec les informations associées pour toutes les semaines
+    timetable_entries = TimeTable.objects.select_related('level', 'user', 'classroom', 'subject')
 
+    # Créez un dictionnaire pour stocker les données groupées par semaine et jour
+    grouped_timetable = {}
 
+    # Parcourez les emplois du temps et groupez les données
+    for entry in timetable_entries:
+        week_number = entry.start_time.isocalendar()[1]
+        day_name = entry.start_time.strftime('%A')
 
-    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users})
+        if week_number not in grouped_timetable:
+            grouped_timetable[week_number] = []
+
+        day_data = {day_name: {
+            'user': entry.user,
+            'level': entry.level.label,
+            'classroom': entry.classroom.label,
+            'subjects': entry.subject.label
+        }}
+        grouped_timetable[week_number].append(day_data)
+
+    # Affichez les données groupées par semaine et jour
+    result = []
+
+    for week_number, week_data in grouped_timetable.items():
+        week_info = {'week_number': week_number, 'days': []}
+        
+        for day_data in week_data:
+            day_name, day_info = list(day_data.items())[0]
+            day_info['day_name'] = day_name
+            week_info['days'].append(day_info)
+
+        result.append(week_info)
+    
+    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users, 'timetables': list(result)})
+

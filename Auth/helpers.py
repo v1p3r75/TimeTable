@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 
 def redirect_authenticated_user(view_func):
 

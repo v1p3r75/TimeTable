@@ -27,5 +27,5 @@ class TimeTable(models.Model):
     level = models.ForeignKey(Level, on_delete = models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    # week = models.IntegerField()
+    week = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True)
