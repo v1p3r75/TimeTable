@@ -82,7 +82,7 @@
 
 {% block tableHead %}
 
-    <th class="text-center" rowspan="7">Semaine</th>
+    <th class="text-center w-75">Semaines</th>
     <th class=" text-center">Actions</th>
 
 {% endblock %}
@@ -94,9 +94,11 @@
 {% endblock %}
 
 {% block data %}
-    []
+    [{% for timetable in timetables %}
+        {'week' : '{{timetable.week}}'},
+    {% endfor %}]
 {% endblock data %}
 {% block columns %}
-    {data: 'label'},
+    {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data},
 {% endblock %}
 {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}

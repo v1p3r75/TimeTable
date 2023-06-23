@@ -28,7 +28,7 @@
             <span class="mx-1">/</span>
             <a href="javascript:void(0)" class="text-black">{% block pathName %}{% endblock %}</a>
         </div>
-    </div>{{ timetables }}
+    </div>
     <div class="mt-5">
         <div class="mb-5 text-end">
             <button class="btn fd-bg-primary text-white shadow-sm text-capitalize" data-bs-toggle="modal"
@@ -61,7 +61,40 @@
             })
             
             // Initialiser DataTables
-            // 
+            $('#table').DataTable({
+
+                data: {% block data %}{% endblock data %},
+                language: langueOptions,
+                columns: [
+                    {% block columns %}{% endblock %}
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return `
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="javascript:void(0)"
+                                        class="fd-bg-silver text-center shadow-sm fd-color-secondary rounded-5 btn-action"
+                                        data-bs-toggle="modal" data-bs-target="#Modal"
+                                        data-bs-whatever='${JSON.stringify(data)}'
+                                        title='Modifier ${Object.values(data)[1]}'
+                                    >
+                                        <i class="mdi mdi-pen"></i>
+                                    </a>
+                                    <a href="javascript:void(0)"
+                                        class="fd-bg-silver delete-btn text-center shadow-sm text-danger rounded-5 btn-action"
+                                        data-timetable-id='${data.id}'
+                                        title='Supprimer ${Object.values(data)[1]}'
+                                        
+                                        >
+                                        <i class="mdi mdi-trash-can"></i>
+                                    </a>
+                                </div>
+                            `;
+                        }
+                    }
+                ]
+            }
+            );
 
             const modal = document.getElementById('Modal')
 

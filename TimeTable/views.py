@@ -469,7 +469,7 @@ def adminTimetables(request):
     result = []
 
     for week_number, week_data in grouped_timetable.items():
-        week_info = {'week_number': week_number, 'days': []}
+        week_info = {'week': week_number, 'days': []}
         
         for day_data in week_data:
             day_name, day_info = list(day_data.items())[0]
