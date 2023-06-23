@@ -1,104 +1,118 @@
-{% extends "../../includes/crud.html" %}
-{% block modalForm %}
-<div class="">
-    <div class="d-flex justify-content-end">
-        <a
-            href="javascript:void(0)"
-            class="d-block btn-duplicate p-2 fd-bg-primary lh-1 text-white-50"
-            style="width: 30px; height: 30px;" title="Ajouter autre ligne"
+    {% extends "../../includes/crud.html" %}
+    {% block modalForm %}
+    <div class="">
+        <div class="d-flex justify-content-end">
+            <a
+                href="javascript:void(0)"
+                class="d-block btn-duplicate p-2 fd-bg-primary lh-1 text-white-50"
+                style="width: 30px; height: 30px;" title="Ajouter autre ligne"
 
-            >
-                <i class="mdi mdi-plus"></i>
-        </a>
-    </div>
-    <div class="f-content">
-        <div class="group">
-            <div class="row row-cols-3">
-                <div>
-                    <label class="position-relative text-muted w-100">Classe
-                        <select name='level_id' class="form-select" required>
-                            {% for level in levels %}
-                                <option value={{level.id}}>
-                                    {{level.label}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </div>
-                <div>
-                    <label class="position-relative text-muted w-100">Cours
-                        <select name='subject_id' class="form-select" required>
-                            {% for subject in subjects %}
-                                <option value={{subject.id}}>
-                                    {{subject.label}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </div>
-                <div>
-                    <label class="position-relative text-muted w-100">Professeur
-                        <select name='user_id' class="form-select" required>
-                            {% for teacher in teachers %}
-                                <option value={{teacher.id}}>
-                                    {{teacher.firstname}} {{teacher.lastname}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </div>
-            </div>
-            <div class="row row-cols-3 mt-3">
-                <div>
-                    <label class="position-relative text-muted w-100">Salle
-                        <select name='classroom_id' class="form-select" required>
-                            {% for classroom in classrooms %}
-                                <option value={{classroom.id}}>
-                                    {{classroom.label}}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </div>
-                <div>
-                    <label class="position-relative text-muted w-100">Début
-                        <input type="datetime-local" name="start_time" class="form-control" required>
-                    </label>
-                </div>
-                <div>
-                    <label class="position-relative text-muted w-100">Fin
-                        <input type="datetime-local" name="end_time" class="form-control" required>
-                    </label>
-                </div>
-            </div><hr>
+                >
+                    <i class="mdi mdi-plus"></i>
+            </a>
         </div>
+        <div class="f-content">
+            <div class="group">
+                <div class="row row-cols-3">
+                    <div>
+                        <label class="position-relative text-muted w-100">Classe
+                            <select name='level_id' class="form-select" required>
+                                {% for level in levels %}
+                                    <option value={{level.id}}>
+                                        {{level.label}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="position-relative text-muted w-100">Cours
+                            <select name='subject_id' class="form-select" required>
+                                {% for subject in subjects %}
+                                    <option value={{subject.id}}>
+                                        {{subject.label}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="position-relative text-muted w-100">Professeur
+                            <select name='user_id' class="form-select" required>
+                                {% for teacher in teachers %}
+                                    <option value={{teacher.id}}>
+                                        {{teacher.firstname}} {{teacher.lastname}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="row row-cols-3 mt-3">
+                    <div>
+                        <label class="position-relative text-muted w-100">Salle
+                            <select name='classroom_id' class="form-select" required>
+                                {% for classroom in classrooms %}
+                                    <option value={{classroom.id}}>
+                                        {{classroom.label}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="position-relative text-muted w-100">Début
+                            <input type="datetime-local" name="start_time" class="form-control" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="position-relative text-muted w-100">Fin
+                            <input type="datetime-local" name="end_time" class="form-control" required>
+                        </label>
+                    </div>
+                </div><hr>
+            </div>
+        </div>
+
     </div>
+    {% endblock %}
 
-</div>
-{% endblock %}
+    {% block pageName %} Emploi du temps {% endblock %}
+    {% block pathName %} Emploi {% endblock %}
 
-{% block pageName %} Emploi du temps {% endblock %}
-{% block pathName %} Emploi {% endblock %}
+    {% block tableHead %}
 
-{% block tableHead %}
+        <th class="text-center w-75">Semaines</th>
+        <th class=" text-center">Actions</th>
 
-    <th class="text-center w-75">Semaines</th>
-    <th class=" text-center">Actions</th>
+    {% endblock %}
 
-{% endblock %}
+    {% block actionURL %}
 
-{% block actionURL %}
+        {% url 'admin-timetables' %}
 
-    {% url 'admin-timetables' %}
+    {% endblock %}
 
-{% endblock %}
+    {% block data %}
+        [{% for timetable in timetables %}
+            {'week' : '{{timetable.week}}'},
+        {% endfor %}]
+    {% endblock data %}
+    {% block columns %}
+        {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data},
+    {% endblock %}
+    {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}
 
-{% block data %}
-    [{% for timetable in timetables %}
-        {'week' : '{{timetable.week}}'},
-    {% endfor %}]
-{% endblock data %}
-{% block columns %}
-    {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data},
-{% endblock %}
-{% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}
+{% comment %} <div class="mx-4">
+    <pre> {{timetables}} </pre>
+    {% for timetable in  timetables %}
+        <h4>Semaine {{ timetable.week }}</h4>
+        <div class="row row-cols-4 gap-3 mt-5">
+        {% for day in timetable.days %}
+            <div class="fd-bg-secondary text-white shadow-sm rounded-3" style="height: 300px;">
+                <h6> {{ day.day_name }} </h6>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    </div>
+</div> {% endcomment %}
