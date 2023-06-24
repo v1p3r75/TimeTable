@@ -28,10 +28,19 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group my-3">
+                <div class="form-group row row-cols-1 row-cols-lg-2 flex-wrap my-3">
                     <label class="position-relative text-muted w-100">Email
                         <input name="email" type="email" class="form-control">
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-email"></i></span>
+                    </label>
+                    <label class="position-relative text-muted w-100">Classe
+                        <select name='level_id' class="form-select">
+                            {% for level in levels %}
+                                <option value={{level.id}}>
+                                    {{level.label}}
+                                </option>
+                            {% endfor %}
+                        </select>
                     </label>
                 </div>
                 <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
