@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from TimeTable.models import User
 from .helpers import redirect_authenticated_user, redirect_users
+from .models import Level
 
 # Create your views here.
 
@@ -64,8 +65,10 @@ def register(request):
         login(request, auth_user)
 
         return redirect_users(request, user)
-            
-    return render(request, 'auth/register.html', { 'title' : 'Inscription' })
+
+    levels = Level.objects.all()
+
+    return render(request, 'auth/register.html', { 'title' : 'Inscription', 'levels': levels})
 
 
 @redirect_authenticated_user
