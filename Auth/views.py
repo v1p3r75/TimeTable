@@ -37,6 +37,7 @@ def register(request):
         password = request.POST['password']
         password_confirmation = request.POST['password_confirmation']
         email = request.POST['email']
+        level_id = request.POST['level_id']
 
         if (firstname == '' or lastname == '' or email == '' or password == ''):
 
@@ -58,6 +59,7 @@ def register(request):
             password = password,
             firstname = firstname,
             lastname = lastname,
+            level_id = level_id,
         )
                 
         auth_user = authenticate(request = request, email = email, password = password)
