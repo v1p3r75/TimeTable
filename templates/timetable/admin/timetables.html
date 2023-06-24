@@ -1,4 +1,5 @@
-    {% extends "../../includes/crud.html" %}
+{% extends "includes/crud.html" %}
+{% if user.role.id == 1 %}   
     {% block modalForm %}
     <div class="">
         <div class="d-flex justify-content-end">
@@ -103,6 +104,7 @@
     {% endblock %}
     {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}
 
+{% endif %}
 {% comment %} <div class="mx-4">
     <pre> {{timetables}} </pre>
     {% for timetable in  timetables %}
