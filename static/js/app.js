@@ -24,8 +24,8 @@ $(document).ready(function() {
         sPrevious: "Précédent"
         },
         oAria: {
-        sSortAscending: ": activer pour trier la colonne par ordre croissant",
-        sSortDescending: ": activer pour trier la colonne par ordre décroissant"
+            sSortAscending: ": activer pour trier la colonne par ordre croissant",
+            sSortDescending: ": activer pour trier la colonne par ordre décroissant"
         }
     };
 
