@@ -18,10 +18,10 @@ $(document).ready(function() {
         sSearch: "Rechercher :",
         sZeroRecords: "Aucun résultat trouvé",
         oPaginate: {
-        sFirst: "Premier",
-        sLast: "Dernier",
-        sNext: "Suivant",
-        sPrevious: "Précédent"
+            sFirst: "Premier",
+            sLast: "Dernier",
+            sNext: "Suivant",
+            sPrevious: "Précédent"
         },
         oAria: {
             sSortAscending: ": activer pour trier la colonne par ordre croissant",
@@ -53,6 +53,7 @@ $(document).ready(function() {
         }(),
 
         preloader: function() {
+            
             $(document).ready(async function() {
 
                 $('.preloader').hide();
@@ -69,6 +70,7 @@ $(document).ready(function() {
         }(),
 
         loadPage: async function() {
+
             $(window).on('hashchange', async function() {
                 const page = await App.fetch(BASE_URL + window.location.hash.slice(1));
                 $('main').html(page);
@@ -88,6 +90,7 @@ $(document).ready(function() {
         },
 
         mobileSidebar: function() {
+
             const DISPLAY_CLASS = 'd-block position-absolute top-0 start-0';
             const HIDE_CLASS = 'col d-none d-lg-block col-lg-3';
 
