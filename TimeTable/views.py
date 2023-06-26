@@ -442,41 +442,12 @@ def adminTimetables(request):
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
     
-
-    # Récupérez les emplois du temps avec les informations associées pour toutes les semaines
-    timetable_entries = TimeTable.objects.select_related('level', 'user', 'classroom', 'subject')
-
-    # Créez un dictionnaire pour stocker les données groupées par semaine et jour
-    grouped_timetable = {}
-
-    # Parcourez les emplois du temps et groupez les données
-    for entry in timetable_entries:
-        week_number = entry.start_time.isocalendar()[1]
-        day_name = entry.start_time.strftime('%A')
-
-        if week_number not in grouped_timetable:
-            grouped_timetable[week_number] = []
-
-        day_data = {day_name: {
-            'user': entry.user,
-            'level': entry.level.label,
-            'classroom': entry.classroom.label,
-            'subjects': entry.subject.label
-        }}
-        grouped_timetable[week_number].append(day_data)
-
-    # Affichez les données groupées par semaine et jour
-    result = []
-
-    for week_number, week_data in grouped_timetable.items():
-        week_info = {'week': week_number, 'days': []}
-        
-        for day_data in week_data:
-            day_name, day_info = list(day_data.items())[0]
-            day_info['day_name'] = day_name
-            week_info['days'].append(day_info)
-
-        result.append(week_info)
     
-    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users, 'timetables': list(result)})
+    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users, 'timetables': timetables})
 
+
+@login_required( login_url = 'login')
+def userTimetable(request):
+
+    timetables = get_timetable_data(request.user.level_id)
+    return render(request, 'timetable/student/timetables.html', {'timetables' : timetables})

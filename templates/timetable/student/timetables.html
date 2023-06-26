@@ -1,0 +1,13 @@
+<div class="mx-4">
+    {{timetables}}
+    {% for timetable in  timetables %}
+        <h4>Semaine {{ timetable.week }}</h4>
+        <div class="row row-cols-4 gap-3 mt-5">
+        {% for day in timetable.days %}
+            <div class="fd-bg-secondary text-white shadow-sm rounded-3" style="height: 300px;">
+                <h6> {{ day.day_name }} </h6>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    </div>
+</div>
