@@ -45,8 +45,8 @@ $(document).ready(function () {
     };
 
     // Création du graphique
-    const ctx = document.getElementById('graph-viewer').getContext('2d');
-    const myChart = new Chart(ctx, {
+    const ctx = document.getElementById('graph-viewer')?.getContext('2d');
+    const myChart = ctx && new Chart(ctx, {
         type: 'bar',
         data: testsGraph,
         options: options

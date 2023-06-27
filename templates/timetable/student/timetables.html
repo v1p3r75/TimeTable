@@ -1,16 +1,3 @@
-<div class="mx-4">
-     {{timetables}}
-    {% for timetable in  timetables %}
-        <h4>Semaine {{ timetable.week }}</h4>
-        <div class="row row-cols-4 gap-3 mt-5">
-        {% for day in timetable.days %}
-            <div class="fd-bg-secondary text-white shadow-sm rounded-3" style="height: 300px;">
-                <h6> {{ day.day_name }} </h6>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    </div>
-</div>
 <div class="d-flex justify-content-between">
     <div class="page-title">
         <h4>Emplois du Temps</h4>
@@ -24,21 +11,25 @@
 <div class="timetable mt-5"></div>
 
 <script>
-    var timetable = new Timetable();
-    timetable.setScope(7,19)
+    $(document).ready(() => {
+        const timetable = new Timetable();
 
-      timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
+        timetable.setScope(7,19)
 
-      {% for timetable in  timetables %}
-        {% for day in timetable.days %}
-            timetable.addEvent('{{ day.subject }} - {{ day.user }}', '{{ day.day_name }}', new Date( '{{ day.start_time }}' ), new Date( '{{ day.end_time }}' ), { onClick: function(event) {
-                window.alert('You clicked on the ' + event.name + ' event in ' + event.location + '. This is an example of a click handler');
-            }});
+        const options = { onClick: function(event) {
+            window.alert('You clicked on the ' + event.name + ' event in ' + event.location + '. This is an example of a click handler');
+        }}
+
+        timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
+
+        {% for timetable in  timetables %}
+            {% for day in timetable.days %}
+                timetable.addEvent('{{ day.subject }} - {{ day.user }}', '{{ day.day_name }}', new Date( '{{ day.start_time }}' ), new Date( '{{ day.end_time }}' ), options);
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-
-      const renderer = new Timetable.Renderer(timetable);
-      renderer.draw('.timetable');
+        let renderer = new Timetable.Renderer(timetable);
+        renderer.draw('.timetable');
+    })
 </script>
 <style>
 .time-entry { background-color: var(--fd-color-primary)!important; border: none!important}
