@@ -31,19 +31,11 @@
 
       {% for timetable in  timetables %}
         {% for day in timetable.days %}
-            timetable.addEvent('{{ day.subject }}', '{{ day.day_name }} - {{ day.user }}', new Date( '{{ day.start_time }}' ), new Date( '{{ day.end_time }}' ));
+            timetable.addEvent('{{ day.subject }} - {{ day.user }}', '{{ day.day_name }}', new Date( '{{ day.start_time }}' ), new Date( '{{ day.end_time }}' ), { onClick: function(event) {
+                window.alert('You clicked on the ' + event.name + ' event in ' + event.location + '. This is an example of a click handler');
+            }});
         {% endfor %}
     {% endfor %}
-      {% comment %} timetable.addEvent('Zumba', 'Mardi', new Date(2015,7,17,12), new Date(2015,7,17,13), { url: '#' });
-      timetable.addEvent('Zumbu', 'Mercredi', new Date(2015,7,17,13,30), new Date(2015,7,17,15), { url: '#' });
-      timetable.addEvent('Lasergaming', 'Mercredi', new Date(2015,7,17,17,45), new Date(2015,7,17,19,30), { class: 'vip-only', data: { maxPlayers: 14, gameType: 'Capture the flag' } });
-      timetable.addEvent('All-you-can-eat grill', 'Samedi', new Date(2015,7,17,21), new Date(2015,7,18,1,30), { url: '#' });
-      timetable.addEvent('Hackathon', 'Jeudi', new Date(2015,7,17,11,30), new Date(2015,7,17,20)); // options attribute is not used for this event
-      timetable.addEvent('Tokyo Hackathon Livestream', 'Dimanche', new Date(2015,7,17,12,30), new Date(2015,7,17,16,15)); // options attribute is not used for this event
-      timetable.addEvent('Lunch', 'Vendredi', new Date(2015,7,17,9,30), new Date(2015,7,17,11,45), { onClick: function(event) {
-        window.alert('You clicked on the ' + event.name + ' event in ' + event.location + '. This is an example of a click handler');
-      }});
-      timetable.addEvent('Cocktails', 'Samedi', new Date(2015,7,18,00,00), new Date(2015,7,18,02,00), { class: 'vip-only' }); {% endcomment %}
 
       const renderer = new Timetable.Renderer(timetable);
       renderer.draw('.timetable');
