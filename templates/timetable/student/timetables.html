@@ -9,22 +9,25 @@
             <a href="javascript:void(0)" class="text-black">Emploi</a>
         </div>
     </div>
-    <div class="timetable my-5"></div>{{ timetables }}
-    <div class="others-timetables border-top border-2 pt-4">
-        <h5>Autres emplois du temps</h5>
-        <div class="row">
+    {% if current_week %}
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de cette semaine</h5>
+    {% else %}
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de la semaine {% for t in timetables %}{{ t.week }}{% endfor %}</h5>
+    {% endif %}
+    <div class="timetable my-5"></div>
+    <hr>
+    <div class="container-fluid">
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Toutes les semaines disponibles</h5>
+        <div class="row others-timetables mt-5 flex-nowrap overflow-scroll gap-3">
             {% for others in others_timetables %}
             
-              <a href="#{% url 'timetables-week' others.week %}" class="d-block col col-6 col-lg-3 p-3">
-                <div class="card col border border-1 rounded-3 p-3 container-fluid shadow-sm border-0">
-                    <div class="info align-self-center">
-                        <h5>Semaine {{ others.week }}</h5>
-                    </div>
-                </div>
-            </a>
+                <a href="#{% url 'timetables-week' others.week %}" class="d-block text-center text-white-50 rounded-2 fd-bg-secondary col col-6 col-lg-2 p-3">
+                Semaine {{ others.week }}
+                </a>
             {% endfor %}
         </div>
-    </div>  
+    </div>
+
 <div>
 <script>
     $(document).ready(() => {

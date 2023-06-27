@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import get_timetable_data
+from .helpers import get_timetable_data, get_timetable_global
 import locale
 
 
@@ -438,7 +438,7 @@ def adminTimetables(request):
 
     subjects = Subject.objects.all()
     levels = Level.objects.all()
-    timetables = get_timetable_data()
+    timetables = get_timetable_global()
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
     
@@ -450,14 +450,14 @@ def adminTimetables(request):
 def userTimetable(request):
 
     current_timetable = get_timetable_data(request.user.level_id, True)
-    others_timetable = get_timetable_data(request.user.level_id, False)
+    others_timetable = get_timetable_global()
 
-    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable})
+    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
 
 @login_required( login_url = 'login')
 def timeTableWeek(request, week):
 
-    current_timetable = get_timetable_data(request.user.level_id, False, week = week)
-    others_timetable = get_timetable_data(request.user.level_id, False)
+    week_timetable = get_timetable_data(request.user.level_id, False, week = week)
+    others_timetable = get_timetable_global()
 
-    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable})
+    return render(request, 'timetable/student/timetables.html', {'timetables' : week_timetable, 'others_timetables': others_timetable})
