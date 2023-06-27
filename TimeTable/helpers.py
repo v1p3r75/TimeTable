@@ -2,18 +2,18 @@ from django.db.models import Q
 from datetime import datetime, timedelta
 from .models import TimeTable
 
-def get_timetable_data(level_id : int | None = None, current_week : bool = False):
+def get_timetable_data(level_id : int | None = None, current_week : bool = False, week = None):
 
     # Récupérez les emplois du temps avec les informations associées pour toutes les semaines
-    
     if current_week:
+
         start_date = datetime.now().date() - timedelta(days = datetime.now().date().weekday() - 0)
         end_date = start_date + timedelta(days = 6)
         timetable_entries = TimeTable.objects\
             .filter(Q(start_time__date__gte = start_date, end_time__date__lte = end_date), level_id = level_id)\
             .select_related('level', 'user', 'classroom', 'subject')
     else:
-        timetable_entries = TimeTable.objects.filter(level_id = level_id).select_related('level', 'user', 'classroom', 'subject')
+        timetable_entries = TimeTable.objects.filter().select_related('level', 'user', 'classroom', 'subject')
 
     # Créez un dictionnaire pour stocker les données groupées par semaine et jour
     grouped_timetable = {}

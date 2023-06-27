@@ -453,3 +453,11 @@ def userTimetable(request):
     others_timetable = get_timetable_data(request.user.level_id, False)
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable})
+
+@login_required( login_url = 'login')
+def timeTableWeek(request, week):
+
+    current_timetable = get_timetable_data(request.user.level_id, False, week = week)
+    others_timetable = get_timetable_data(request.user.level_id, False)
+
+    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable})
