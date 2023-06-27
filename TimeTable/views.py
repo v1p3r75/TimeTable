@@ -461,3 +461,8 @@ def timeTableWeek(request, week):
     others_timetable = get_timetable_global()
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : week_timetable, 'others_timetables': others_timetable})
+
+@login_required( login_url = 'login')
+def faq(request):
+
+    return render(request, 'timetable/student/faq.html')
