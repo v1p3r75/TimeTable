@@ -38,9 +38,9 @@
         </div>
     </div>
     {% if current_week %}
-        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de cette semaine</h5>
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de cette semaine - {{ user.level.label }}</h5>
     {% else %}
-        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de la semaine {% for t in timetables %}{{ t.week }}{% endfor %}</h5>
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de la semaine {% for t in timetables %}{{ t.week }} - {{ user.level.label }}{% endfor %}</h5>
     {% endif %}
     <div class="timetable my-5"></div>
     <hr>
