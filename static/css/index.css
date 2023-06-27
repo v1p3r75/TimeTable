@@ -35,6 +35,8 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
   
   }
 
-::-webkit-scrollbar { width: 5px; }
+
+::-webkit-scrollbar { width: 5px; height: 5px;}
+.others-timetables::-webkit-scrollbar { width: 0px!important; height: 0px;}
 ::-webkit-scrollbar-track { box-shadow: inset 0 0 2px white; border-radius: 5px;}
 ::-webkit-scrollbar-thumb { background: var(--fd-color-secondary); border-radius: 10px;}

@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import get_timetable_data
+from .helpers import get_timetable_data, get_timetable_global
 import locale
 
 
@@ -38,25 +38,35 @@ def adminDash(request):
         .annotate(total=Count('id'))
         .values_list('total', flat=True)
     )
-    # students_b = []
+
+    subjects_by_levels = (
+        Subject.objects
+        .values('level_id')
+        .annotate(total=Count('id'))
+        .values_list('total', flat=True)
+    )
+
+    students_array = []
+    subjects_array = []
 
     levels = Level.objects.all()
 
-    # if len(levels) > len(list(students_by_levels)):
+    if len(levels) > len(students_by_levels):
 
-    #     for i in range(len(levels)):
+        for i in range(len(levels)):
 
-    #         if i < len(list(students_by_levels)):
-
-    #             students_b.append(students_by_levels[i])
-
-    #         students_b.append(0)
+            if i <= len(students_by_levels) - 1:
+                students_array.append(i)
+                subjects_array.append(i)
+            else:
+                students_array.append(0)
+                subjects_array.append(0)
 
     tab = []
     for level in levels:
         tab.append(level.label)
 
-    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': list(students_by_levels)})
+    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': students_array, 'teachers_by_levels': [total_teachers] * len(levels), 'subjects_by_levels': subjects_array})
 
 
 @login_required( login_url = 'login')
@@ -438,45 +448,31 @@ def adminTimetables(request):
 
     subjects = Subject.objects.all()
     levels = Level.objects.all()
-    timetables = get_timetable_data()
+    timetables = get_timetable_global()
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
     
-
-    # Récupérez les emplois du temps avec les informations associées pour toutes les semaines
-    timetable_entries = TimeTable.objects.select_related('level', 'user', 'classroom', 'subject')
-
-    # Créez un dictionnaire pour stocker les données groupées par semaine et jour
-    grouped_timetable = {}
-
-    # Parcourez les emplois du temps et groupez les données
-    for entry in timetable_entries:
-        week_number = entry.start_time.isocalendar()[1]
-        day_name = entry.start_time.strftime('%A')
-
-        if week_number not in grouped_timetable:
-            grouped_timetable[week_number] = []
-
-        day_data = {day_name: {
-            'user': entry.user,
-            'level': entry.level.label,
-            'classroom': entry.classroom.label,
-            'subjects': entry.subject.label
-        }}
-        grouped_timetable[week_number].append(day_data)
-
-    # Affichez les données groupées par semaine et jour
-    result = []
-
-    for week_number, week_data in grouped_timetable.items():
-        week_info = {'week': week_number, 'days': []}
-        
-        for day_data in week_data:
-            day_name, day_info = list(day_data.items())[0]
-            day_info['day_name'] = day_name
-            week_info['days'].append(day_info)
-
-        result.append(week_info)
     
-    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users, 'timetables': list(result)})
+    return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users, 'timetables': timetables})
 
+
+@login_required( login_url = 'login')
+def userTimetable(request):
+
+    current_timetable = get_timetable_data(request.user.level_id, True)
+    others_timetable = get_timetable_global()
+
+    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
+
+@login_required( login_url = 'login')
+def timeTableWeek(request, week):
+
+    week_timetable = get_timetable_data(request.user.level_id, False, week = week)
+    others_timetable = get_timetable_global()
+
+    return render(request, 'timetable/student/timetables.html', {'timetables' : week_timetable, 'others_timetables': others_timetable})
+
+@login_required( login_url = 'login')
+def faq(request):
+
+    return render(request, 'timetable/student/faq.html')

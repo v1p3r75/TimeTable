@@ -8,21 +8,21 @@ $(document).ready(function () {
         datasets: [
             {
                 label: 'Enseignants',
-                data: [20, 25, 30, 35, 28, 22],
+                data: {{ teachers_by_levels | safe }},
                 borderColor: '#18aefa', // Couleur de la ligne
                 backgroundColor: '#18aefa', // Couleur de fond
                 fill: false, // Pas de remplissage sous la ligne
             },
             {
                 label: 'Étudiants',
-                data: [50, 45, 60, 55, 58, 62],
+                data: {{ students_by_levels | safe}},
                 borderColor: '#3D5EE1', // Couleur de la ligne
                 backgroundColor: '#3D5EE1', // Couleur de fond
                 fill: false, // Pas de remplissage sous la ligne
             },
             {
                 label: 'Cours',
-                data: [17, 12, 18, 20, 13, 10],
+                data: {{ subjects_by_levels | safe}},
                 borderColor: '#2A3042', // Couleur de la ligne
                 backgroundColor: '#2A3042', // Couleur de fond
                 fill: false, // Pas de remplissage sous la ligne
@@ -45,8 +45,8 @@ $(document).ready(function () {
     };
 
     // Création du graphique
-    const ctx = document.getElementById('graph-viewer').getContext('2d');
-    const myChart = new Chart(ctx, {
+    const ctx = document.getElementById('graph-viewer')?.getContext('2d');
+    const myChart = ctx && new Chart(ctx, {
         type: 'bar',
         data: testsGraph,
         options: options

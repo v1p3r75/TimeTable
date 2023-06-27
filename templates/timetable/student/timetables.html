@@ -1,0 +1,104 @@
+<div>
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Informations</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="img-container w-50 mx-auto">
+                        <div class="card-img p-2 text-center">
+                            <img src="/static/img/books.svg" alt="student">
+                        </div>
+                    </div>
+                    <h6 class="text-center my-4"><span class="text-muted">Cours : </span> <span class='small subject'></span></h6>
+                    <div class="informations row my-4 row-cols-1 row-cols-lg-2">
+                        <h6><span class="text-muted">Classe : </span> <span class='small level'></span></h6>
+                        <h6><span class="text-muted">Salle : </span> <span class='small classroom'></span></h6>
+                        <h6><span class="text-muted">Professeur: </span> <span class='small teacher'></span></h6>
+                        <h6><span class="text-muted">Contact : </span> <span class='small teacher-info'></span></h6>
+                        <h6><span class="text-muted">Départ : </span> <span class='small start_time'></span></h6>
+                        <h6><span class="text-muted">Fin : </span> <span class='small end_time'></span></h6>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="page-title">
+            <h4>Emplois du Temps</h4>
+        </div>
+        <div class="page-path">
+            <a href={% url 'admin-dashboard' %} class="text-black">Home</a>
+            <span class="mx-1">/</span>
+            <a href="javascript:void(0)" class="text-black">Emploi</a>
+        </div>
+    </div>
+    {% if current_week %}
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de cette semaine - {{ user.level.label }}</h5>
+    {% else %}
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Emploi de la semaine {% for t in timetables %}{{ t.week }} - {{ user.level.label }}{% endfor %}</h5>
+    {% endif %}
+    <div class="timetable my-5"></div>
+    <hr>
+    <div class="container-fluid">
+        <h5 class="text-muted text-center text-decoration-underline mt-4">Toutes les semaines disponibles</h5>
+        <div class="row others-timetables mt-5 flex-nowrap overflow-scroll gap-3">
+            {% for others in others_timetables %}
+            
+                <a href="#{% url 'timetables-week' others.week %}" class="d-block text-center text-white-50 rounded-2 fd-bg-secondary col col-6 col-lg-2 p-3">
+                Semaine {{ others.week }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+<div>
+<script>
+    $(document).ready(() => {
+        const timetable = new Timetable();
+
+        timetable.setScope(7,19)
+
+        const showModal = function(event) {
+            data = event.options.data;
+            start_time = new Date(data.start_time).toLocaleDateString() + ' ' + new Date(data.start_time).toLocaleTimeString()
+            end_time = new Date(data.end_time).toLocaleDateString() + ' ' + new Date(data.end_time).toLocaleTimeString()
+            $('.subject').text(data.subject)
+            $('.level').text(data.level)
+            $('.classroom').text(data.classroom)
+            $('.teacher').text(data.teacher)
+            $('.teacher-info').text(data.teacherInfo)
+            $('.start_time').text(start_time)
+            $('.end_time').text(end_time)
+        }
+
+        timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
+
+        {% for timetable in  timetables %}
+            {% for day in timetable.days %}
+                timetable.addEvent('{{ day.subject }} - {{ day.classroom }}', '{{ day.day_name }}', new Date( '{{ day.start_time }}' ), new Date( '{{ day.end_time }}' ), {
+                    data : {
+                        teacher: '{{ day.user }}',
+                        teacherInfo: '{{ day.user.email }}',
+                        classroom: '{{ day.classroom }}',
+                        subject: '{{ day.subject }}',
+                        level: '{{ day.level }}',
+                        start_time: '{{ day.start_time }}',
+                        end_time: '{{ day.end_time }}',
+                        'bs-toggle': 'modal',
+                        'bs-target': '#Modal'
+                    }, onClick : showModal
+                });
+            {% endfor %}
+        {% endfor %}
+        let renderer = new Timetable.Renderer(timetable);
+        renderer.draw('.timetable');
+    })
+</script>
+<style>
+.time-entry { background-color: var(--fd-color-primary)!important; border: none!important}
+</style>

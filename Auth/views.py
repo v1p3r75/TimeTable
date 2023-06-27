@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from TimeTable.models import User
 from .helpers import redirect_authenticated_user, redirect_users
+from .models import Level
 
 # Create your views here.
 
@@ -36,6 +37,7 @@ def register(request):
         password = request.POST['password']
         password_confirmation = request.POST['password_confirmation']
         email = request.POST['email']
+        level_id = request.POST['level_id']
 
         if (firstname == '' or lastname == '' or email == '' or password == ''):
 
@@ -57,6 +59,7 @@ def register(request):
             password = password,
             firstname = firstname,
             lastname = lastname,
+            level_id = level_id,
         )
                 
         auth_user = authenticate(request = request, email = email, password = password)
@@ -64,8 +67,10 @@ def register(request):
         login(request, auth_user)
 
         return redirect_users(request, user)
-            
-    return render(request, 'auth/register.html', { 'title' : 'Inscription' })
+
+    levels = Level.objects.all()
+
+    return render(request, 'auth/register.html', { 'title' : 'Inscription', 'levels': levels})
 
 
 @redirect_authenticated_user
