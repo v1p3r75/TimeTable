@@ -38,25 +38,35 @@ def adminDash(request):
         .annotate(total=Count('id'))
         .values_list('total', flat=True)
     )
-    # students_b = []
+
+    subjects_by_levels = (
+        Subject.objects
+        .values('level_id')
+        .annotate(total=Count('id'))
+        .values_list('total', flat=True)
+    )
+
+    students_array = []
+    subjects_array = []
 
     levels = Level.objects.all()
 
-    # if len(levels) > len(list(students_by_levels)):
+    if len(levels) > len(students_by_levels):
 
-    #     for i in range(len(levels)):
+        for i in range(len(levels)):
 
-    #         if i < len(list(students_by_levels)):
-
-    #             students_b.append(students_by_levels[i])
-
-    #         students_b.append(0)
+            if i <= len(students_by_levels) - 1:
+                students_array.append(i)
+                subjects_array.append(i)
+            else:
+                students_array.append(0)
+                subjects_array.append(0)
 
     tab = []
     for level in levels:
         tab.append(level.label)
 
-    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': list(students_by_levels)})
+    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': students_array, 'teachers_by_levels': [total_teachers] * len(levels), 'subjects_by_levels': subjects_array})
 
 
 @login_required( login_url = 'login')
