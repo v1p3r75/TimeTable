@@ -449,5 +449,5 @@ def adminTimetables(request):
 @login_required( login_url = 'login')
 def userTimetable(request):
 
-    timetables = get_timetable_data(request.user.level_id)
+    timetables = get_timetable_data(request.user.level_id, True)
     return render(request, 'timetable/student/timetables.html', {'timetables' : timetables})
