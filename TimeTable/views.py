@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import get_timetable_data, get_timetable_global
+from .helpers import get_timetable_data, get_timetable_global, get_timetable_by_level
 import locale
 
 
@@ -448,7 +448,7 @@ def adminTimetables(request):
 
     subjects = Subject.objects.all()
     levels = Level.objects.all()
-    timetables = get_timetable_global()
+    timetables = get_timetable_by_level()
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
     
