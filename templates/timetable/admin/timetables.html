@@ -98,12 +98,12 @@
         [{% for timetable in timetables %}
             {% for weeks in timetable.weeks %}
                 {'level' : '{{timetable.level}}',
-                'week' : '{{weeks.week}}'},
+                'week' : {{weeks | safe }},},
             {% endfor %}
         {% endfor %}]
     {% endblock data %}
     {% block columns %}
-        {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data},
+        {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data.week },
         {data : 'level'},
     {% endblock %}
     {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}

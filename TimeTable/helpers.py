@@ -22,9 +22,13 @@ def get_timetable_by_level():
             grouped_timetable[level_label][week_number] = []
 
         day_data = {
-            'user': entry.user,
-            'level': level_label,
+            'user_id': entry.user.id,
+            'user': str(entry.user),
+            'level_id': entry.level.id,
+            'level': entry.level.label,
+            'classroom_id': entry.classroom.id,
             'classroom': entry.classroom.label,
+            'subject_id': entry.subject.id,
             'subject': entry.subject.label,
             'start_time': str(entry.start_time),
             'end_time': str(entry.end_time),

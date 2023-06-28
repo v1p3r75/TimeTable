@@ -110,21 +110,75 @@
                 const all = modal.querySelectorAll('#Modal input, #Modal textarea, #Modal select')
 
                 if(recipient) {
-
+                
                     modalTitle.textContent = 'Modifier'
                     actionText.textContent = 'Modifier'
                     action.value = 'edit'
 
-                    for (const input of all) {
+                    if (recipient.week) {
 
-                        for (const value in recipient) {
+                        const container = modal.querySelector('.f-content');
+                        const content = modal.querySelector('.f-content .group');
+                        container.innerHTML = ""
 
-                            if (input.name == value) {
+                        for (const i of recipient.week.days) {
 
-                                input.value = recipient[value]
+                            const contentClone = content.cloneNode(true);
+                            container.appendChild(contentClone)
+                            
+                        }
+
+                        const childrens = [...container.children]
+
+                        for (const [key, values] of Object.entries(recipient.week.days)) {
+
+                            const all = childrens[key].querySelectorAll('#Modal input, #Modal textarea, #Modal select')
+                            
+                            for (const input of all) {
+
+                                for (const key of Object.keys(values)) {
+                                    if (input.name == key) {
+
+                                        if (input.type == 'datetime-local') {
+
+                                           const formatDate = values[key].slice(0, 16).replace(' ', 'T');
+                                           input.value = formatDate
+
+                                        }else input.value = values[key];
+
+                                    }
+                                }
+                            }
+
+                        }
+
+                        // for (const input of all) {
+
+                        //     for (const value of recipient.week.days) {
+                                
+                        //         for (const key of Object.keys(value)) {
+                        //             if (input.name === key) {
+                        //                 console.log(input)
+                        //             }
+                        //         }
+                        //     }
+
+                        // }
+
+                    }else {
+
+                        for (const input of all) {
+
+                            for (const value in recipient) {
+
+                                if (input.name == value) {
+
+                                    input.value = recipient[value]
+                                }
                             }
                         }
                     }
+                    
 
                 }else {
                     
