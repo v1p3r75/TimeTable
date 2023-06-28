@@ -116,6 +116,8 @@
                     action.value = 'edit'
 
                     if (recipient.week) {
+                        
+                        modal.querySelector("input[name='id']").remove()
 
                         const container = modal.querySelector('.f-content');
                         const content = modal.querySelector('.f-content .group');
@@ -133,10 +135,17 @@
                         for (const [key, values] of Object.entries(recipient.week.days)) {
 
                             const all = childrens[key].querySelectorAll('#Modal input, #Modal textarea, #Modal select')
+                            const inputId = document.createElement('input')
+                            inputId.setAttribute('type', 'hidden')
+                            inputId.setAttribute('name', 'id')
+                            inputId.setAttribute('value', values.id)
+                            childrens[key].appendChild(inputId)
+                            
                             
                             for (const input of all) {
 
                                 for (const key of Object.keys(values)) {
+
                                     if (input.name == key) {
 
                                         if (input.type == 'datetime-local') {
@@ -152,18 +161,6 @@
 
                         }
 
-                        // for (const input of all) {
-
-                        //     for (const value of recipient.week.days) {
-                                
-                        //         for (const key of Object.keys(value)) {
-                        //             if (input.name === key) {
-                        //                 console.log(input)
-                        //             }
-                        //         }
-                        //     }
-
-                        // }
 
                     }else {
 
