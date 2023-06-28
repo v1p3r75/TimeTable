@@ -8,6 +8,7 @@ def get_timetable_by_level():
 
     # Créez un dictionnaire pour stocker les données groupées par filière, semaine et jour
     grouped_timetable = {}
+    level_id = None
 
     # Parcourez les emplois du temps et groupez les données
     for entry in timetable_entries:
@@ -34,13 +35,15 @@ def get_timetable_by_level():
             'start_time': str(entry.start_time),
             'end_time': str(entry.end_time),
         }
+        level_id = entry.level.id
+
         grouped_timetable[level_label][week_number].append({day_name: day_data})
 
     # Affichez les données groupées par filière, semaine et jour
     result = []
 
     for level_label, level_data in grouped_timetable.items():
-        level_info = {'level': level_label, 'weeks': []}
+        level_info = {'level': level_label,'level_id' : level_id, 'weeks': []}
         
         for week_number, week_data in level_data.items():
             week_info = {'week': week_number, 'days': []}

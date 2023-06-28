@@ -484,7 +484,17 @@ def adminTimetables(request):
                         return JsonResponse({"success" : False, "message": "Erreur lors de la mise à jour", 'd': str(e)})
 
                 return JsonResponse({"success" : True, "message": "Mise à jour avec succès"})
- 
+
+        if request.POST.get('action') == 'del':
+                                
+            if TimeTable.objects\
+                .filter(week = request.POST.get('id'), level_id = request.POST.get('level_id'))\
+                .delete():
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'Une erreur s\'est produite.'})
+        
     subjects = Subject.objects.all()
     levels = Level.objects.all()
     timetables = get_timetable_by_level()

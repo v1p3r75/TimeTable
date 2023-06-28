@@ -78,7 +78,7 @@
     {% endblock %}
 
     {% block pageName %} Emploi du temps {% endblock %}
-    {% block pathName %} Emploi {% endblock %}
+    {% block pathName %} Emploi {{ timetables }} {% endblock %}
 
     {% block tableHead %}
 
@@ -98,6 +98,7 @@
         [{% for timetable in timetables %}
             {% for weeks in timetable.weeks %}
                 {'level' : '{{timetable.level}}',
+                'level_id' : '{{timetable.level_id}}',
                 'week' : {{weeks | safe }},},
             {% endfor %}
         {% endfor %}]

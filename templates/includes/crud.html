@@ -76,14 +76,15 @@
                                         class="fd-bg-silver text-center shadow-sm fd-color-secondary rounded-5 btn-action"
                                         data-bs-toggle="modal" data-bs-target="#Modal"
                                         data-bs-whatever='${JSON.stringify(data)}'
-                                        title='Modifier ${Object.values(data)[1]}'
+                                        title='Modifier'
                                     >
                                         <i class="mdi mdi-pen"></i>
                                     </a>
                                     <a href="javascript:void(0)"
                                         class="fd-bg-silver delete-btn text-center shadow-sm text-danger rounded-5 btn-action"
-                                        data-timetable-id='${data.id}'
-                                        title='Supprimer ${Object.values(data)[1]}'
+                                        data-timetable-id='${data.id || data.week.week}'
+                                        data-timetable-level='${data.level_id}'
+                                        title='Supprimer'
                                         
                                         >
                                         <i class="mdi mdi-trash-can"></i>
@@ -215,7 +216,10 @@
                             headers: {
                                 'X-CSRFToken': csrfToken
                             },
-                            data: {action: 'del', id: $(e).data('timetable-id')},
+                            data: {
+                                action: 'del', id: $(e).data('timetable-id'),
+                                level_id : $(e).data('timetable-level') || null
+                            },
                             success: function(response) {
 
                                 if(!response.success) {
