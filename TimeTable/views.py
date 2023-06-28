@@ -410,42 +410,81 @@ def adminTimetables(request):
 
     if request.method == "POST":
 
-        data = []
+        if request.POST.get('action') == 'add':
 
-        level_ids = request.POST.getlist('level_id')
-        classroom_ids = request.POST.getlist('classroom_id')
-        subject_ids = request.POST.getlist('subject_id')
-        user_ids = request.POST.getlist('user_id')
-        start_times = request.POST.getlist('start_time')
-        end_times = request.POST.getlist('end_time')
+            level_ids = request.POST.getlist('level_id')
+            classroom_ids = request.POST.getlist('classroom_id')
+            subject_ids = request.POST.getlist('subject_id')
+            user_ids = request.POST.getlist('user_id')
+            start_times = request.POST.getlist('start_time')
+            end_times = request.POST.getlist('end_time')
 
 
-        with transaction.atomic():
+            with transaction.atomic():
 
-            for i in range(len(user_ids)):
+                for i in range(len(user_ids)):
 
-                start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
-                end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
-                week_number = start.isocalendar()[1]
+                    start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
+                    end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
+                    week_number = start.isocalendar()[1]
 
-                try:
+                    try:
 
-                    TimeTable.objects.create(
-                        level_id = level_ids[i],
-                        classroom_id = classroom_ids[i],
-                        subject_id = subject_ids[i],
-                        user_id = user_ids[i],
-                        start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
-                        end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
-                        week = week_number
-                    )
+                        TimeTable.objects.create(
+                            level_id = level_ids[i],
+                            classroom_id = classroom_ids[i],
+                            subject_id = subject_ids[i],
+                            user_id = user_ids[i],
+                            start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                            end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                            week = week_number
+                        )
 
-                except Exception as e:
-                    
-                    return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégistrement", 'd': str(e)})
+                    except Exception as e:
+                        
+                        return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégistrement", 'd': str(e)})
 
-            return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
+                return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
 
+        if request.POST.get('action') == 'edit':
+            
+            ids = request.POST.getlist('id')
+            level_ids = request.POST.getlist('level_id')
+            classroom_ids = request.POST.getlist('classroom_id')
+            subject_ids = request.POST.getlist('subject_id')
+            user_ids = request.POST.getlist('user_id')
+            start_times = request.POST.getlist('start_time')
+            end_times = request.POST.getlist('end_time')
+
+
+            with transaction.atomic():
+
+                for i in range(len(user_ids)):
+
+                    start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
+                    end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
+                    week_number = start.isocalendar()[1]
+
+                    try:
+
+                        timetable = TimeTable.objects.filter(id = ids[i])
+
+                        timetable.update(
+                            level_id = level_ids[i],
+                            classroom_id = classroom_ids[i],
+                            subject_id = subject_ids[i],
+                            user_id = user_ids[i],
+                            start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                            end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                            week = week_number
+                        )
+
+                    except Exception as e:
+                        
+                        return JsonResponse({"success" : False, "message": "Erreur lors de la mise à jour", 'd': str(e)})
+
+                return JsonResponse({"success" : True, "message": "Mise à jour avec succès"})
+ 
     subjects = Subject.objects.all()
     levels = Level.objects.all()
     timetables = get_timetable_by_level()
