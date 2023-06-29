@@ -1,7 +1,8 @@
-from django.db.models import Q, Sum, ExpressionWrapper, F, DurationField
+from django.db.models import Q, Sum, F
 from datetime import datetime, timedelta
 from django.utils import timezone
 from .models import TimeTable
+import calendar
 
 def get_timetable_by_level():
 
@@ -176,3 +177,27 @@ def get_sutdent_stat(type, level_id):
         ).count()
 
         return total
+    
+    if type == 'week_days':
+
+        most_busy_day = TimeTable.objects.filter(
+            week=current_week, level=level_id
+        ).values('start_time__week_day').annotate(
+            total_hours=Sum(F('end_time') - F('start_time'))
+        ).order_by('-total_hours').first()
+
+        # Effectuer l'agrégation pour trouver le jour le moins chargé
+        least_busy_day = TimeTable.objects.filter(
+            week=current_week, level=level_id
+        ).values('start_time__week_day').annotate(
+            total_hours=Sum(F('end_time') - F('start_time'))
+        ).order_by('total_hours').first()
+
+        # Extraire les numéros de jour de la semaine (1 pour lundi, 2 pour mardi, etc.)
+        most_busy_day_number = most_busy_day['start_time__week_day'] if most_busy_day is not None else None
+        least_busy_day_number = least_busy_day['start_time__week_day'] if most_busy_day is not None else None
+
+        most = calendar.day_name[most_busy_day_number-1] if most_busy_day_number is not None else "Aucun"
+        least = calendar.day_name[least_busy_day_number-1] if least_busy_day_number is not None else "Aucun"
+
+        return most, least
