@@ -1,5 +1,6 @@
-from django.db.models import Q
+from django.db.models import Q, Sum, ExpressionWrapper, F, DurationField
 from datetime import datetime, timedelta
+from django.utils import timezone
 from .models import TimeTable
 
 def get_timetable_by_level():
@@ -149,3 +150,29 @@ def get_timetable_data(level_id : int | None = None, current_week : bool = False
         result.append(week_info)
 
     return result
+
+
+def get_sutdent_stat(type, level_id):
+
+    current_date = timezone.now().date()
+
+    current_week = current_date.isocalendar()[1]
+
+    if type == 'week_total_hourse':
+
+        total_hours = TimeTable.objects.filter(
+            week=current_week, level_id=level_id
+        ).aggregate(total_hours=Sum(F('end_time') - F('start_time'))).get('total_hours')
+
+
+        return int(total_hours.total_seconds() // 3600) if total_hours is not None else 0
+    
+
+    if type == 'total_subjects':
+
+
+        total = TimeTable.objects.filter(
+            week=current_week, level_id=level_id
+        ).count()
+
+        return total

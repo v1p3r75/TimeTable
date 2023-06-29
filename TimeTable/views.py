@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import get_timetable_data, get_timetable_global, get_timetable_by_level
+from .helpers import get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat
 import locale
 
 
@@ -29,6 +29,8 @@ def adminDash(request):
     total_teachers = User.objects.filter( role_id = 2).count()
     total_subjects = Subject.objects.count()
     total_classrooms = Classroom.objects.count()
+    total_hours = get_sutdent_stat('week_total_hourse', request.user.level.id)
+    total_students_subjects = get_sutdent_stat('total_subjects', request.user.level.id)
 
     # students_by_levels = User.objects.filter( role_id = 3)
     students_by_levels = (
@@ -66,7 +68,7 @@ def adminDash(request):
     for level in levels:
         tab.append(level.label)
 
-    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': students_array, 'teachers_by_levels': [total_teachers] * len(levels), 'subjects_by_levels': subjects_array})
+    return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': students_array, 'teachers_by_levels': [total_teachers] * len(levels), 'subjects_by_levels': subjects_array, 'total_hours': total_hours, 'total_students_subjects': total_students_subjects})
 
 
 @login_required( login_url = 'login')
