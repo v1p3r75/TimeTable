@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from .models import TimeTable
 import calendar
+from django.core.mail import send_mail
+from django.conf import settings
 
 def get_timetable_by_level():
 
@@ -201,3 +203,13 @@ def get_sutdent_stat(type, level_id):
         least = calendar.day_name[least_busy_day_number-1] if least_busy_day_number is not None else "Aucun"
 
         return most, least
+
+def send_email(subject, recipient_list, message):
+   
+   send_mail(
+        subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        recipient_list,
+        fail_silently=False,
+    )

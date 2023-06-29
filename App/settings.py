@@ -129,3 +129,9 @@ STATICFILES_DIRS = [ BASE_DIR / 'static/' ]
 MEDIA = [ BASE_DIR / 'media/' ]
 
 AUTH_USER_MODEL = 'Auth.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'b3e288afd68c55'
+EMAIL_HOST_PASSWORD = 'dbcc9cdb990ac7'
+EMAIL_PORT = '2525'
