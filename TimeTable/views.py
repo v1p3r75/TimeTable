@@ -10,6 +10,9 @@ from datetime import datetime,  timedelta
 from itertools import groupby
 from .helpers import send_email, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat
 import locale
+import os
+from django.conf import settings
+
 
 
 locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
@@ -90,9 +93,25 @@ def userAccount(request):
                     'level_id': request.POST.get('level_id'),
                 }
                 
-                if User.objects.get(id = data.get('id')):
+                user = User.objects.get(id = data.get('id'))
+
+                if user:
                                     
                     User.objects.filter(id = data.get('id')).update(**data)
+
+                    if 'image' in request.FILES:
+
+                        image = request.FILES['image']
+                        file_extension = '.' + image.name.split('.')[-1].lower()
+                        # Définir le chemin d'accès où enregistrer l'image
+                        path = request.POST.get('lastname')  + '-' + request.POST.get('id') + file_extension
+                        image_path = os.path.join(settings.MEDIA, 'images', path)
+                        # Enregistrer l'image dans le dossier spécifié
+                        with open(image_path, 'ab+') as file:
+                            for chunk in image.chunks():
+                                file.write(chunk)
+
+                        User.objects.filter(id = data.get('id')).update(image_path = path)
 
                     return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
                 

@@ -11,12 +11,13 @@
     </div>
 
     <div class="container-fluid mt-5">
-        <div class="col-2 mx-auto p-4 border border-3 mb-4 text-center"
+        <div class="col-2 mx-auto p-4 border border-3 mb-4 text-center image-ctn" title="Changer de photo"
             style="width: 150px; height: 150px; border-radius: 150px;">
             <img src="/static/img/teacher.svg" alt="logo teacher" class="w-100 h-100">
         </div>
         <form action={% url 'user-account' %} method='POST' class="mb-5">
             {% csrf_token %}
+            <input type="file" name="image" class="d-none image" accept="image/*">
             <input type="hidden" name="action" value="edit" class="form-action" />
             <input type="hidden" name="action-detail" value="info" class="form-action" />
             <input type="hidden" name="id" value={{user.id}}>
@@ -105,6 +106,10 @@
 <script>
 
     $(document).ready(function () {
+
+        $('.image-ctn').on('click', function () {
+            $('.image').click();
+        })
 
         const forms = $('form')
         const loading = '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...'
