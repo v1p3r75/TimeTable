@@ -13,13 +13,24 @@ import locale
 import os
 from django.conf import settings
 
-
-
 locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
+
+def must_admin(view_func):
+
+    def wrapper(request, *args, **kwargs):
+
+        if request.user.role.id != 1:
+
+            return studentDash(request)
+        
+        return view_func(request, *args, **kwargs)
+    
+    return wrapper
 
 
 # Create your views here.
 @login_required( login_url = 'login')
+@must_admin
 def adminDashboard(request):
 
     return render(request, 'timetable/admin/home.html')
@@ -42,6 +53,7 @@ def studentDash(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminDash(request):
 
     total_students = User.objects.filter( role_id = 3).count()
@@ -180,6 +192,7 @@ def userAccount(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminTeachers(request):
 
     if request.method == 'POST':
@@ -248,6 +261,7 @@ def adminTeachers(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminSubjects(request):
 
     if request.method == 'POST':
@@ -316,6 +330,7 @@ def adminSubjects(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminLevels(request):
 
     if request.method == 'POST':
@@ -375,6 +390,7 @@ def adminLevels(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminClassrooms(request):
 
     if request.method == 'POST':
@@ -439,6 +455,7 @@ def adminClassrooms(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 @transaction.atomic
 def adminTimetables(request):
 
