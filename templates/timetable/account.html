@@ -11,9 +11,9 @@
     </div>
 
     <div class="container-fluid mt-5">
-        <div class="col-2 mx-auto p-4 border border-3 mb-4 text-center image-ctn" title="Changer de photo"
-            style="width: 150px; height: 150px; border-radius: 150px;">
-            <img src="/static/img/teacher.svg" alt="logo teacher" class="w-100 h-100">
+        <div class="postion-relative col-2 mx-auto mb-4 text-center image-ctn" title="Changer de photo"
+            style="width: 150px; height: 150px; cursor: pointer;">
+            <img src="/static/img/teacher.svg" alt="logo teacher" class="w-100 h-100 border border-3 rouned-3" style="border-radius: 150px;">
         </div>
         <form action={% url 'user-account' %} method='POST' class="mb-5">
             {% csrf_token %}
@@ -109,6 +109,10 @@
 
         $('.image-ctn').on('click', function () {
             $('.image').click();
+        })
+
+        $('.image').on('change', function (e) {
+            $('.image-ctn img').attr('src', URL.createObjectURL(e.target.files[0]))
         })
 
         const forms = $('form')
