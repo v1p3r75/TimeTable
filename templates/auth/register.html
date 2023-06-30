@@ -8,22 +8,22 @@
             </div>
         </div>
         <div class="login-form bg-white rounded-5 rounded-end p-4">
-            <h4>Welcome To TimeTable</h4>
-            <div><span class="text-muted me-2">Already Registered ?</span><span><a href={% url 'login' %}>Login</a></span></div>
-            <h5 class="my-3">Sign Up</h5>
+            <h4>Bienvenu Sur TimeTable</h4>
+            <div><span class="text-muted me-2">Déjà enrégistré ?</span><span><a href={% url 'login' %}>Se connecter</a></span></div>
+            <h5 class="my-3">Inscription</h5>
             <form action="" method='POST'>
                 {% csrf_token %}
                 {% include '../includes/display_errors.html' %}
                 <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
                     <div class="form-group">
-                        <label class="position-relative text-muted w-100">Lastname
-                            <input name="lastname" type="text" class="form-control">
+                        <label class="position-relative text-muted w-100">Prénom(s)
+                            <input name="firstname" type="text" class="form-control">
                             <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
                         </label>
                     </div>
-                    <div class="form-group mt-3 mt-lg-0">
-                        <label class="position-relative text-muted w-100">Firstname
-                            <input name="firstname" type="text" class="form-control">
+                    <div class="form-group  mt-3 mt-lg-0">
+                        <label class="position-relative text-muted w-100">Nom
+                            <input name="lastname" type="text" class="form-control">
                             <span class="position-absolute top-50 end-5"><i class="mdi mdi-account-circle"></i></span>
                         </label>
                     </div>
@@ -33,7 +33,7 @@
                         <input name="email" type="email" class="form-control">
                         <span class="position-absolute top-50 end-5"><i class="mdi mdi-email"></i>&nbsp;&nbsp;</span>
                     </label>
-                    <label class="position-relative text-muted">Classe
+                    <label class="position-relative text-muted mt-3 mt-lg-0">Classe
                         <select name='level_id' class="form-select">
                             {% for level in levels %}
                                 <option value={{level.id}}>
@@ -45,22 +45,22 @@
                 </div>
                 <div class="row row-cols-1 row-cols-lg-2 flex-wrap">
                     <div class="form-group">
-                        <label class="position-relative text-muted w-100">Password
+                        <label class="position-relative text-muted w-100">Mot de passe
                             <input name="password" type="password" class="form-control">
                             <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                         </label>
                     </div>
                     <div class="form-group mt-3 mt-lg-0">
-                        <label class="position-relative text-muted w-100">Confirm password
+                        <label class="position-relative text-muted w-100">Confirmer mot de passe
                             <input name="password_confirmation" type="password" class="form-control">
                             <span class="position-absolute top-50 end-5"><i class="mdi mdi-eye"></i></span>
                         </label>
                     </div>
                 </div>
                 <div class="submit my-3">
-                    <button type="submit" class="btn fd-bg-secondary text-white w-100 shadow">Register</button>
+                    <button type="submit" class="btn fd-bg-secondary text-white w-100 shadow">S'inscrire</button>
                 </div>
-                <div class="text-muted text-center"><span>OR</span></div>
+                <div class="text-muted text-center"><span>OU</span></div>
                 <div class="socials-networks d-flex flex-wrap gap-3 justify-content-center mt-3">
                     <div><i class="mdi mdi-google-plus fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
                     <div><i class="mdi mdi-facebook fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
