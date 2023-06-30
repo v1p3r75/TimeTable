@@ -206,16 +206,14 @@ def get_sutdent_stat(type, level_id):
         return most, least
 
 def send_notification(subject, recipient_list, message):
-
-	try:
-            send_mail(
-				subject,
-				message,
-				settings.EMAIL_HOST_USER,
-				recipient_list,
-				fail_silently=False,
-			)
     
-	except Exception as e:
-            
-		print('Failed to send notification', e)
+    try:
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            recipient_list,
+            fail_silently=False,
+        )
+    except Exception as e:
+        print('Failed to send notification', e)
