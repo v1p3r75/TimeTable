@@ -20,6 +20,7 @@
                         <h6><span class="text-muted">Départ : </span> <span class='small start_time'></span></h6>
                         <h6><span class="text-muted">Fin : </span> <span class='small end_time'></span></h6>
                     </div>
+                    <h6><span class="text-muted">Description de la salle : </span> <span class='small classroom_desc'></span></h6>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -74,6 +75,7 @@
             $('.teacher-info').text(data.teacherInfo)
             $('.start_time').text(start_time)
             $('.end_time').text(end_time)
+            $('.classroom_desc').text(data.classroom_desc)
         }
 
         timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
@@ -85,6 +87,7 @@
                         teacher: '{{ day.user }}',
                         teacherInfo: '{{ day.user.email }}',
                         classroom: '{{ day.classroom }}',
+                        classroom_desc: '{{ day.classroom_desc }}',
                         subject: '{{ day.subject }}',
                         level: '{{ day.level }}',
                         start_time: '{{ day.start_time }}',
@@ -102,6 +105,7 @@
 <style>
 .time-entry {
     background-color: var(--fd-color-primary)!important;
-    border: 1px solid var(--fd-color-secondary)!important;
+    border: 1px solid var(--fd-color-silver-2)!important;
+    cursor: pointer;
 }
 </style>

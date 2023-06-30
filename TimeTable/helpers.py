@@ -133,6 +133,7 @@ def get_timetable_data(level_id : int | None = None, current_week : bool = False
             'user': entry.user,
             'level': entry.level.label,
             'classroom': entry.classroom.label,
+            'classroom_desc': entry.classroom.description,
             'subject': entry.subject.label,
             'start_time': str(entry.start_time),
             'end_time': str(entry.end_time),
