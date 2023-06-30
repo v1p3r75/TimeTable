@@ -122,7 +122,7 @@ def resetPassword(request):
             return redirect_users(request, user)
 
         
-        return render(request, 'auth/reset-password.html', {'title' : 'Mot de passe oublié', 'errors': ['Code incorrect. Veillez réessayer !']})
+        return render(request, 'auth/reset-password.html', {'title' : 'Mot de passe oublié', 'email': email, 'errors': ['Code incorrect. Veillez réessayer !']})
  
     
     return render(request, 'auth/forgot-password.html', {'title' : 'Mot de passe oublié' })
