@@ -551,6 +551,8 @@ def adminTimetables(request):
 
             with transaction.atomic():
 
+                subjects = []
+
                 for i in range(len(user_ids)):
 
                     start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
@@ -568,18 +570,25 @@ def adminTimetables(request):
                             end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
                             week = week_number
                         )
-                        users = User.objects.filter(Q(level_id = level_ids[i]) | Q(id = user_ids[i]))
-                        list_users = []
-                        for user in users:
-                            list_users.append(user.email)
-
-                        send_notification('Ajout d\'emploi du temps', list_users,\
-                                          "mail/timetable_added.html", {"week": week_number})
+                        subject = Subject.objects.get(id = subject_ids[i]).label
+                        if subject not in subjects:
+                            subjects.append(subject)
+                        
 
                     except Exception as e:
                         
                         return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégistrement", 'd': str(e)})
 
+                users = User.objects.filter(Q(level_id = level_ids[i]) | Q(id = user_ids[i]))
+                list_users = []
+                for user in users:
+                    list_users.append(user.email)
+
+                send_notification("Nouvel d\'emploi du temps",\
+                                  list_users,\
+                                "mail/timetable_added.html",\
+                                {"subjects": subjects})
+                
                 return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
 
         if request.POST.get('action') == 'edit':
