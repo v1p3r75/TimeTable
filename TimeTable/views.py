@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import send_email, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat
+from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat
 import locale
 import os
 from django.conf import settings
@@ -568,6 +568,13 @@ def adminTimetables(request):
                             end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
                             week = week_number
                         )
+                        users = User.objects.filter(Q(level_id = level_ids[i]) | Q(id = user_ids[i]))
+                        list_users = []
+                        for user in users:
+                            list_users.append(user.email)
+
+                        send_notification('Ajout d\'emploi du temps', list_users,\
+                                           f"La matière { Subject.objects.get(id = subject_ids[i]).label } vient d'être programmer. Visitez la platforme pour en savoir plus.")
 
                     except Exception as e:
                         
