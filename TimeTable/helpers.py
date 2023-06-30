@@ -1,6 +1,67 @@
-from django.db.models import Q
+from django.db.models import Q, Sum, F
 from datetime import datetime, timedelta
+from django.utils import timezone
 from .models import TimeTable
+import calendar
+from django.core.mail import send_mail
+from django.conf import settings
+
+def get_timetable_by_level():
+
+    timetable_entries = TimeTable.objects.select_related('level', 'user', 'classroom', 'subject')
+
+    # Créez un dictionnaire pour stocker les données groupées par filière, semaine et jour
+    grouped_timetable = {}
+    level_id = None
+
+    # Parcourez les emplois du temps et groupez les données
+    for entry in timetable_entries:
+        level_label = entry.level.label
+        week_number = entry.start_time.isocalendar()[1]
+        day_name = entry.start_time.strftime('%A')
+
+        if level_label not in grouped_timetable:
+            grouped_timetable[level_label] = {}
+
+        if week_number not in grouped_timetable[level_label]:
+            grouped_timetable[level_label][week_number] = []
+
+        day_data = {
+            'id': entry.id,
+            'user_id': entry.user.id,
+            'user': str(entry.user),
+            'level_id': entry.level.id,
+            'level': entry.level.label,
+            'classroom_id': entry.classroom.id,
+            'classroom': entry.classroom.label,
+            'subject_id': entry.subject.id,
+            'subject': entry.subject.label,
+            'start_time': str(entry.start_time),
+            'end_time': str(entry.end_time),
+        }
+        level_id = entry.level.id
+
+        grouped_timetable[level_label][week_number].append({day_name: day_data})
+
+    # Affichez les données groupées par filière, semaine et jour
+    result = []
+
+    for level_label, level_data in grouped_timetable.items():
+        level_info = {'level': level_label,'level_id' : level_id, 'weeks': []}
+        
+        for week_number, week_data in level_data.items():
+            week_info = {'week': week_number, 'days': []}
+
+            for day_data in week_data:
+                day_name, day_info = list(day_data.items())[0]
+                day_info['day_name'] = day_name.capitalize()
+                week_info['days'].append(day_info)
+
+            level_info['weeks'].append(week_info)
+
+        result.append(level_info)
+
+    return result
 
 def get_timetable_global():
 
@@ -72,6 +133,7 @@ def get_timetable_data(level_id : int | None = None, current_week : bool = False
             'user': entry.user,
             'level': entry.level.label,
             'classroom': entry.classroom.label,
+            'classroom_desc': entry.classroom.description,
             'subject': entry.subject.label,
             'start_time': str(entry.start_time),
             'end_time': str(entry.end_time),
@@ -92,3 +154,68 @@ def get_timetable_data(level_id : int | None = None, current_week : bool = False
         result.append(week_info)
 
     return result
+
+
+def get_sutdent_stat(type, level_id):
+
+    current_date = timezone.now().date()
+
+    current_week = current_date.isocalendar()[1]
+
+    if type == 'week_total_hourse':
+
+        total_hours = TimeTable.objects.filter(
+            week=current_week, level_id=level_id
+        ).aggregate(total_hours=Sum(F('end_time') - F('start_time'))).get('total_hours')
+
+
+        return int(total_hours.total_seconds() // 3600) if total_hours is not None else 0
+    
+
+    if type == 'total_subjects':
+
+
+        total = TimeTable.objects.filter(
+            week=current_week, level_id=level_id
+        ).count()
+
+        return total
+    
+    if type == 'week_days':
+
+        most_busy_day = TimeTable.objects.filter(
+            week=current_week, level=level_id
+        ).values('start_time__week_day').annotate(
+            total_hours=Sum(F('end_time') - F('start_time'))
+        ).order_by('-total_hours').first()
+
+        # Effectuer l'agrégation pour trouver le jour le moins chargé
+        least_busy_day = TimeTable.objects.filter(
+            week=current_week, level=level_id
+        ).values('start_time__week_day').annotate(
+            total_hours=Sum(F('end_time') - F('start_time'))
+        ).order_by('total_hours').first()
+
+        # Extraire les numéros de jour de la semaine (1 pour lundi, 2 pour mardi, etc.)
+        most_busy_day_number = most_busy_day['start_time__week_day'] if most_busy_day is not None else None
+        least_busy_day_number = least_busy_day['start_time__week_day'] if most_busy_day is not None else None
+
+        most = calendar.day_name[most_busy_day_number-1] if most_busy_day_number is not None else "Aucun"
+        least = calendar.day_name[least_busy_day_number-1] if least_busy_day_number is not None else "Aucun"
+
+        return most, least
+
+def send_notification(subject, recipient_list, message):
+
+	try:
+            send_mail(
+				subject,
+				message,
+				settings.EMAIL_HOST_USER,
+				recipient_list,
+				fail_silently=False,
+			)
+    
+	except Exception as e:
+            
+		print('Failed to send notification', e)

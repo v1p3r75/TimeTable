@@ -8,9 +8,9 @@
             </div>
         </div>
         <div class="login-form bg-white rounded-5 rounded-end p-5">
-            <h4>Welcome To TimeTable</h4>
-            <div><span class="text-muted me-2">Need an account ?</span><span><a href={% url 'register' %}>Sign Up</a></span></div>
-            <h5 class="my-3">Sign in</h5>
+            <h4>Bienvenu Sur TimeTable</h4>
+            <div><span class="text-muted me-2">Besoin d'un compte ?</span><span><a href={% url 'register' %}>Créer compte</a></span></div>
+            <h5 class="my-3">Se connecter</h5>
             <form action="" method="POST">
                 {% csrf_token %}
                 {% include '../includes/display_errors.html' %}
@@ -30,15 +30,15 @@
                     <div>
                         <label>
                             <input type="checkbox" name="remember">
-                            <span class="text-muted">Remember me</span>
+                            <span class="text-muted">Se souvenir de moi</span>
                         </label>
                     </div>
-                    <div><a href={% url 'forgotPassword' %} class="fd-color-blue">Forgot Password ?</a></div>
+                    <div class="mt-3 mt-lg-0"><a href={% url 'forgotPassword' %} class="fd-color-blue">Mot de passe oublié ?</a></div>
                 </div>
                 <div class="submit my-3">
-                    <button type="submit" class="btn fd-bg-secondary text-white w-100 shadow">Login</button>
+                    <button type="submit" class="btn fd-bg-secondary text-white w-100 shadow">Se connecter</button>
                 </div>
-                <div class="text-muted text-center"><span>OR</span></div>
+                <div class="text-muted text-center"><span>OU</span></div>
                 <div class="socials-networks d-flex flex-wrap gap-3 justify-content-center mt-3">
                     <div><i class="mdi mdi-google-plus fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>
                     <div><i class="mdi mdi-facebook fd-bg-silver py-1 px-2 border border-1 rounded-3 shdadow"></i></div>

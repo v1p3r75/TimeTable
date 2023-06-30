@@ -2,7 +2,7 @@
 
     <div class="row flex-column gap-3 gap-lg-4">
         <div class="menu-list px-4">
-            <a href="javascript:void(0)" data-timetable-page={% url 'admin-dash' %} class="d-block label-dashboard d-flex justify-content-between fd-color-silver-2">
+            <a href="javascript:void(0)" data-timetable-page= {% if user.role.id == 1 %}{% url 'admin-dash' %} {% else %} {% url 'student-dash' %}{% endif %} class="d-block label-dashboard d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-view-dashboard me-2"></i><span>Dashboard</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
@@ -17,6 +17,14 @@
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
         </div>
+        {% if user.role.id == 1 %}
+            <div class="menu-list px-4">
+                <a href="javascript:void(0)" data-timetable-page={% url 'admin-colaborators' %} class="d-block d-flex justify-content-between fd-color-silver-2">
+                    <div><i class="mdi mdi-account-group me-2"></i><span>Collaborateurs</span></div>
+                    <div><i class="mdi mdi-chevron-right"></i></div>
+                </a>
+            </div>
+        {% endif %}
         {% if user.role.id == 1 %}
             <div class="menu-list px-4">
                 <a href="javascript:void(0)" data-timetable-page={% url 'admin-teachers' %} class="d-block d-flex justify-content-between fd-color-silver-2">
@@ -46,7 +54,7 @@
         {% if user.role.id == 1 %}
             <div class="menu-list px-4">
                 <a href="javascript:void(0)" data-timetable-page={% url 'admin-levels' %} class="d-block d-flex justify-content-between fd-color-silver-2">
-                    <div><i class="mdi mdi-school me-2"></i><span>Niveaux Scolaire</span></div>
+                    <div><i class="mdi mdi-school me-2"></i><span>Niveaux</span></div>
                     <div><i class="mdi mdi-chevron-right"></i></div>
                 </a>
             </div>
@@ -59,7 +67,7 @@
                 </a>
             </div>
         {% endif %}
-        <div class="menu-list px-4">
+        <div class="menu-list px-4 mb-5 mb-lg-0">
             <a href="javascript:void(0)" data-timetable-page={% url 'user-account' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-account-box me-2"></i><span>Mon compte</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>

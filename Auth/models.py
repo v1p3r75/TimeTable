@@ -56,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length = 30, null = True)
     role = models.ForeignKey(Role, on_delete = models.CASCADE, default = 3)
     level = models.ForeignKey(Level, on_delete = models.CASCADE, null = True)
+    image_path = models.CharField(max_length=50, default="default.svg")
     create_at = models.DateTimeField(auto_now_add = True)
     is_staff = models.BooleanField(default = False)
     is_active = models.BooleanField(default = True)

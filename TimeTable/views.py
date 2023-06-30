@@ -8,29 +8,60 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import get_timetable_data, get_timetable_global
+from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat
 import locale
-
+import os
+from django.conf import settings
 
 locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
+
+def must_admin(view_func):
+
+    def wrapper(request, *args, **kwargs):
+
+        if request.user.role.id != 1:
+
+            return studentDash(request)
+        
+        return view_func(request, *args, **kwargs)
+    
+    return wrapper
 
 
 # Create your views here.
 @login_required( login_url = 'login')
+@must_admin
 def adminDashboard(request):
 
     return render(request, 'timetable/admin/home.html')
 
+@login_required( login_url = 'login')
+def studentDashboard(request):
+
+    return render(request, 'timetable/student/home.html')
+
 
 @login_required( login_url = 'login')
+def studentDash(request):
+
+    total_hours = get_sutdent_stat('week_total_hourse', request.user.level.id)
+    total_students_subjects = get_sutdent_stat('total_subjects', request.user.level.id)
+    weeks_days = get_sutdent_stat('week_days', request.user.level.id)
+
+
+    return render(request, 'timetable/student/dash.html', {'total_hours': total_hours, 'total_students_subjects': total_students_subjects, 'most': weeks_days[0], 'least': weeks_days[1]})
+
+
+@login_required( login_url = 'login')
+@must_admin
 def adminDash(request):
 
     total_students = User.objects.filter( role_id = 3).count()
     total_teachers = User.objects.filter( role_id = 2).count()
     total_subjects = Subject.objects.count()
     total_classrooms = Classroom.objects.count()
+    
 
-    # students_by_levels = User.objects.filter( role_id = 3)
     students_by_levels = (
         User.objects
         .filter( role_id = 3)
@@ -87,9 +118,25 @@ def userAccount(request):
                     'level_id': request.POST.get('level_id'),
                 }
                 
-                if User.objects.get(id = data.get('id')):
+                user = User.objects.get(id = data.get('id'))
+
+                if user:
                                     
                     User.objects.filter(id = data.get('id')).update(**data)
+
+                    if 'image' in request.FILES:
+
+                        image = request.FILES['image']
+                        file_extension = '.' + image.name.split('.')[-1].lower()
+                        # Définir le chemin d'accès où enregistrer l'image
+                        path = request.POST.get('lastname')  + '-' + request.POST.get('id') + file_extension
+                        image_path = os.path.join(settings.MEDIA_ROOT, 'images', path)
+                        # Enregistrer l'image dans le dossier spécifié
+                        with open(image_path, 'ab+') as file:
+                            for chunk in image.chunks():
+                                file.write(chunk)
+
+                        User.objects.filter(id = data.get('id')).update(image_path = path)
 
                     return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
                 
@@ -145,6 +192,7 @@ def userAccount(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminTeachers(request):
 
     if request.method == 'POST':
@@ -179,11 +227,16 @@ def adminTeachers(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
             }
 
-            if User.objects.get(id = data.get('id')):
-                                
+            user = User.objects.get(id = data.get('id'))
+
+            if user:
+                
                 User.objects.filter(id = data.get('id')).update(**data)
+                user.set_password(data.get('password'))
+                user.save()
 
                 return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
             
@@ -207,12 +260,85 @@ def adminTeachers(request):
     tabs = []
 
     for user in users:
-        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone, "password": user.password})
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else ""})
 
     return render(request, 'timetable/admin/teachers.html', {'users': html.unescape(tabs)})
 
+@login_required( login_url = 'login')
+@must_admin
+def adminColaborators(request):
+
+    if request.method == 'POST':
+
+        if request.POST.get('action') == 'add':
+
+            
+            data = {
+                'lastname': request.POST.get('lastname'),
+                'firstname': request.POST.get('firstname'),
+                'phone': request.POST.get('phone'),
+                'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
+                'role_id': 1,
+            }
+
+            if User.objects.filter(email = data.get('email')).exists():
+                
+                return JsonResponse({'success': False, 'message': 'L\'adresse email existe déjà.'})
+                
+            record = User.objects.create_user(**data)
+
+            return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
+        
+        
+        if request.POST.get('action') == 'edit':
+
+            
+            data = {
+                'id': request.POST.get('id'),
+                'lastname': request.POST.get('lastname'),
+                'firstname': request.POST.get('firstname'),
+                'phone': request.POST.get('phone'),
+                'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
+            }
+
+            user = User.objects.get(id = data.get('id'))
+
+            if user:
+                
+                User.objects.filter(id = data.get('id')).update(**data)
+                user.set_password(data.get('password'))
+                user.save()
+
+                return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+        if request.POST.get('action') == 'del':
+
+            if User.objects.get(id = request.POST.get('id')):
+                                
+                User.objects.filter(id = request.POST.get('id')).delete()
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+
+    users = User.objects.filter(role_id = 1).all()
+
+    tabs = []
+
+    for user in users:
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else ""})
+
+    return render(request, 'timetable/admin/colaborators.html', {'users': html.unescape(tabs)})
 
 @login_required( login_url = 'login')
+@must_admin
 def adminSubjects(request):
 
     if request.method == 'POST':
@@ -281,6 +407,7 @@ def adminSubjects(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminLevels(request):
 
     if request.method == 'POST':
@@ -340,6 +467,7 @@ def adminLevels(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 def adminClassrooms(request):
 
     if request.method == 'POST':
@@ -404,51 +532,115 @@ def adminClassrooms(request):
 
 
 @login_required( login_url = 'login')
+@must_admin
 @transaction.atomic
 def adminTimetables(request):
 
 
     if request.method == "POST":
 
-        data = []
+        if request.POST.get('action') == 'add':
 
-        level_ids = request.POST.getlist('level_id')
-        classroom_ids = request.POST.getlist('classroom_id')
-        subject_ids = request.POST.getlist('subject_id')
-        user_ids = request.POST.getlist('user_id')
-        start_times = request.POST.getlist('start_time')
-        end_times = request.POST.getlist('end_time')
+            level_ids = request.POST.getlist('level_id')
+            classroom_ids = request.POST.getlist('classroom_id')
+            subject_ids = request.POST.getlist('subject_id')
+            user_ids = request.POST.getlist('user_id')
+            start_times = request.POST.getlist('start_time')
+            end_times = request.POST.getlist('end_time')
 
 
-        with transaction.atomic():
+            with transaction.atomic():
 
-            for i in range(len(user_ids)):
+                for i in range(len(user_ids)):
 
-                start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
-                end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
-                week_number = start.isocalendar()[1]
+                    start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
+                    end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
+                    week_number = start.isocalendar()[1]
 
-                try:
+                    try:
 
-                    TimeTable.objects.create(
-                        level_id = level_ids[i],
-                        classroom_id = classroom_ids[i],
-                        subject_id = subject_ids[i],
-                        user_id = user_ids[i],
-                        start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
-                        end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
-                        week = week_number
-                    )
+                        TimeTable.objects.create(
+                            level_id = level_ids[i],
+                            classroom_id = classroom_ids[i],
+                            subject_id = subject_ids[i],
+                            user_id = user_ids[i],
+                            start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                            end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                            week = week_number
+                        )
+                        users = User.objects.filter(Q(level_id = level_ids[i]) | Q(id = user_ids[i]))
+                        list_users = []
+                        for user in users:
+                            list_users.append(user.email)
 
-                except Exception as e:
-                    
-                    return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégistrement", 'd': str(e)})
+                        send_notification('Ajout d\'emploi du temps', list_users,\
+                                           f"La matière { Subject.objects.get(id = subject_ids[i]).label } vient d'être programmer. Visitez la platforme pour en savoir plus.")
 
-            return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
+                    except Exception as e:
+                        
+                        return JsonResponse({"success" : False, "message": "Erreur lors de l'enrégistrement", 'd': str(e)})
 
+                return JsonResponse({"success" : True, "message": "Ajouté avec succès"})
+
+        if request.POST.get('action') == 'edit':
+            
+            ids = request.POST.getlist('id')
+            level_ids = request.POST.getlist('level_id')
+            classroom_ids = request.POST.getlist('classroom_id')
+            subject_ids = request.POST.getlist('subject_id')
+            user_ids = request.POST.getlist('user_id')
+            start_times = request.POST.getlist('start_time')
+            end_times = request.POST.getlist('end_time')
+
+
+            with transaction.atomic():
+
+                for i in range(len(user_ids)):
+
+                    start = datetime.strptime(start_times[i], "%Y-%m-%dT%H:%M")
+                    end = datetime.strptime(end_times[i], "%Y-%m-%dT%H:%M")
+                    week_number = start.isocalendar()[1]
+
+                    try:
+
+                        timetable = TimeTable.objects.filter(id = ids[i])
+
+                        timetable.update(
+                            level_id = level_ids[i],
+                            classroom_id = classroom_ids[i],
+                            subject_id = subject_ids[i],
+                            user_id = user_ids[i],
+                            start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                            end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                            week = week_number
+                        )
+
+                    except Exception as e:
+                        
+                        return JsonResponse({"success" : False, "message": "Erreur lors de la mise à jour", 'd': str(e)})
+
+                users = User.objects.filter(Q(level_id = level_ids[i]) | Q(id = user_ids[i]))
+                list_users = []
+                for user in users:
+                    list_users.append(user.email)
+
+                send_notification('Modification d\'emploi du temps', list_users,\
+                                           f"L'emploi de la semaine { week_number } vient d'être modidier. Visitez la platforme pour en savoir plus.")
+                return JsonResponse({"success" : True, "message": "Mise à jour avec succès"})
+
+        if request.POST.get('action') == 'del':
+                                
+            if TimeTable.objects\
+                .filter(week = request.POST.get('id'), level_id = request.POST.get('level_id'))\
+                .delete():
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'Une erreur s\'est produite.'})
+        
     subjects = Subject.objects.all()
     levels = Level.objects.all()
-    timetables = get_timetable_global()
+    timetables = get_timetable_by_level()
     classrooms = Classroom.objects.all()
     users = User.objects.filter(role_id = 2).all()
     

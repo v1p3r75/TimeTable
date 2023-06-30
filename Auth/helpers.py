@@ -21,7 +21,7 @@ def redirect_users(request, user):
     
     if (user.role.id == 2):
 
-        return redirect('admin-dashboard')
+        return redirect('student-dashboard')
     
     else :
 

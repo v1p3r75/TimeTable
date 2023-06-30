@@ -50,6 +50,13 @@ $(document).ready(function() {
                 });
             });
 
+            $('.notify-icon').each((i, e) => {
+
+                $(e).on('click', () => {
+                    App.alert('info', 'Notification', 'Les notifications vous concernant sont envoyer directement sur votre boite mail. Merci !')
+                })
+            })
+
         }(),
 
         preloader: function() {
@@ -89,9 +96,32 @@ $(document).ready(function() {
             return result;
         },
 
+        toggleSidebar: function() {
+
+            $('.bars-lg').on('click', () => {
+                
+                if ($('.sidebar').hasClass('col-lg-3')) {
+
+                    $('.sidebar').removeClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
+                    $('.logo').removeClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
+                    $('.main').removeClass('col-lg-9')
+                    $('.header-nav').removeClass('col-lg-9')
+
+                }else {
+                    
+                    $('.sidebar').addClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
+                    $('.logo').addClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
+                    $('.main').addClass('col-lg-9')
+                    $('.header-nav').addClass('col-lg-9')
+                }
+                
+            })
+
+        }(),
+
         mobileSidebar: function() {
 
-            const DISPLAY_CLASS = 'd-block position-absolute top-0 start-0';
+            const DISPLAY_CLASS = 'd-block position-absolute top-0 start-0 animate__animated animate__fadeInLeft';
             const HIDE_CLASS = 'col d-none d-lg-block col-lg-3';
 
             $('.bars-mobile').on('click', function(e) {
@@ -132,6 +162,13 @@ $(document).ready(function() {
                         return callback();
                     }
                 });
+            }
+            if (type === 'info') {
+
+                Swal.fire({
+                    title,
+                    text,
+                })
             }
         },
 

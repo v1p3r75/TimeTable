@@ -4,9 +4,56 @@
             <h4>FAQ</h4>
         </div>
         <div class="page-path">
-            <a href='javascrip:void:0' class="text-black">Home</a>
+            <a href={% url 'student-dashboard' %} class="text-black">Home</a>
             <span class="mx-1">/</span>
             <a href="javascript:void(0)" class="text-black">Faq</a>
+        </div>
+    </div>
+    <div class="mt-5">
+        <div class="accordion accordion-flush" id="accordion1">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="true" aria-controls="flush-collapse1">
+                Introduction
+              </button>
+            </h2>
+            <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordion1">
+              <div class="accordion-body">
+                This is the first item's accordion body.
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="accordion accordion-flush my-3" id="accordion2">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="true" aria-controls="flush-collapse2">
+                  Comment utiliser cette application ?
+                </button>
+              </h2>
+              <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordion2">
+                <div class="accordion-body">
+                  This is the first item's accordion body.
+                </div>
+              </div>
+            </div>
+            
+        </div>
+        <div class="accordion accordion-flush" id="accordion3">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="true" aria-controls="flush-collapse3">
+                    Comment changer vos informations personnelles ?
+                </button>
+              </h2>
+              <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordion3">
+                <div class="accordion-body">
+                  This is the first item's accordion body.
+                </div>
+              </div>
+            </div>
+            
         </div>
     </div>
 </div>

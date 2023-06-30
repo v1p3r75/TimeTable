@@ -82,7 +82,8 @@
 
     {% block tableHead %}
 
-        <th class="text-center w-75">Semaines</th>
+        <th class="text-center">Semaines</th>
+        <th class="text-center">Classe</th>
         <th class="text-center">Actions</th>
 
     {% endblock %}
@@ -95,10 +96,15 @@
 
     {% block data %}
         [{% for timetable in timetables %}
-            {'week' : '{{timetable.week}}'},
+            {% for weeks in timetable.weeks %}
+                {'level' : '{{timetable.level}}',
+                'level_id' : '{{timetable.level_id}}',
+                'week' : {{weeks | safe }},},
+            {% endfor %}
         {% endfor %}]
     {% endblock data %}
     {% block columns %}
-        {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data},
+        {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data.week },
+        {data : 'level'},
     {% endblock %}
     {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}
