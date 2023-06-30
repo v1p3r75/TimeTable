@@ -96,6 +96,29 @@ $(document).ready(function() {
             return result;
         },
 
+        toggleSidebar: function() {
+
+            $('.bars-lg').on('click', () => {
+                
+                if ($('.sidebar').hasClass('col-lg-3')) {
+
+                    $('.sidebar').removeClass('d-lg-block col-lg-3')
+                    $('.logo').removeClass('d-lg-block col-lg-3')
+                    $('.main').removeClass('col-lg-9')
+                    $('.header-nav').removeClass('col-lg-9')
+
+                }else {
+                    
+                    $('.sidebar').addClass('d-lg-block col-lg-3')
+                    $('.logo').addClass('d-lg-block col-lg-3')
+                    $('.main').addClass('col-lg-9')
+                    $('.header-nav').addClass('col-lg-9')
+                }
+                
+            })
+
+        }(),
+
         mobileSidebar: function() {
 
             const DISPLAY_CLASS = 'd-block position-absolute top-0 start-0';
