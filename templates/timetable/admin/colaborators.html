@@ -38,8 +38,8 @@
 </div>
 {% endblock %}
 
-{% block pageName %} Professeurs {% endblock %}
-{% block pathName %} Teachers {% endblock %}
+{% block pageName %} Colaborateurs {% endblock %}
+{% block pathName %} Colaborateurs {{ users }}{% endblock %}
 
 {% block tableHead %}
 
@@ -53,7 +53,7 @@
 
 {% block actionURL %}
 
-    {% url 'admin-teachers' %}
+    {% url 'admin-colaborators' %}
 
 {% endblock %}
 

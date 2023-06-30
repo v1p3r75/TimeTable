@@ -227,11 +227,16 @@ def adminTeachers(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
             }
 
-            if User.objects.get(id = data.get('id')):
-                                
+            user = User.objects.get(id = data.get('id'))
+
+            if user:
+                
                 User.objects.filter(id = data.get('id')).update(**data)
+                user.set_password(data.get('password'))
+                user.save()
 
                 return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
             
@@ -255,10 +260,78 @@ def adminTeachers(request):
     tabs = []
 
     for user in users:
-        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone, "password": user.password})
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else ""})
 
     return render(request, 'timetable/admin/teachers.html', {'users': html.unescape(tabs)})
 
+@login_required( login_url = 'login')
+@must_admin
+def adminColaborators(request):
+
+    if request.method == 'POST':
+
+        if request.POST.get('action') == 'add':
+
+            
+            data = {
+                'lastname': request.POST.get('lastname'),
+                'firstname': request.POST.get('firstname'),
+                'phone': request.POST.get('phone'),
+                'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
+                'role_id': 1,
+            }
+
+            if User.objects.filter(email = data.get('email')).exists():
+                
+                return JsonResponse({'success': False, 'message': 'L\'adresse email existe déjà.'})
+                
+            record = User.objects.create_user(**data)
+
+            return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
+        
+        
+        if request.POST.get('action') == 'edit':
+
+            
+            data = {
+                'id': request.POST.get('id'),
+                'lastname': request.POST.get('lastname'),
+                'firstname': request.POST.get('firstname'),
+                'phone': request.POST.get('phone'),
+                'email': request.POST.get('email'),
+                'password': request.POST.get('password'),
+            }
+
+            if User.objects.get(id = data.get('id')):
+                                
+                User.objects.filter(id = data.get('id')).update(**data)
+
+                return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+        if request.POST.get('action') == 'del':
+
+            if User.objects.get(id = request.POST.get('id')):
+                                
+                User.objects.filter(id = request.POST.get('id')).delete()
+
+                return JsonResponse({'success': True, 'message': 'Supprimer avec succès'})
+            
+            return JsonResponse({'success': False, 'message': 'L\'élément est introuvable.'})
+        
+
+
+    users = User.objects.filter(role_id = 1).all()
+
+    tabs = []
+
+    for user in users:
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else ""})
+
+    return render(request, 'timetable/admin/colaborators.html', {'users': html.unescape(tabs)})
 
 @login_required( login_url = 'login')
 @must_admin
