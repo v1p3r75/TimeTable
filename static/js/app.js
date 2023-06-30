@@ -50,6 +50,13 @@ $(document).ready(function() {
                 });
             });
 
+            $('.notify-icon').each((i, e) => {
+
+                $(e).on('click', () => {
+                    App.alert('info', 'Notification', 'Les notifications vous concernant sont envoyer directement sur votre boite mail. Merci !')
+                })
+            })
+
         }(),
 
         preloader: function() {
@@ -132,6 +139,13 @@ $(document).ready(function() {
                         return callback();
                     }
                 });
+            }
+            if (type === 'info') {
+
+                Swal.fire({
+                    title,
+                    text,
+                })
             }
         },
 
