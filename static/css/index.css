@@ -17,7 +17,7 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
 .fd-color-blue { color: var(--fd-color-blue);} .fd-bg-blue { background-color: var(--fd-color-blue);}
 .fd-bg-orange { background-color: var(--fd-color-orange);}
 .start-5 { left: 5%} .end-5 { right: 5%} .overflow-y-scroll { overflow-y: scroll;}
-.bg-inherit { background : inherit }
+.bg-inherit { background : inherit!important; }
 .login-image { background-image: url("/static/img/login-icon-02.png"); background-repeat: no-repeat; background-position: top right;}
 .profile-img { width: 30px; height: 30px; border-radius: 20px;}
 .card-img { background-color: #EDF4FF;} .card-social { background-color: #fff }
@@ -25,7 +25,9 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
 .btn-action { width: 30px; height: 30px}
 .d-grid { display: grid;}
 .grid-3 { grid-template-columns: 3fr 3fr 3fr;} .grid-4 { grid-template-columns: 3fr 3fr 3fr 3fr;}
-.grid-2 { grid-template-columns: 6fr 6fr} .grid-0 { grid-template-columns: 12fr} 
+.grid-2 { grid-template-columns: 6fr 6fr} .grid-0 { grid-template-columns: 12fr}
+
+input, select, textarea { background-color: #E8F0fe!important; outline:  none!important;}
 
 @media (min-width: 992px) {
     .grid-lg-3 { grid-template-columns: 3fr 3fr 3fr!important;}
