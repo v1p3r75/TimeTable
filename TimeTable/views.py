@@ -574,7 +574,7 @@ def adminTimetables(request):
                             list_users.append(user.email)
 
                         send_notification('Ajout d\'emploi du temps', list_users,\
-                                           f"La matière { Subject.objects.get(id = subject_ids[i]).label } vient d'être programmer. Visitez la platforme pour en savoir plus.")
+                                          "mail/timetable_added.html", {"week": week_number})
 
                     except Exception as e:
                         
@@ -584,7 +584,7 @@ def adminTimetables(request):
 
         if request.POST.get('action') == 'edit':
             
-            ids = request.POST.getlist('id')
+            id = request.POST.get('id')
             level_ids = request.POST.getlist('level_id')
             classroom_ids = request.POST.getlist('classroom_id')
             subject_ids = request.POST.getlist('subject_id')
@@ -592,8 +592,9 @@ def adminTimetables(request):
             start_times = request.POST.getlist('start_time')
             end_times = request.POST.getlist('end_time')
 
-
             with transaction.atomic():
+                
+                subjects = []
 
                 for i in range(len(user_ids)):
 
@@ -603,7 +604,7 @@ def adminTimetables(request):
 
                     try:
 
-                        timetable = TimeTable.objects.filter(id = ids[i])
+                        timetable = TimeTable.objects.filter(id = id)
 
                         timetable.update(
                             level_id = level_ids[i],
@@ -614,6 +615,9 @@ def adminTimetables(request):
                             end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
                             week = week_number
                         )
+                        subject = Subject.objects.get(id = subject_ids[i]).label
+                        if subject not in subjects:
+                            subjects.append(subject)
 
                     except Exception as e:
                         
@@ -624,8 +628,11 @@ def adminTimetables(request):
                 for user in users:
                     list_users.append(user.email)
 
-                send_notification('Modification d\'emploi du temps', list_users,\
-                                           f"L'emploi de la semaine { week_number } vient d'être modidier. Visitez la platforme pour en savoir plus.")
+                send_notification("Modification d\'emploi du temps",\
+                                  list_users,\
+                                "mail/timetable_updated.html",\
+                                {"subjects": subjects})
+                
                 return JsonResponse({"success" : True, "message": "Mise à jour avec succès"})
 
         if request.POST.get('action') == 'del':

@@ -3,8 +3,10 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from .models import TimeTable
 import calendar
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 def get_timetable_by_level():
 
@@ -205,15 +207,23 @@ def get_sutdent_stat(type, level_id):
 
         return most, least
 
-def send_notification(subject, recipient_list, message):
-    
+def send_notification(subject, recipient_list, template, context = {}):
+
+    html = render_to_string(template, context)
+
+    html_tags = strip_tags(html)
+
     try:
-        send_mail(
+
+        email = EmailMultiAlternatives(
             subject,
-            message,
-            settings.EMAIL_HOST_USER,
+            html,
+            settings.DEFAULT_FROM_EMAIL,
             recipient_list,
-            fail_silently=False,
+
         )
+        email.attach_alternative(html, "text/html")
+        email.send()
+
     except Exception as e:
-        print('Failed to send notification', e)
+        print('Failed to send notification : ', e)
