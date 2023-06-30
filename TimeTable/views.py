@@ -130,7 +130,7 @@ def userAccount(request):
                         file_extension = '.' + image.name.split('.')[-1].lower()
                         # Définir le chemin d'accès où enregistrer l'image
                         path = request.POST.get('lastname')  + '-' + request.POST.get('id') + file_extension
-                        image_path = os.path.join(settings.MEDIA, 'images', path)
+                        image_path = os.path.join(settings.MEDIA_ROOT, 'images', path)
                         # Enregistrer l'image dans le dossier spécifié
                         with open(image_path, 'ab+') as file:
                             for chunk in image.chunks():
