@@ -215,6 +215,10 @@ def adminTeachers(request):
                 
             record = User.objects.create_user(**data)
 
+            send_notification("Votre compte a été crée", [record.email],\
+                                "mail/users_added.html",\
+                                {"user": str(record), "password": data.get("password"), "role": record.role.label})
+
             return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
         
         
@@ -287,6 +291,10 @@ def adminColaborators(request):
                 return JsonResponse({'success': False, 'message': 'L\'adresse email existe déjà.'})
                 
             record = User.objects.create_user(**data)
+
+            send_notification("Votre compte a été crée", [record.email],\
+                                "mail/users_added.html",\
+                                {"user": str(record), "password": data.get("password"), "role": record.role.label})
 
             return JsonResponse({'success': True, 'message': 'Ajouter avec succès', 'data': data})
         

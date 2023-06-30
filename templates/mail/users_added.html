@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>TimeTable</title>
+    <style>
+        /* Styles CSS pour le mail */
+        body {
+            font-family: sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Bienvenu sur TimeTable</h1>
+        <p>Bonjour {{ user }}!</p>
+        <h4>Vous venez d'être ajouter sur la plateforme TimeTable en tant que {{ role }}</h4>
+        <h4>Votre mot de passe temporaire est : <code style="color: green;"> {{ password }}</code></h4>
+        <h5>Consulter la plateforme pour vous connecter. Merci !</h5>
+        <p>
+            <a href="#" class="button" style="color: white">Accéder à la Plateforme</a>
+        </p>
+    </div>
+</body>
+
+</html>
