@@ -619,6 +619,13 @@ def adminTimetables(request):
                         
                         return JsonResponse({"success" : False, "message": "Erreur lors de la mise à jour", 'd': str(e)})
 
+                users = User.objects.filter(Q(level_id = level_ids[i]) | Q(id = user_ids[i]))
+                list_users = []
+                for user in users:
+                    list_users.append(user.email)
+
+                send_notification('Modification d\'emploi du temps', list_users,\
+                                           f"L'emploi de la semaine { week_number } vient d'être modidier. Visitez la platforme pour en savoir plus.")
                 return JsonResponse({"success" : True, "message": "Mise à jour avec succès"})
 
         if request.POST.get('action') == 'del':
