@@ -7,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+import threading
 
 def get_timetable_by_level():
 
@@ -223,7 +224,10 @@ def send_notification(subject, recipient_list, template, context = {}):
 
         )
         email.attach_alternative(html, "text/html")
-        email.send()
+        thread = threading.Thread(target=email.send)
+        thread.deamon = True
+        thread.start()
+
 
     except Exception as e:
         print('Failed to send notification : ', e)
