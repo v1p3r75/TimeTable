@@ -102,15 +102,15 @@ $(document).ready(function() {
                 
                 if ($('.sidebar').hasClass('col-lg-3')) {
 
-                    $('.sidebar').removeClass('d-lg-block col-lg-3')
-                    $('.logo').removeClass('d-lg-block col-lg-3')
+                    $('.sidebar').removeClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
+                    $('.logo').removeClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
                     $('.main').removeClass('col-lg-9')
                     $('.header-nav').removeClass('col-lg-9')
 
                 }else {
                     
-                    $('.sidebar').addClass('d-lg-block col-lg-3')
-                    $('.logo').addClass('d-lg-block col-lg-3')
+                    $('.sidebar').addClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
+                    $('.logo').addClass('d-lg-block col-lg-3 animate__animated animate__fadeInLeft')
                     $('.main').addClass('col-lg-9')
                     $('.header-nav').addClass('col-lg-9')
                 }
@@ -121,7 +121,7 @@ $(document).ready(function() {
 
         mobileSidebar: function() {
 
-            const DISPLAY_CLASS = 'd-block position-absolute top-0 start-0';
+            const DISPLAY_CLASS = 'd-block position-absolute top-0 start-0 animate__animated animate__fadeInLeft';
             const HIDE_CLASS = 'col d-none d-lg-block col-lg-3';
 
             $('.bars-mobile').on('click', function(e) {
