@@ -673,6 +673,15 @@ def userTimetable(request):
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
 
 @login_required( login_url = 'login')
+@must_admin
+def adminViewTimetable(request, level, week):
+
+    current_timetable = get_timetable_data(level, False, week)
+    others_timetable = get_timetable_global()
+
+    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
+
+@login_required( login_url = 'login')
 def timeTableWeek(request, week):
 
     week_timetable = get_timetable_data(request.user.level_id, False, week = week)

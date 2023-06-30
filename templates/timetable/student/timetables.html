@@ -44,6 +44,7 @@
         <h5 class="text-muted text-center mt-4">Emploi de la semaine {% for t in timetables %}{{ t.week }} - {{ user.level.label }}{% endfor %}</h5>
     {% endif %}
     <div class="timetable my-5 animate__animated animate__zoomIn"></div>
+    {% if user.role.id != 1 %}
     <hr>
     <div class="container-fluid">
         <h5 class="text-muted text-center mt-4">Toutes les semaines disponibles</h5>
@@ -56,6 +57,7 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 
 <div>
 <script>

@@ -84,6 +84,7 @@
 
         <th class="text-center">Semaines</th>
         <th class="text-center">Classe</th>
+        <th class="text-center">Visualiser</th>
         <th class="text-center">Actions</th>
 
     {% endblock %}
@@ -106,5 +107,12 @@
     {% block columns %}
         {data : 'week', render : (data) => "Emploi du Temps de la Semaine " + data.week },
         {data : 'level'},
+        {data : null, render : (data) => `<a href="#/weeks/${data.level_id}/${data.week.week}"
+            class="fd-bg-primary d-block p-2 w-75 mx-auto shadow-sm text-white"
+            style="border-radius: 30px"
+            title="Voir l'emploi du temps"
+    >
+        Voir l'emploi
+    </a>`},
     {% endblock %}
     {% block modalClass %}modal-dialog-scrollable modal-lg{% endblock %}
