@@ -34,12 +34,12 @@ def register(request):
     
     if request.method == 'POST':
 
-        firstname = request.POST['firstname']
-        lastname = request.POST['lastname']
-        password = request.POST['password']
-        password_confirmation = request.POST['password_confirmation']
-        email = request.POST['email']
-        level_id = request.POST['level_id']
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        password = request.POST.get('password')
+        password_confirmation = request.POST.get('password_confirmation')
+        email = request.POST.get('email')
+        level_id = request.POST.get('level_id')
 
         if (firstname == '' or lastname == '' or email == '' or password == ''):
 
