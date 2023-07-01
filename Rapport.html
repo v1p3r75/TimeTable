@@ -253,11 +253,19 @@
         <ul class="installation">
             <li><span class="text-green">git clone https://github.com/v1p3r75/PIL1_2223_4.git</span></li>
             <li><span class="text-green">cd PIL1_2223_4</span></li>
+            <li> Nous utilisons la base de données MySQL. Donc Assurez-vous d'avoir une version récente <a
+                href="https://www.mysql.com/fr/downloads/" target="_blank">ici</a> :
+            </li>
+            <li> Installer le pilote mysql pour python.
+                <br><br> <span class="text-green">pip install mysqlclient</span> <br><br>
+            </li>
+            <li> Aller dans le fichier <span class="text-green">'App/settings.py'</span> et ajuster les informations de connexions à la base données dans la variable <span class="text-green">DATABASES</span>
+            </li>
             <li><span class="text-green">python manage.py migrate</span></li>
             <li><span class="text-green">manage.py runserver 8000</span></li>
         </ul>
         <p>
-            L'application va démarrer sur l'addresse http://localhost:8000 : copier cet addresse et lancer-le dans le
+            L'application va démarrer sur l'addresse <span class="text-green">http://localhost:8000</span> : copier cet addresse et lancer-le dans le
             navigateur.<br>
             L'application est maintenant lancé !
         </p>
