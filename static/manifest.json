@@ -1,0 +1,14 @@
+{
+    "name": "TimeTable",
+    "short_name": "Gestion des emplois du temps",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "/static/img/favicon-32x32.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      }
+    ]
+  }
+  
