@@ -239,7 +239,6 @@ def adminTeachers(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
-                'password': request.POST.get('password'),
             }
 
             user = User.objects.get(id = data.get('id'))
@@ -247,8 +246,6 @@ def adminTeachers(request):
             if user:
                 
                 User.objects.filter(id = data.get('id')).update(**data)
-                user.set_password(data.get('password'))
-                user.save()
 
                 return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
             
@@ -290,7 +287,7 @@ def adminColaborators(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
-                'password': request.POST.get('password'),
+                'password':  generate_password(),
                 'role_id': 1,
             }
 
@@ -316,7 +313,6 @@ def adminColaborators(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
-                'password': request.POST.get('password'),
             }
 
             user = User.objects.get(id = data.get('id'))
@@ -324,8 +320,6 @@ def adminColaborators(request):
             if user:
                 
                 User.objects.filter(id = data.get('id')).update(**data)
-                user.set_password(data.get('password'))
-                user.save()
 
                 return JsonResponse({'success': True, 'message': 'Mise à jour avec succès', 'data': data})
             

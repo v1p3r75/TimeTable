@@ -110,7 +110,7 @@
                 const action = modal.querySelector('.form-action')
                 const all = modal.querySelectorAll('#Modal input, #Modal textarea, #Modal select')
 
-                modal.querySelector(".btn-duplicate").classList.remove('d-none')
+                modal.querySelector(".btn-duplicate")?.classList.remove('d-none')
 
                 if(recipient) {
                 
@@ -123,7 +123,7 @@
                         modalTitle.textContent = 'Modifier l\'emploi du temps de la semaine ' + recipient.week.week
                         
                         modal.querySelector("input[name='id']").remove()
-                        modal.querySelector(".btn-duplicate").classList.add('d-none')
+                        modal.querySelector(".btn-duplicate")?.classList.add('d-none')
 
                         const container = modal.querySelector('.f-content');
                         const content = modal.querySelector('.f-content .group');
@@ -196,8 +196,6 @@
 
                 const form = modal.querySelector('form')
                 const group = form.querySelectorAll('.group')
-
-                console.log(group.length)
 
                 if (group && group.length >= 2) {
                     
