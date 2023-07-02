@@ -146,6 +146,42 @@
                             inputId.setAttribute('name', 'id')
                             inputId.setAttribute('value', values.id)
                             childrens[key].appendChild(inputId)
+
+                            const delBtn = document.createElement('i')
+                            delBtn.setAttribute('class', 'text-end mdi mdi-trash-can mdi-18px text-danger cursor-pointer')
+                            delBtn.setAttribute('title', 'Supprimer cette ligne')
+                            childrens[key].insertBefore(delBtn, childrens[key].firstChild)
+
+                            $(delBtn).on('click', (e) => {
+                                const parent = $(delBtn).parent('.group')
+                                const input = parent.children('input[name="id"]')
+                                const csrfToken = App.getCookie('csrftoken');
+
+                                $.ajax({
+
+                                    url: 'admin/timetables',
+                                    type: 'POST',
+                                    headers: {
+                                        'X-CSRFToken': csrfToken
+                                    },
+                                    data: {
+                                        action: 'del-item',
+                                        id: input.get(0).value,
+                                    },
+                                    success: function(response) {
+
+                                        if(!response.success) {
+                                            return toastr.error(response.message)
+                
+                                        }
+                                        $('form').attr('data-timetable-reload', true)
+                                        parent.remove()
+                                        toastr.success(response.message)
+
+                                    },
+                                })
+                            })
+
                             
                             
                             for (const input of all) {

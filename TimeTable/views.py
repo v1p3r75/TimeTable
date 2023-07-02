@@ -664,6 +664,17 @@ def adminTimetables(request):
             
             return JsonResponse({'success': False, 'message': 'Une erreur s\'est produite.'})
         
+        if request.POST.get('action') == 'del-item':
+            try:
+
+                timetable = TimeTable.objects.filter(id = request.POST.get('id')).delete()
+                return JsonResponse({"success" : True, "message": "Supprimer avec succès"})
+
+
+            except Exception as e:
+                        
+                return JsonResponse({"success" : False, "message": "Erreur lors de la suppression", 'd': str(e)})
+
     subjects = Subject.objects.all()
     levels = Level.objects.all()
     timetables = get_timetable_by_level()
