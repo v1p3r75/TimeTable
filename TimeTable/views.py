@@ -8,11 +8,10 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_student_stat, get_timetable_user, get_teacher_info
+from .helpers import generate_password, send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_student_stat, get_timetable_user, get_teacher_info
 import locale
 import os
 from django.conf import settings
-
 locale.setlocale(locale.LC_TIME, 'fr_FR.UTF-8')
 
 def must_admin(view_func):
@@ -214,7 +213,7 @@ def adminTeachers(request):
                 'firstname': request.POST.get('firstname'),
                 'phone': request.POST.get('phone'),
                 'email': request.POST.get('email'),
-                'password': request.POST.get('password'),
+                'password': generate_password(),
                 'role_id': 2,
             }
 

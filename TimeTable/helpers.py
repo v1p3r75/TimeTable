@@ -8,6 +8,8 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import threading
+import string
+import random
 
 def get_timetable_by_level():
 
@@ -300,3 +302,10 @@ def send_notification(subject, recipient_list, template, context = {}):
 
     except Exception as e:
         print('Failed to send notification : ', e)
+
+def generate_password(length = 8):
+
+    characters = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(random.choice(characters) for _ in range(length))
+
+    return password
