@@ -1,4 +1,4 @@
-<div class="sidebar col d-none d-lg-block col-lg-3 h-100 fd-bg-secondary pt-5 fw-boder" style="z-index: 500">
+<div class="sidebar col d-none d-lg-block col-lg-3 h-100 fd-bg-secondary pt-5" style="z-index: 500">
 
     <div class="row flex-column gap-3 gap-lg-4">
         <div class="menu-list px-4">
@@ -30,38 +30,34 @@
         {% if user.role.id == 1 %}
             <div class="menu-list px-4">
                 <a href="javascript:void(0)" data-timetable-page={% url 'admin-colaborators' %} class="d-block d-flex justify-content-between fd-color-silver-2">
-                    <div><i class="mdi mdi-account-group me-2"></i><span>Collaborateurs</span></div>
+                    <div><i class="mdi mdi-account-box-multiple me-2"></i><span>Collaborateurs</span></div>
                     <div><i class="mdi mdi-chevron-right"></i></div>
                 </a>
             </div>
-        {% endif %}
-        {% if user.role.id == 1 %}
             <div class="menu-list px-4">
                 <a href="javascript:void(0)" data-timetable-page={% url 'admin-teachers' %} class="d-block d-flex justify-content-between fd-color-silver-2">
-                    <div><i class="mdi mdi-account-group me-2"></i><span>Professeurs</span></div>
+                    <div><i class="mdi mdi-account-check me-2"></i><span>Professeurs</span></div>
                     <div><i class="mdi mdi-chevron-right"></i></div>
                 </a>
             </div>
-        {% endif %}
-        {% if user.role.id == 1 %}
+            <div class="menu-list px-4">
+                <a href="javascript:void(0)" data-timetable-page={% url 'admin-students' %} class="d-block d-flex justify-content-between fd-color-silver-2">
+                    <div><i class="mdi mdi-account-group me-2"></i><span>Etudiants</span></div>
+                    <div><i class="mdi mdi-chevron-right"></i></div>
+                </a>
+            </div>
         <div class="menu-list px-4">
             <a href="javascript:void(0)" data-timetable-page={% url 'admin-subjects' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-notebook-multiple me-2"></i><span>Cours</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>
             </a>
         </div>
-        {% endif %}
-
-        {% if user.role.id == 1 %}
             <div class="menu-list px-4">
                 <a href="javascript:void(0)" data-timetable-page={% url 'admin-classrooms' %}  class="d-block d-flex justify-content-between fd-color-silver-2">
                     <div><i class="mdi mdi-office-building me-2"></i><span>Salle de cours</span></div>
                     <div><i class="mdi mdi-chevron-right"></i></div>
                 </a>
             </div>
-        {% endif %}
-
-        {% if user.role.id == 1 %}
             <div class="menu-list px-4">
                 <a href="javascript:void(0)" data-timetable-page={% url 'admin-levels' %} class="d-block d-flex justify-content-between fd-color-silver-2">
                     <div><i class="mdi mdi-school me-2"></i><span>Niveaux</span></div>
@@ -70,12 +66,12 @@
             </div>
         {% endif %}
         {% if user.role.id != 1 %}
-            <div class="menu-list px-4">
-                <a href="javascript:void(0)" data-timetable-page={% url 'user-faq' %} class="d-block d-flex justify-content-between fd-color-silver-2">
-                    <div><i class="mdi mdi-help-circle me-2"></i><span>FAQ</span></div>
-                    <div><i class="mdi mdi-chevron-right"></i></div>
-                </a>
-            </div>
+        <div class="menu-list px-4">
+            <a href="javascript:void(0)" data-timetable-page={% url 'user-faq' %} class="d-block d-flex justify-content-between fd-color-silver-2">
+                <div><i class="mdi mdi-help-circle me-2"></i><span>FAQ</span></div>
+                <div><i class="mdi mdi-chevron-right"></i></div>
+            </a>
+        </div>
         {% endif %}
         <div class="menu-list px-4 mb-5 mb-lg-0">
             <a href="javascript:void(0)" data-timetable-page={% url 'user-account' %} class="d-block d-flex justify-content-between fd-color-silver-2">
@@ -87,7 +83,7 @@
 
     <div class="about-us mt-5">
         <h6 class="text-muted text-center fw-light">
-            Conçu et développer par <br> IFRI - GROUPE 4
+            Conçu et développé par <br> IFRI - GROUPE 4
         </h6>
     </div>
 </div>

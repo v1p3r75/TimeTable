@@ -475,6 +475,37 @@ def adminLevels(request):
 
     return render(request, 'timetable/admin/levels.html', {'levels': html.unescape(tab)})
 
+@login_required( login_url = 'login')
+@must_admin
+def adminStudents(request):
+
+    if request.method == 'POST':
+        
+        user = User.objects.get(id = request.POST.get('id'))
+
+        if user:
+            if user.is_active == True:
+                user.is_active = False
+                user.save()
+            else:
+                user.is_active = True
+                user.save()
+
+            return JsonResponse({'success': True, 'message': 'Effectué avec succès'})
+        
+        
+        return JsonResponse({'success': False, 'message': 'Une erreur s\'est produite'})
+
+
+    students = User.objects.filter(role_id = 3).all()
+
+    tabs = []
+
+    for user in students:
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else "", 'level': user.level.label, 'status': 1 if user.is_active is True else 0})
+
+
+    return render(request, 'timetable/admin/students.html', {'students': tabs})
 
 @login_required( login_url = 'login')
 @must_admin
