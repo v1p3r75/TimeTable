@@ -110,6 +110,8 @@
                 const action = modal.querySelector('.form-action')
                 const all = modal.querySelectorAll('#Modal input, #Modal textarea, #Modal select')
 
+                modal.querySelector(".btn-duplicate").classList.remove('d-none')
+
                 if(recipient) {
                 
                     modalTitle.textContent = 'Modifier'
@@ -117,8 +119,11 @@
                     action.value = 'edit'
 
                     if (recipient.week) {
+
+                        modalTitle.textContent = 'Modifier l\'emploi du temps de la semaine ' + recipient.week.week
                         
                         modal.querySelector("input[name='id']").remove()
+                        modal.querySelector(".btn-duplicate").classList.add('d-none')
 
                         const container = modal.querySelector('.f-content');
                         const content = modal.querySelector('.f-content .group');
@@ -190,6 +195,17 @@
             modal.addEventListener('hidden.bs.modal', function (event) {
 
                 const form = modal.querySelector('form')
+                const group = form.querySelectorAll('.group')
+
+                console.log(group.length)
+
+                if (group && group.length >= 2) {
+                    
+                    for (let i = 1; i < group.length; i++) {
+                        group[i].remove()
+                    }
+                }
+
                 form.reset()
                 if (form.getAttribute('data-timetable-reload')) {
 

@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat, get_timetable_user
+from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_student_stat, get_timetable_user, get_teacher_info
 import locale
 import os
 from django.conf import settings
@@ -44,13 +44,22 @@ def studentDashboard(request):
 @login_required( login_url = 'login')
 def studentDash(request):
 
-    total_hours = get_sutdent_stat('week_total_hourse', request.user.level.id)
-    total_students_subjects = get_sutdent_stat('total_subjects', request.user.level.id)
-    weeks_days = get_sutdent_stat('week_days', request.user.level.id)
+    total_hours = get_student_stat('week_total_hourse', request.user.level.id)
+    total_students_subjects = get_student_stat('total_subjects', request.user.level.id)
+    weeks_days = get_student_stat('week_days', request.user.level.id)
 
 
     return render(request, 'timetable/student/dash.html', {'total_hours': total_hours, 'total_students_subjects': total_students_subjects, 'most': weeks_days[0], 'least': weeks_days[1]})
 
+@login_required( login_url = 'login')
+def teacherDash(request):
+
+    total_hours = get_teacher_info('week_total_hourse', request.user.id)
+    total_students_subjects = get_teacher_info('total_subjects', request.user.id)
+    weeks_days = get_teacher_info('week_days', request.user.id)
+
+
+    return render(request, 'timetable/student/dash.html', {'total_hours': total_hours, 'total_students_subjects': total_students_subjects, 'most': weeks_days[0], 'least': weeks_days[1]})
 
 @login_required( login_url = 'login')
 @must_admin
@@ -601,7 +610,7 @@ def adminTimetables(request):
 
         if request.POST.get('action') == 'edit':
             
-            id = request.POST.get('id')
+            ids = request.POST.getlist('id')
             level_ids = request.POST.getlist('level_id')
             classroom_ids = request.POST.getlist('classroom_id')
             subject_ids = request.POST.getlist('subject_id')
@@ -621,7 +630,7 @@ def adminTimetables(request):
 
                     try:
 
-                        timetable = TimeTable.objects.filter(id = id)
+                        timetable = TimeTable.objects.filter(id = ids[i])
 
                         timetable.update(
                             level_id = level_ids[i],

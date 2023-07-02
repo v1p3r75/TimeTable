@@ -107,20 +107,7 @@ def get_timetable_global():
 
     return result
 
-
-def get_timetable_data(level_id : int | None = None, current_week : bool = False, week = None):
-
-    # Récupérez les emplois du temps avec les informations associées pour toutes les semaines
-    if current_week:
-
-        start_date = datetime.now().date() - timedelta(days = datetime.now().date().weekday() - 0)
-        end_date = start_date + timedelta(days = 6)
-        timetable_entries = TimeTable.objects\
-            .filter(Q(start_time__date__gte = start_date, end_time__date__lte = end_date), level_id = level_id)\
-            .select_related('level', 'user', 'classroom', 'subject')
-    else:
-        timetable_entries = TimeTable.objects.filter(level_id = level_id, week = week).select_related('level', 'user', 'classroom', 'subject')
-
+def get_data(timetable_entries):
     # Créez un dictionnaire pour stocker les données groupées par semaine et jour
     grouped_timetable = {}
 
@@ -155,6 +142,23 @@ def get_timetable_data(level_id : int | None = None, current_week : bool = False
             week_info['days'].append(day_info)
 
         result.append(week_info)
+
+    return result
+
+def get_timetable_data(level_id : int | None = None, current_week : bool = False, week = None):
+
+    # Récupérez les emplois du temps avec les informations associées pour toutes les semaines
+    if current_week:
+
+        start_date = datetime.now().date() - timedelta(days = datetime.now().date().weekday() - 0)
+        end_date = start_date + timedelta(days = 6)
+        timetable_entries = TimeTable.objects\
+            .filter(Q(start_time__date__gte = start_date, end_time__date__lte = end_date), level_id = level_id)\
+            .select_related('level', 'user', 'classroom', 'subject')
+    else:
+        timetable_entries = TimeTable.objects.filter(level_id = level_id, week = week).select_related('level', 'user', 'classroom', 'subject')
+
+    result = get_data(timetable_entries)
 
     return result
 
@@ -171,44 +175,11 @@ def get_timetable_user(user_id : int | None = None, current_week : bool = False,
     else:
         timetable_entries = TimeTable.objects.filter(user_id = user_id, week = week).select_related('level', 'user', 'classroom', 'subject')
 
-    # Créez un dictionnaire pour stocker les données groupées par semaine et jour
-    grouped_timetable = {}
-
-    # Parcourez les emplois du temps et groupez les données
-    for entry in timetable_entries:
-        week_number = entry.start_time.isocalendar()[1]
-        day_name = entry.start_time.strftime('%A')
-
-        if week_number not in grouped_timetable:
-            grouped_timetable[week_number] = []
-
-        day_data = {day_name: {
-            'user': entry.user,
-            'level': entry.level.label,
-            'classroom': entry.classroom.label,
-            'classroom_desc': entry.classroom.description,
-            'subject': entry.subject.label,
-            'start_time': str(entry.start_time),
-            'end_time': str(entry.end_time),
-        }}
-        grouped_timetable[week_number].append(day_data)
-
-    # Affichez les données groupées par semaine et jour
-    result = []
-
-    for week_number, week_data in grouped_timetable.items():
-        week_info = {'week': week_number, 'days': []}
-        
-        for day_data in week_data:
-            day_name, day_info = list(day_data.items())[0]
-            day_info['day_name'] = day_name.capitalize()
-            week_info['days'].append(day_info)
-
-        result.append(week_info)
+    result = get_data(timetable_entries)
 
     return result
 
-def get_sutdent_stat(type, level_id):
+def get_student_stat(type, level_id):
 
     current_date = timezone.now().date()
 
@@ -236,14 +207,14 @@ def get_sutdent_stat(type, level_id):
     if type == 'week_days':
 
         most_busy_day = TimeTable.objects.filter(
-            week=current_week, level=level_id
+            week=current_week, level_id=level_id
         ).values('start_time__week_day').annotate(
             total_hours=Sum(F('end_time') - F('start_time'))
         ).order_by('-total_hours').first()
 
         # Effectuer l'agrégation pour trouver le jour le moins chargé
         least_busy_day = TimeTable.objects.filter(
-            week=current_week, level=level_id
+            week=current_week, level_id=level_id
         ).values('start_time__week_day').annotate(
             total_hours=Sum(F('end_time') - F('start_time'))
         ).order_by('total_hours').first()
@@ -256,6 +227,55 @@ def get_sutdent_stat(type, level_id):
         least = calendar.day_name[least_busy_day_number-1] if least_busy_day_number is not None else "Aucun"
 
         return most, least
+
+def get_teacher_info(type, user_id):
+
+    current_date = timezone.now().date()
+
+    current_week = current_date.isocalendar()[1]
+
+    if type == 'week_total_hourse':
+
+        total_hours = TimeTable.objects.filter(
+            week=current_week, user_id=user_id
+        ).aggregate(total_hours=Sum(F('end_time') - F('start_time'))).get('total_hours')
+
+
+        return int(total_hours.total_seconds() // 3600) if total_hours is not None else 0
+    
+    if type == 'total_subjects':
+
+
+        total = TimeTable.objects.filter(
+            week=current_week, user_id=user_id
+        ).count()
+
+        return total
+    
+    if type == 'week_days':
+
+        most_busy_day = TimeTable.objects.filter(
+            week=current_week, user_id=user_id
+        ).values('start_time__week_day').annotate(
+            total_hours=Sum(F('end_time') - F('start_time'))
+        ).order_by('-total_hours').first()
+
+        # Effectuer l'agrégation pour trouver le jour le moins chargé
+        least_busy_day = TimeTable.objects.filter(
+            week=current_week, user_id=user_id
+        ).values('start_time__week_day').annotate(
+            total_hours=Sum(F('end_time') - F('start_time'))
+        ).order_by('total_hours').first()
+
+        # Extraire les numéros de jour de la semaine (1 pour lundi, 2 pour mardi, etc.)
+        most_busy_day_number = most_busy_day['start_time__week_day'] if most_busy_day is not None else None
+        least_busy_day_number = least_busy_day['start_time__week_day'] if most_busy_day is not None else None
+
+        most = calendar.day_name[most_busy_day_number-1] if most_busy_day_number is not None else "Aucun"
+        least = calendar.day_name[least_busy_day_number-1] if least_busy_day_number is not None else "Aucun"
+
+        return most, least
+    
 
 def send_notification(subject, recipient_list, template, context = {}):
 
