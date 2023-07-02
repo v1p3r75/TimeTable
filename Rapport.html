@@ -82,7 +82,7 @@
             </ol>
         </section>
         <section class="section2">
-            <ol>
+            <ol start="7">
                 <li>KIDJE Elfried Fortunatus</li>
                 <li>KPADE Akouavi</li>
                 <li>SANNI Adéchinan</li>
@@ -100,30 +100,30 @@
         </p>
         <h3> ACOSSINOU Marcel </h3>
         <p>
-            En tant que membre 1, il a aidé pour l'invitation du logo, la gestion des couleurs, leur valeur, leur
+            Il a aidé pour l'invitation du logo, la gestion des couleurs, leur valeur, leur
             importance ainsi que
             l'aspect de l'application bien qu'il ait participé un peu au front-end à travers sa page de connexion et
             celle de login.
         </p>
         <h3> AMOKI Léonce </h3>
         <p>
-            En tant que membre 2, en collaboration avec Hosnel et Fabrice s'est chargé de la gestion des erreurs dans le
+            En collaboration avec Hosnel et Fabrice s'est chargé de la gestion des erreurs dans le
             front-end.
         </p>
         <h3> ASSOGBA Lauriano </h3>
         <p>
-            En tant que membre 3, il était chargé d'organiser et de superviser les
+            Il était chargé d'organiser et de superviser les
             activités du groupe ce qu'il a bien fait depuis le début nous permettant ainsi d'accélérer sans discord.
         </p>
         <h3> AZONNOUNDO Houéfa </h3>
         <p>
-            En tant que membre 4, elle était chargé de gérer la partie SQL avec la création des tables pour l'insertion
+            Elle était chargé de gérer la partie SQL avec la création des tables pour l'insertion
             dans le back-end
             mais nous a surtout aider pour le logo de notre application mobile.
         </p>
         <h3> AZAMMAN Hosnel </h3>
         <p>
-            En tant que membre 5, son role pincipal était d'aider pour le back-end. Il s'est chargé non seulement
+            Son role pincipal était d'aider pour le back-end. Il s'est chargé non seulement
             d'aider pour le front-end
             mais aussi dans la création des tables et divers attributs de ces dernières. Il est aussi l'auteur du dit
             rapport en
@@ -131,7 +131,7 @@
         </p>
         <h3> HOUNKPE Carlos </h3>
         <p>
-            En tant que membre 6, il s'est chargé de la gestion des erreurs dans le front-end.
+            Il s'est chargé de la gestion des erreurs dans le front-end.
         </p>
         <h3> KIDJE Elfried Fortunatus </h3>
         <p>
@@ -141,31 +141,31 @@
             projet de qualité. </p>
         <h3> KPADE Akouavi </h3>
         <p>
-            En tant que membre 8, elle s'est occupé de la marquette avec un plus grand soin nous offrant une vue
+            Elle s'est occupée de la marquette avec un plus grand soin nous offrant une vue
             d'ensemble sur
             l'utilité et le mode de fonctionnement de l'application web.
         </p>
         <h3> SANNI Adéchinan </h3>
         <p>
-            En tant que membre 9, il s'est non seulement occupé du front-end et du back-end mais il s'est aussi occupé
+            Il s'est non seulement occupé du front-end et du back-end mais il s'est aussi occupé
             de gérer les
             erreurs des membres du groupe dans les deux cotés en se faisant surtout sentir avec sa page login qui a été
             retenue.
         </p>
         <h3> TCHEFFA Pretty </h3>
         <p>
-            En tant que membre 10, elle a dirigé le groupe de front-end avec la création des pages web pour le CSS et a
+            Elle a dirigé le groupe de front-end avec la création des pages web pour le CSS et a
             aidé aussi
             pour la marquette et le logo.
         </p>
         <h3> TOCHOEDO Gbènakpon </h3>
         <p>
-            En tant que membre 11, il s'est chargé lui aussi d'aider pour la correction des erreurs au niveau du
+            Il s'est chargé lui aussi d'aider pour la correction des erreurs au niveau du
             front-end.
         </p>
         <h3> VLAVONOU Lauviah </h3>
         <p>
-            En tant que membre 12, elle s'est chargé non seulement de la création des tables, de la base de données et
+            Elle s'est chargé non seulement de la création des tables, de la base de données et
             compatibilité avec
             Django mais aussi de sa mise en place du diagramme de flux de données.
         </p>
@@ -253,23 +253,82 @@
         <ul class="installation">
             <li><span class="text-green">git clone https://github.com/v1p3r75/PIL1_2223_4.git</span></li>
             <li><span class="text-green">cd PIL1_2223_4</span></li>
-            <li> Nous utilisons la base de données MySQL. Donc Assurez-vous d'avoir une version récente <a
-                href="https://www.mysql.com/fr/downloads/" target="_blank">ici</a> :
+            <li>Utilisation de la Base de Données</li>
+                <ul class="installation">
+                    <li>Pour la base de données, nous vous proposons deux choix :
+
+                        <ul class="installation">
+                            <li>Le premier choix est d'utiliser SQLite comme SGBDR : Grâce à sa portabilité, vous pouvez lancer le projet directement sans se soucier des configurations de base de données. Pour l'utiliser, aller dans le fichier <span class="text-green">App/settings.py</span>. Dans la variable DATABASES, commenter la deuxieme partie et décommenter les lignes concernant le SQLite comme suit : <br><br>
+                                <code class="text-green">
+                                    DATABASES = {<br>
+                                        &nbsp;'default': { <br>
+                                        &nbsp;&nbsp;    'ENGINE': 'django.db.backends.sqlite3',<br>
+                                        &nbsp;&nbsp;     'NAME': BASE_DIR / 'db.sqlite3' <br>
+                                        &nbsp; }, <br>
+                                        &nbsp;#'default': {  <br>
+                                        &nbsp;#    'ENGINE': 'django.db.backends.mysql',   <br>
+                                        &nbsp;#    'NAME': 'nom_de_la_bd',   <br>
+                                        &nbsp;#    'USER': 'utilisateur',   <br>
+                                        &nbsp;#    'PASSWORD': 'mot_de_passe',   <br>
+                                        &nbsp;#    'HOST': '127.0.0.1',   <br>
+                                        &nbsp;#    'PORT': '3306',   <br>
+                                        &nbsp;#    'OPTIONS': {   <br>
+                                        &nbsp;#        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"   <br>
+                                        &nbsp;#    }   <br>
+                                        &nbsp;#} <br>
+                                    } <br>
+                                </code>
+                                
+                            </li>
+                            <li>Le deuxieme choix est d'utiliser MySQL comme SGBDR. Si vous préférez utiliser mysql. Il faut alors commenter la partie concernant le SQLite et décommenter la partie mysql toujours dans le fichier <span class="text-green">App/settings.py</span> comme suit : <br> <br>
+                                <code class="text-green">
+                                    DATABASES = {<br>
+                                        &nbsp;#'default': { <br>
+                                        &nbsp;#&nbsp;    'ENGINE': 'django.db.backends.sqlite3',<br>
+                                        &nbsp;#&nbsp;     'NAME': BASE_DIR / 'db.sqlite3' <br>
+                                        &nbsp;#}, <br>
+                                        &nbsp;'default': {  <br>
+                                        &nbsp;    'ENGINE': 'django.db.backends.mysql',   <br>
+                                        &nbsp;    'NAME': 'nom_de_la_bd',   <br>
+                                        &nbsp;    'USER': 'utilisateur',   <br>
+                                        &nbsp;    'PASSWORD': 'mot_de_passe',   <br>
+                                        &nbsp;    'HOST': '127.0.0.1',   <br>
+                                        &nbsp;    'PORT': '3306',   <br>
+                                        &nbsp;    'OPTIONS': {   <br>
+                                        &nbsp;&nbsp;         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"   <br>
+                                        &nbsp;&nbsp;      }   <br>
+                                        &nbsp; } <br>
+                                    } <br>
+                                </code>
+                                <ul>
+                                    <li> Assurez-vous d'avoir une version récente de MySQL  <a
+                                        href="https://www.mysql.com/fr/downloads/" target="_blank">ici</a> :
+                                    </li>
+                                    <li>Vous devez d'abord crée une base de données sur mysql avec la commande : <br> <br>    
+                                        <span class="text-green">CREATE DATABASE nom_de_la_bd;</span>
+                                     </li>
+                                     <li>Une fois la base de données est crée, vous pouvez importer notre base de données au format sql qui se trouve à la racine du projet : <span class="text-green">pil_database.sql</span>, directement dans la base de données qui vient d'être créer.</li>
+                                     <li>Une fois terminer, n'oubliez pas d'ajuster les informations de connection (nom_de_la_bd, utilisateur, mot_de_passe, ...) dans la variable <span class="text-green">DATABASES</span>.</li>
+                                     <li> Installer le pilote mysql pour python.
+                                        <br><br> <span class="text-green">pip install mysqlclient</span> ou <span class="text-green">python -m pip install mysqlclient</span><br><br>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <li>Quelque soit le SGBDR que vous avez choisi (SQLite / MySQL). Nous avons créer par défaut un utilisateur avec le rôle de collaborateur (administrateur). Ce qui vous permettra de vous connecter et tester l'application en tant que admin. Les informations de connexions : <br><br>
+                            <span class="text-green">Email : </span> admin@test.com <br><br>
+                            <span class="text-green">Mot de passe : </span> admin
+                        </li>
+                    </li>
+                </ul>
+            <li> Maintenant nous pouvons lancer l'application avec la commande : <br><br>
+                <span class="text-green">python manage.py runserver 8000</span>
             </li>
-            <li> Installer le pilote mysql pour python.
-                <br><br> <span class="text-green">pip install mysqlclient</span> <br><br>
+            <li>
+                L'application va démarrer sur l'addresse <span class="text-green">http://localhost:8000</span> : copier cet addresse et lancer-le dans le
+                navigateur. L'application est maintenant lancé ! <br>
             </li>
-            <li> Aller dans le fichier <span class="text-green">'App/settings.py'</span> et ajuster les informations de connexions à la base données dans la variable <span class="text-green">DATABASES</span>
-            </li>
-            <li><span class="text-green">python manage.py migrate</span></li>
-            <li><span class="text-green">manage.py runserver 8000</span></li>
         </ul>
-        <p>
-            L'application va démarrer sur l'addresse <span class="text-green">http://localhost:8000</span> : copier cet addresse et lancer-le dans le
-            navigateur.<br>
-            L'application est maintenant lancé !
-        </p>
-        </p>
         <p>
             Assurez-vous de suivre toutes les étapes et de configurer correctement votre environnement avant de déployer
             l'application. Si
@@ -283,7 +342,7 @@
         </p>
         <ul class="installation">
             <li>
-                <span class="text-green">App : </span> <span>C'est l'application principale notre système.</span>
+                <span class="text-green">App : </span> <span>C'est l'application principale de notre système.</span>
             </li>
 
             <li>
@@ -362,7 +421,7 @@
             tels que le nom,
             l'adresse e-mail, les compétences, etc. Vous aurez également la possibilité de supprimer des professeurs
             existants de la base
-            de données.
+            de données. <br>
         </p>
 
         <h3>Gestion des collaborateurs</h3>
@@ -370,7 +429,9 @@
             travaillant dans votre système. Cela peut inclure les coordonnées, les rôles, les qualifications, etc. Vous
             pourrez ajouter de nouveaux collaborateurs en fournissant les détails requis et supprimer ou modifier les
             informations des collaborateurs existants si nécessaire. </p>
-
+        
+        <h3 class="text-green"><small>NB : Lorsqu'un administrateur (collaborateur) ajoute un professeur ou un autre collaborateur, un mail est directement envoyé à celui-ci pour lui faire savoir que son compte vient d'être créer. Dans ce mail se trouve le mot de passe temporaire de son compte nouvellement crée. Ce qui va lui permettre de se connecter et après changer son mot de passe.</small>
+        </h3>
         <h3>Gestion des emplois du temps</h3>
         <p>
             Dans la section Emploi du temps, vous pourrez gérer les emplois du temps existants. Vous aurez la
@@ -379,6 +440,7 @@
             etc. Vous pourrez
             également modifier ou supprimer les emplois du temps existants selon vos besoins.
         </p>
+        <h3 class="text-green"><small>NB : Lors d'un ajout où d'une modification d'emploi du temps, un mail est envoyé aux étudiants et professeurs concernés pour les informer afin qu'ils puissent accéder à la plateforme pour plus d'informations.</small>
 
         <h3>Gestion des cours</h3>
         <p>Dans la section Cours, vous pourrez gérer les différents cours proposés. Vous pourrez ajouter de nouveaux
@@ -410,7 +472,7 @@
         </p>
     </section>
     <section class="manual">
-        <h3 class="title">2. Connexion en tant qu'étudiant</h3>
+        <h3 class="title">2. Connexion en tant qu'étudiant ou professeur.</h3>
         <p>
             Pour accéder à l'application en tant qu'utilisateur, utilisez vos identifiants personnels telles que votre
             noms, votre adresse
@@ -436,8 +498,16 @@
             Vous êtes maintenant prêt à utiliser l'application de gestion des emplois du temps en tant qu'utilisateur.
         </p>
     </section>
-    <footer>
-        <p>© 2023 - GROUPE 4</p>
+    <section class="manual">
+        <h3 class="title">3. Pour tous les utilsateurs</h3>
+        <h3>Demande de réinitialisation de mot de passe</h3>
+        <p>
+            Avez-vous oublier votre mot de passe ? Ne vous inquiéter pas. Vous pouvez demander la réinitialisation de votre mot de passe. Il suffit juste de cliquer "Mot de passe oublié" sur la page de connection. Ensuite vous donner l'adresse mail de votre compte, et un code vous serait envoyer dans votre boite mail. Utiliser ce code pour définir un nouveau mot de passe.
+        </p>
+
+    </section>
+    <footer style="margin-top: 100px;">
+        <p>&copy; 2023 - GROUPE 4</p>
     </footer>
 </body>
 
