@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat
+from .helpers import send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_sutdent_stat, get_timetable_user
 import locale
 import os
 from django.conf import settings
@@ -679,6 +679,23 @@ def userTimetable(request):
     others_timetable = get_timetable_global()
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
+
+@login_required( login_url = 'login')
+def teacherTimetable(request):
+
+    current_timetable = get_timetable_user(request.user.id, True)
+    others_timetable = get_timetable_global()
+
+    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
+
+@login_required( login_url = 'login')
+def teacherWeek(request, week):
+
+    current_timetable = get_timetable_user(request.user.id, False, week)
+    others_timetable = get_timetable_global()
+
+    return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
+
 
 @login_required( login_url = 'login')
 @must_admin

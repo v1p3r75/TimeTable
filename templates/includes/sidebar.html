@@ -9,9 +9,13 @@
         </div>
         <div class="menu-list px-4">
             <a href="javascript:void(0)"
-                data-timetable-page={% if user.role.id != 1 %}
-                    {% url 'user-timetables' %}
-                    {%else %} {% url 'admin-timetables' %} {% endif %}
+                data-timetable-page={% if user.role.id == 1 %}
+                    {% url 'admin-timetables' %}
+                    {% elif user.role.id == 2 %}
+                        {% url 'teacher-timetables' %}
+                    {% else %}
+                        {% url 'user-timetables' %}
+                    {% endif %}
                 class="d-block d-flex justify-content-between fd-color-silver-2">
                 <div><i class="mdi mdi-calendar-month me-2"></i><span>Emplois du Temps</span></div>
                 <div><i class="mdi mdi-chevron-right"></i></div>

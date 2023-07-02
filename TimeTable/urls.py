@@ -15,6 +15,8 @@ urlpatterns = [
     path("weeks/<int:level>/<int:week>", views.adminViewTimetable, name="admin-weeks"),
     path("account", views.userAccount, name="user-account"),
     path("timetables", views.userTimetable, name="user-timetables"),
+    path("teachers/timetables", views.teacherTimetable, name="teacher-timetables"),
+    path("teachers/weeks/<int:week>", views.teacherWeek, name="teacher-weeks"),
     path("weeks/<int:week>", views.timeTableWeek, name="timetables-week"),
     path("faq", views.faq, name="user-faq"),
 ]
