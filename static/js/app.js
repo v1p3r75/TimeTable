@@ -195,13 +195,6 @@ $(document).ready(function() {
                     console.log('Erreur lors de l\'enregistrement du Service Worker:', error);
                 });
             }
-            window.addEventListener('beforeinstallprompt', function(event) {
-                event.preventDefault();
-                const deferredPrompt = event;
-                // Afficher une invite personnalisée
-                console.log(deferredPrompt)
-            });
-
         }()
     };
 
