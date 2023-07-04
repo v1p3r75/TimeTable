@@ -28,7 +28,6 @@ self.addEventListener('install', function(event) {
             '/static/vendor/sweetalert/sweetalert2.all.min.js',
             '/static/vendor/jquery/jquery.js',
             '/static/offline.html',
-            new Request(OFFLINE_URL, { cache: "reload"}),
           ]);
         })
     );
