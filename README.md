@@ -2,8 +2,15 @@
 
 ## Description
 
-Le projet d'intégration IFRI 2022 est un projet donné aux étudiants de la premiere année qui consiste à déployer une application capable de gérer la planification des emplois du temps.
+Le projet d'intégration IFRI 2022 est un projet qui consiste à déployer une application capable de gérer la planification des emplois du temps.
 
+
+## DEMO
+
+Vous pouvez tester le démo de l'application sur notre la version en ligne avec ce compte administrateur : 
+
+    - Email : admin@test.com
+    - password : admin
 ## Comment installer Django
 
 Ouvrez votre terminal et exécutez la commande suivante pour installer Django à l'aide de l'outil de gestion de packages pip :
