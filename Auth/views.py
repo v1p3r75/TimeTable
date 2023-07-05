@@ -41,7 +41,7 @@ def register(request):
         email = request.POST.get('email')
         level_id = request.POST.get('level_id')
 
-        if (firstname == '' or lastname == '' or email == '' or password == ''):
+        if (firstname == '' or lastname == '' or email == '' or password == '' or level_id == ''):
 
             return render(request, 'auth/register.html', {'errors': ['Vous devez remplir tous les champs.']})
 
