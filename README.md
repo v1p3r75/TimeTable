@@ -4,10 +4,32 @@
 
 Le projet d'intégration IFRI 2022 est un projet qui consiste à déployer une application capable de gérer la planification des emplois du temps.
 
+## Preview
+
+### - Authentification
+
+[img]("./docs/auth.png")
+
+### Dashboard (Admin)
+
+[img]
+
+### Dahboard (Etudiant)
+
+[img]
+
+### Dashboard (Professeur)
+
+[img]
+
+### Liste des emplois du temps (Admin)
+
+### Visualisation d'un emplois du temps
+
 
 ## DEMO
 
-Vous pouvez tester le démo de l'application sur notre la version en ligne avec ce compte administrateur : 
+Vous pouvez tester le démo de l'application sur la version en ligne avec ce compte administrateur : 
 
     - Email : admin@test.com
     - password : admin
