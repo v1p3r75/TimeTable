@@ -9,18 +9,17 @@ Le projet d'intégration IFRI 2022 est un projet qui consiste à déployer une a
 ### - Authentification
 
 ![Auth Screenshot](./docs/auth.png)
-
 ### Dashboard (Admin)
 
 ![Auth Screenshot](./docs/dashboard-2.png)
 
 ### Dahboard (Etudiant)
 
-![Auth Screenshot](./docs/dashboard-2.png)
+![Auth Screenshot](./docs/user-dashboard.png)
 
 ### Dashboard (Professeur)
 
-![Auth Screenshot](./docs/dashboard-2.png)
+![Auth Screenshot](./docs/user-dashboard.png)
 
 ### Liste des emplois du temps (Admin)
 
