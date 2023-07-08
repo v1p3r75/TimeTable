@@ -28,19 +28,19 @@ def must_admin(view_func):
 
 
 # Create your views here.
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminDashboard(request):
 
     return render(request, 'timetable/admin/home.html')
 
-@login_required( login_url = 'login')
+@login_required
 def studentDashboard(request):
 
     return render(request, 'timetable/student/home.html')
 
 
-@login_required( login_url = 'login')
+@login_required
 def studentDash(request):
 
     total_hours = get_student_stat('week_total_hourse', request.user.level.id)
@@ -50,7 +50,7 @@ def studentDash(request):
 
     return render(request, 'timetable/student/dash.html', {'total_hours': total_hours, 'total_students_subjects': total_students_subjects, 'most': weeks_days[0], 'least': weeks_days[1]})
 
-@login_required( login_url = 'login')
+@login_required
 def teacherDash(request):
 
     total_hours = get_teacher_info('week_total_hourse', request.user.id)
@@ -60,7 +60,7 @@ def teacherDash(request):
 
     return render(request, 'timetable/student/dash.html', {'total_hours': total_hours, 'total_students_subjects': total_students_subjects, 'most': weeks_days[0], 'least': weeks_days[1]})
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminDash(request):
 
@@ -108,7 +108,7 @@ def adminDash(request):
     return render(request, 'timetable/admin/dash.html', {'total_students': total_students, 'total_teachers': total_teachers, 'total_subjects': total_subjects, 'total_classrooms': total_classrooms, 'levels_list' : tab, 'students_by_levels': students_array, 'teachers_by_levels': [total_teachers] * len(levels), 'subjects_by_levels': subjects_array})
 
 
-@login_required( login_url = 'login')
+@login_required
 def userAccount(request):
 
     if request.method == 'POST':
@@ -199,7 +199,7 @@ def userAccount(request):
     return render(request, 'timetable/account.html', {'levels': levels})
 
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminTeachers(request):
 
@@ -273,7 +273,7 @@ def adminTeachers(request):
 
     return render(request, 'timetable/admin/teachers.html', {'users': html.unescape(tabs)})
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminColaborators(request):
 
@@ -347,7 +347,7 @@ def adminColaborators(request):
 
     return render(request, 'timetable/admin/colaborators.html', {'users': html.unescape(tabs)})
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminSubjects(request):
 
@@ -416,7 +416,7 @@ def adminSubjects(request):
     return render(request, 'timetable/admin/subjects.html', {'subjects': html.unescape(tab1), 'levels': html.unescape(tab2)})
 
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminLevels(request):
 
@@ -475,7 +475,7 @@ def adminLevels(request):
 
     return render(request, 'timetable/admin/levels.html', {'levels': html.unescape(tab)})
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminStudents(request):
 
@@ -507,7 +507,7 @@ def adminStudents(request):
 
     return render(request, 'timetable/admin/students.html', {'students': tabs})
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminClassrooms(request):
 
@@ -572,7 +572,7 @@ def adminClassrooms(request):
 
 
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 @transaction.atomic
 def adminTimetables(request):
@@ -721,7 +721,7 @@ def adminTimetables(request):
     return render(request, 'timetable/admin/timetables.html', {'subjects': subjects,'levels': levels, 'classrooms': classrooms, 'teachers': users, 'timetables': timetables})
 
 
-@login_required( login_url = 'login')
+@login_required
 def userTimetable(request):
 
     current_timetable = get_timetable_data(request.user.level_id, True)
@@ -729,7 +729,7 @@ def userTimetable(request):
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
 
-@login_required( login_url = 'login')
+@login_required
 def teacherTimetable(request):
 
     current_timetable = get_timetable_user(request.user.id, True)
@@ -737,7 +737,7 @@ def teacherTimetable(request):
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
 
-@login_required( login_url = 'login')
+@login_required
 def teacherWeek(request, week):
 
     current_timetable = get_timetable_user(request.user.id, False, week)
@@ -746,7 +746,7 @@ def teacherWeek(request, week):
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
 
 
-@login_required( login_url = 'login')
+@login_required
 @must_admin
 def adminViewTimetable(request, level, week):
 
@@ -755,7 +755,7 @@ def adminViewTimetable(request, level, week):
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : current_timetable, 'others_timetables': others_timetable, 'current_week': True})
 
-@login_required( login_url = 'login')
+@login_required
 def timeTableWeek(request, week):
 
     week_timetable = get_timetable_data(request.user.level_id, False, week = week)
@@ -763,7 +763,7 @@ def timeTableWeek(request, week):
 
     return render(request, 'timetable/student/timetables.html', {'timetables' : week_timetable, 'others_timetables': others_timetable})
 
-@login_required( login_url = 'login')
+@login_required
 def faq(request):
 
     return render(request, 'timetable/student/faq.html')
