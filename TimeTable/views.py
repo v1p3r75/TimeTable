@@ -659,20 +659,26 @@ def adminTimetables(request):
 
                     try:
 
-                        timetable = TimeTable.objects.filter(id = ids[i])
+                        if end > start:
 
-                        timetable.update(
-                            level_id = level_ids[i],
-                            classroom_id = classroom_ids[i],
-                            subject_id = subject_ids[i],
-                            user_id = user_ids[i],
-                            start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
-                            end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
-                            week = week_number
-                        )
-                        subject = Subject.objects.get(id = subject_ids[i]).label
-                        if subject not in subjects:
-                            subjects.append(subject)
+                            timetable = TimeTable.objects.filter(id = ids[i])
+
+                            timetable.update(
+                                level_id = level_ids[i],
+                                classroom_id = classroom_ids[i],
+                                subject_id = subject_ids[i],
+                                user_id = user_ids[i],
+                                start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                                end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                                week = week_number
+                            )
+                            subject = Subject.objects.get(id = subject_ids[i]).label
+                            if subject not in subjects:
+                                subjects.append(subject)
+                        else:
+
+                            return JsonResponse({"success": False, "message": f"{start} à {end} n'est pas correcte. Veillez le corriger et réessayer."})
+
 
                     except Exception as e:
                         
