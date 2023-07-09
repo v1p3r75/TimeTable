@@ -603,6 +603,13 @@ def adminTimetables(request):
                     try:
 
                         if end > start:
+
+                            is_exist = TimeTable.objects.filter(start_time = start, end_time = end)
+
+                            if is_exist:
+
+                                return JsonResponse({"success": False, "message": f"Un emploi du temps est déjà programmé de {start} à {end}."})
+
                         
                             TimeTable.objects.create(
                                 level_id = level_ids[i],
