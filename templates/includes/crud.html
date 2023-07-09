@@ -120,7 +120,7 @@
 
                     if (recipient.week) {
 
-                        modalTitle.textContent = 'Modifier l\'emploi du temps de la semaine ' + recipient.week.week
+                        modalTitle.textContent = `Modifier l\'emploi du temps de la semaine ${recipient.week.week} - ${recipient.level}`
                         
                         modal.querySelector("input[name='id']").remove()
                         // modal.querySelector(".btn-duplicate")?.classList.add('d-none')
@@ -148,7 +148,7 @@
                             childrens[key].appendChild(inputId)
 
                             const delBtn = document.createElement('i')
-                            delBtn.setAttribute('class', 'text-end mdi mdi-trash-can mdi-18px text-danger cursor-pointer')
+                            delBtn.setAttribute('class', 'text-end mdi mdi-trash-can mdi-18px text-danger cursor-pointer del-group')
                             delBtn.setAttribute('title', 'Supprimer cette ligne')
                             childrens[key].insertBefore(delBtn, childrens[key].firstChild)
 
@@ -238,6 +238,8 @@
                     for (let i = 1; i < group.length; i++) {
                         group[i].remove()
                     }
+                    const last_group = form.querySelector('.group')
+                    last_group.querySelector('.del-group')?.remove()
                 }
 
                 form.reset()
