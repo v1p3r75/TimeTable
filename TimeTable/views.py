@@ -661,17 +661,32 @@ def adminTimetables(request):
 
                         if end > start:
 
-                            timetable = TimeTable.objects.filter(id = ids[i])
+                            try:
 
-                            timetable.update(
-                                level_id = level_ids[i],
-                                classroom_id = classroom_ids[i],
-                                subject_id = subject_ids[i],
-                                user_id = user_ids[i],
-                                start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
-                                end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
-                                week = week_number
-                            )
+                                timetable = TimeTable.objects.filter(id = ids[i])
+
+                                timetable.update(
+                                    level_id = level_ids[i],
+                                    classroom_id = classroom_ids[i],
+                                    subject_id = subject_ids[i],
+                                    user_id = user_ids[i],
+                                    start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                                    end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                                    week = week_number
+                                )
+
+                            except IndexError:
+
+                                TimeTable.objects.create(
+                                    level_id = level_ids[i],
+                                    classroom_id = classroom_ids[i],
+                                    subject_id = subject_ids[i],
+                                    user_id = user_ids[i],
+                                    start_time = datetime.strftime(start, "%Y-%m-%d %H:%M"),
+                                    end_time = datetime.strftime(end, "%Y-%m-%d %H:%M"),
+                                    week = week_number
+                                )
+
                             subject = Subject.objects.get(id = subject_ids[i]).label
                             if subject not in subjects:
                                 subjects.append(subject)

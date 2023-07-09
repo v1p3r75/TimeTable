@@ -27,7 +27,7 @@ a { text-decoration: none!important; color: var(--fd-color-blue)}
 .grid-3 { grid-template-columns: 3fr 3fr 3fr;} .grid-4 { grid-template-columns: 3fr 3fr 3fr 3fr;}
 .grid-2 { grid-template-columns: 6fr 6fr} .grid-0 { grid-template-columns: 12fr}
 .cursor-pointer { cursor: pointer }
-input, select, textarea { background-color: #E8F0fe!important; outline:  none!important;}
+input, select, textarea { border: 1px solid var(--fd-color-silver-2)!important; outline: none!important; border-radius: 0px!important;}
 
 @media (min-width: 992px) {
     .grid-lg-3 { grid-template-columns: 3fr 3fr 3fr!important;}
