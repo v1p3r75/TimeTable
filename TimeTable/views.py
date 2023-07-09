@@ -269,7 +269,7 @@ def adminTeachers(request):
     tabs = []
 
     for user in users:
-        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else ""})
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else "", "image": user.image_path})
 
     return render(request, 'timetable/admin/teachers.html', {'users': html.unescape(tabs)})
 
