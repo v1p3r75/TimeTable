@@ -309,3 +309,10 @@ def generate_password(length = 8):
     password = ''.join(random.choice(characters) for _ in range(length))
 
     return password
+
+def get_total_hours(subject_id):
+
+    total_hours = TimeTable.objects.filter(subject_id=subject_id)\
+    .aggregate(total=Sum('end_time' - 'start_time'))['total']
+    
+    return total_hours

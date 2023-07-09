@@ -8,7 +8,7 @@ from .models import Subject, Classroom, TimeTable
 import html
 from datetime import datetime,  timedelta
 from itertools import groupby
-from .helpers import generate_password, send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_student_stat, get_timetable_user, get_teacher_info
+from .helpers import get_total_hours, generate_password, send_notification, get_timetable_data, get_timetable_global, get_timetable_by_level, get_student_stat, get_timetable_user, get_teacher_info
 import locale
 import os
 from django.conf import settings
