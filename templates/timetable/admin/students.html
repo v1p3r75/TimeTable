@@ -14,6 +14,7 @@
             <table id="table" class="table table-striped table-borderless table-hover table-responsive shadow-sm animate__animated animate__zoomIn" style="width: 100%">
                 <thead class="bg-white text-black">
                     <tr>
+                        <th class="text-center">Image</th>
                         <th class="text-center">Nom</th>
                         <th class="text-center">Prénom(s)</th>
                         <th class="text-center">Email</th>
@@ -40,6 +41,7 @@
                 {% endfor %}],
                 language: langueOptions,
                 columns: [
+                    {data : 'image', render: (data) => `<img src="/media/images/${data}" class="profile-img" alt="${data}"/>`},
                     {'data': 'lastname'}, 
                     {'data': 'firstname'},  
                     {'data': 'email'}, 

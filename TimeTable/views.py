@@ -343,7 +343,7 @@ def adminColaborators(request):
     tabs = []
 
     for user in users:
-        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else ""})
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else "", "image": user.image_path})
 
     return render(request, 'timetable/admin/colaborators.html', {'users': html.unescape(tabs)})
 
@@ -502,7 +502,7 @@ def adminStudents(request):
     tabs = []
 
     for user in students:
-        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else "", 'level': user.level.label, 'status': 1 if user.is_active is True else 0})
+        tabs.append({"id": user.id, "lastname": user.lastname, "firstname": user.firstname, "email": user.email, "phone": user.phone if user.phone is not None else "", 'level': user.level.label, 'status': 1 if user.is_active is True else 0, "image": user.image_path})
 
 
     return render(request, 'timetable/admin/students.html', {'students': tabs})

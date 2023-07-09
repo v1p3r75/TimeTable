@@ -33,6 +33,7 @@
 
 {% block tableHead %}
 
+    <th class="text-center">Image</th>
     <th class="text-center">Nom</th>
     <th class="text-center">Prénom(s)</th>
     <th class="text-center">Phone</th>
@@ -51,6 +52,7 @@
  {{ users | safe }}
 {% endblock data %}
 {% block columns %}
+    {data : 'image', render: (data) => `<img src="/media/images/${data}" class="profile-img" alt="${data}"/>`},
     {data : 'lastname'},
     {data : 'firstname'},
     {data : 'phone'},
