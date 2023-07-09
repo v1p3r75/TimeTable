@@ -212,7 +212,12 @@
 
                                 if (input.name == value) {
 
-                                    input.value = recipient[value]
+                                    if (input.type == 'checkbox') {
+
+                                        input.checked = recipient[value] == 'on';
+                                    }
+
+                                    else input.value = recipient[value]
                                 }
                             }
                         }
