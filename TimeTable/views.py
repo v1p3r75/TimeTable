@@ -605,10 +605,15 @@ def adminTimetables(request):
                         if end > start:
 
                             is_exist = TimeTable.objects.filter(start_time = start, end_time = end)
+                            classroom = Classroom.objects.get(id = classroom_ids[i])
 
                             if is_exist:
 
                                 return JsonResponse({"success": False, "message": f"Un emploi du temps est déjà programmé de {start} à {end}."})
+                            
+                            if not classroom.status:
+
+                                return JsonResponse({"success": False, "message": f"La salle de classe {classroom.label} n'est pas disponible pour le moment."})
 
                         
                             TimeTable.objects.create(
@@ -667,6 +672,13 @@ def adminTimetables(request):
                     try:
 
                         if end > start:
+
+                            classroom = Classroom.objects.get(id = classroom_ids[i])
+          
+                            if not classroom.status:
+
+                                return JsonResponse({"success": False, "message": f"La salle de classe {classroom.label} n'est pas disponible pour le moment."})
+
 
                             try:
 
