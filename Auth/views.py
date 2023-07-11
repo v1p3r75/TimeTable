@@ -31,6 +31,9 @@ def index(request):
 
 @redirect_authenticated_user
 def register(request):
+
+    levels = Level.objects.all()
+
     
     if request.method == 'POST':
 
@@ -43,18 +46,18 @@ def register(request):
 
         if (firstname == '' or lastname == '' or email == '' or password == '' or level_id == ''):
 
-            return render(request, 'auth/register.html', {'errors': ['Vous devez remplir tous les champs.']})
+            return render(request, 'auth/register.html', {'errors': ['Vous devez remplir tous les champs.'], 'levels': levels})
 
 
         if password != password_confirmation:
 
-            return render(request, 'auth/register.html', {'errors': ['Les mots de passe ne sont pas les mêmes.']})
+            return render(request, 'auth/register.html', {'errors': ['Les mots de passe ne sont pas les mêmes.'], 'levels': levels})
 
 
         if User.objects.filter(email = email).exists():
 
             error = "Cet utilisateur existe déjà. Veuillez en choisir un autre email."
-            return render(request, 'auth/register.html', {'errors': [error]})
+            return render(request, 'auth/register.html', {'errors': [error], 'levels': levels})
                 
         user = User.objects.create_user(
             email = email,
@@ -69,8 +72,6 @@ def register(request):
         login(request, auth_user)
 
         return redirect_users(request, user)
-
-    levels = Level.objects.all()
 
     return render(request, 'auth/register.html', { 'title' : 'Inscription', 'levels': levels})
 
